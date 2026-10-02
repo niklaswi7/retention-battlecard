@@ -1,0 +1,251 @@
+{
+  "company": "YouSee",
+  "verifiedAt": "2026-10-02",
+  "source": "User-provided internal offer list / screenshots",
+  "note": "saveOnly=true means the offer is hidden unless Save-rettigheder is enabled.",
+  "subscriptions": [
+    {
+      "id": "world-25",
+      "name": "25 GB Mobil",
+      "monthlyPrice": 149,
+      "normalMonthlyPrice": 179,
+      "upfrontPrice": 99,
+      "data": 25,
+      "roamingData": 25,
+      "roaming": "Roaming World · 100+ lande",
+      "music": true,
+      "samlerabat": true,
+      "samlefordele": true,
+      "saveOnly": false,
+      "notes": [
+        "Fri tale, sms og mms",
+        "YouSee Musik",
+        "EU-tillægspris efter fair-use grænse kan gælde"
+      ]
+    },
+    {
+      "id": "world-50",
+      "name": "50 GB Mobil",
+      "monthlyPrice": 189,
+      "normalMonthlyPrice": 219,
+      "upfrontPrice": 99,
+      "data": 50,
+      "roamingData": 50,
+      "roaming": "Roaming World · 100+ lande",
+      "music": true,
+      "samlerabat": true,
+      "samlefordele": true,
+      "saveOnly": false,
+      "notes": [
+        "Fri tale, sms og mms",
+        "YouSee Musik",
+        "EU-tillægspris efter fair-use grænse kan gælde"
+      ]
+    },
+    {
+      "id": "world-100",
+      "name": "100 GB Mobil",
+      "monthlyPrice": 219,
+      "normalMonthlyPrice": 249,
+      "upfrontPrice": 99,
+      "data": 100,
+      "roamingData": 60,
+      "roaming": "Roaming World · 100+ lande",
+      "music": true,
+      "samlerabat": true,
+      "samlefordele": true,
+      "saveOnly": false,
+      "notes": [
+        "Fri tale, sms og mms",
+        "YouSee Musik"
+      ]
+    },
+    {
+      "id": "world-fri",
+      "name": "Fri Data Mobil",
+      "monthlyPrice": 269,
+      "normalMonthlyPrice": 299,
+      "upfrontPrice": 99,
+      "data": -1,
+      "roamingData": 70,
+      "roaming": "Roaming World · 100+ lande",
+      "music": true,
+      "samlerabat": true,
+      "samlefordele": true,
+      "saveOnly": false,
+      "notes": [
+        "Fri tale, sms og mms",
+        "YouSee Musik"
+      ]
+    },
+    {
+      "id": "basic-3gb",
+      "name": "3 Timer + 3 GB",
+      "monthlyPrice": 99,
+      "normalMonthlyPrice": 99,
+      "upfrontPrice": 99,
+      "data": 3,
+      "roamingData": 3,
+      "roaming": "Roaming Europa · 50+ lande",
+      "music": false,
+      "samlerabat": false,
+      "samlefordele": false,
+      "saveOnly": false,
+      "notes": [
+        "3 timers tale",
+        "Fri sms og mms",
+        "EU-tillægspris efter 30 GB kan gælde"
+      ]
+    },
+    {
+      "id": "basic-25",
+      "name": "Mobil 25 GB",
+      "monthlyPrice": 119,
+      "normalMonthlyPrice": 119,
+      "upfrontPrice": 99,
+      "data": 25,
+      "roamingData": 25,
+      "roaming": "Roaming Europa · 50+ lande",
+      "music": false,
+      "samlerabat": false,
+      "samlefordele": false,
+      "saveOnly": false,
+      "notes": [
+        "Fri tale, sms og mms"
+      ]
+    },
+    {
+      "id": "basic-50",
+      "name": "Mobil 50 GB",
+      "monthlyPrice": 129,
+      "normalMonthlyPrice": 129,
+      "upfrontPrice": 99,
+      "data": 50,
+      "roamingData": 35,
+      "roaming": "Roaming Europa · 50+ lande",
+      "music": false,
+      "samlerabat": false,
+      "samlefordele": false,
+      "saveOnly": false,
+      "notes": [
+        "Fri tale, sms og mms"
+      ]
+    },
+    {
+      "id": "basic-100",
+      "name": "Mobil 100 GB",
+      "monthlyPrice": 149,
+      "normalMonthlyPrice": 149,
+      "upfrontPrice": 99,
+      "data": 100,
+      "roamingData": 40,
+      "roaming": "Roaming Europa · 50+ lande",
+      "music": true,
+      "samlerabat": false,
+      "samlefordele": false,
+      "saveOnly": false,
+      "notes": [
+        "Fri tale, sms og mms",
+        "YouSee Musik"
+      ]
+    },
+    {
+      "id": "basic-200",
+      "name": "Mobil 200 GB",
+      "monthlyPrice": 139,
+      "normalMonthlyPrice": 169,
+      "upfrontPrice": 99,
+      "data": 200,
+      "roamingData": 45,
+      "roaming": "Roaming Europa · 50+ lande",
+      "music": true,
+      "samlerabat": true,
+      "samlefordele": false,
+      "saveOnly": false,
+      "notes": [
+        "Fri tale, sms og mms",
+        "YouSee Musik"
+      ]
+    },
+    {
+      "id": "save-40",
+      "name": "YouSee Mobil 40",
+      "monthlyPrice": 169,
+      "normalMonthlyPrice": 199,
+      "upfrontPrice": 99,
+      "data": 40,
+      "roamingData": 40,
+      "roaming": "Roaming World · 100+ lande",
+      "music": true,
+      "samlerabat": true,
+      "samlefordele": true,
+      "saveOnly": true,
+      "internalType": "ATL/BTL",
+      "notes": [
+        "Fri tale, sms og mms",
+        "YouSee Musik",
+        "Internt save-tilbud"
+      ]
+    },
+    {
+      "id": "save-80",
+      "name": "YouSee Mobil 80",
+      "monthlyPrice": 199,
+      "normalMonthlyPrice": 229,
+      "upfrontPrice": 99,
+      "data": 80,
+      "roamingData": 55,
+      "roaming": "Roaming World · 100+ lande",
+      "music": true,
+      "samlerabat": true,
+      "samlefordele": true,
+      "saveOnly": true,
+      "internalType": "ATL/BTL",
+      "notes": [
+        "Fri tale, sms og mms",
+        "YouSee Musik",
+        "Internt save-tilbud"
+      ]
+    },
+    {
+      "id": "save-fri",
+      "name": "YouSee Mobil Fri",
+      "monthlyPrice": 249,
+      "normalMonthlyPrice": 279,
+      "upfrontPrice": 99,
+      "data": -1,
+      "roamingData": 65,
+      "roaming": "Roaming World · 100+ lande",
+      "music": true,
+      "samlerabat": true,
+      "samlefordele": true,
+      "saveOnly": true,
+      "internalType": "ATL/BTL",
+      "notes": [
+        "Fri tale, sms og mms",
+        "YouSee Musik",
+        "Internt save-tilbud"
+      ]
+    },
+    {
+      "id": "save-1tb",
+      "name": "Fri + 1 TB",
+      "monthlyPrice": 209,
+      "normalMonthlyPrice": 239,
+      "upfrontPrice": 99,
+      "data": 1000,
+      "roamingData": 60,
+      "roaming": "Roaming World · 100+ lande",
+      "music": true,
+      "samlerabat": true,
+      "samlefordele": true,
+      "saveOnly": true,
+      "internalType": "ATL/BTL",
+      "notes": [
+        "Fri tale, sms og mms",
+        "YouSee Musik",
+        "Internt save-tilbud"
+      ]
+    }
+  ]
+}
