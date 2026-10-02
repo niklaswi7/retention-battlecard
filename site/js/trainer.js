@@ -96,7 +96,7 @@
     var gpu = !!navigator.gpu;
     var voice = !!SpeechCtor;
     el('trainerGpuStatus').textContent = gpu ? 'WebGPU: Ja' : 'WebGPU: Nej · fallback';
-    el('trainerVoiceStatus').textContent = voice ? 'Voice: Ja' : 'Voice: Tekst-mode';
+    el('trainerVoiceStatus').textContent = voice ? 'Voice: Browser klar' : 'Voice: Tekst-mode';
     if(!gpu){
       setAiBadge('fallback','Scripted fallback');
     }
@@ -423,35 +423,13 @@
       rec.maxAlternatives = 1;
       rec.continuous = true;
 
-      if('processLocally' in rec && typeof SpeechCtor.available === 'function'){
-        try{
-          var availability = await SpeechCtor.available({langs:['da-DK'],processLocally:true,quality:'dictation'});
-          if(availability === 'available'){
-            rec.processLocally = true;
-            el('trainerVoiceStatus').textContent = 'Voice: On-device';
-          }else if(availability === 'downloadable' || availability === 'downloading'){
-            setStatus('Installerer dansk on-device tale…');
-            var installed = await SpeechCtor.install({langs:['da-DK'],processLocally:true,quality:'dictation'});
-            if(installed){
-              rec.processLocally = true;
-              el('trainerVoiceStatus').textContent = 'Voice: On-device';
-            }else{
-              rec.processLocally = false;
-              el('trainerVoiceStatus').textContent = 'Voice: Browser-service';
-            }
-          }else{
-            rec.processLocally = false;
-            el('trainerVoiceStatus').textContent = 'Voice: Browser-service';
-          }
-        }catch(_){
-          rec.processLocally = false;
-          el('trainerVoiceStatus').textContent = 'Voice: Browser-service';
-        }
-      }else if('processLocally' in rec){
-        rec.processLocally = true;
-      }else{
-        el('trainerVoiceStatus').textContent = 'Voice: Browser-service';
+      // Use the browser-managed speech service for maximum compatibility.
+      // Do not force experimental on-device language packs; Danish packs are not
+      // consistently available and can make recognition fail before it starts.
+      if('processLocally' in rec){
+        try{ rec.processLocally = false; }catch(_){}
       }
+      el('trainerVoiceStatus').textContent = 'Voice: Browser · dansk';
 
       rec.onstart = function(){
         state.listening = true;
@@ -484,7 +462,21 @@
         if(code === 'not-allowed' || code === 'service-not-allowed' || code === 'audio-capture'){
           state.keepListening = false;
           state.pendingSpeechSend = false;
-          setStatus('Mikrofon kunne ikke bruges · skriv evt. svaret');
+          setStatus('Giv siden mikrofontilladelse i browseren · tekst virker stadig');
+          resetMicUi();
+          return;
+        }
+        if(code === 'language-not-supported'){
+          state.keepListening = false;
+          state.pendingSpeechSend = false;
+          setStatus('Dansk talegenkendelse er ikke understøttet i denne browser · brug Chrome/Edge eller tekst');
+          resetMicUi();
+          return;
+        }
+        if(code === 'network'){
+          state.keepListening = false;
+          state.pendingSpeechSend = false;
+          setStatus('Browserens talegenkendelse kunne ikke nås · prøv igen eller brug tekst');
           resetMicUi();
           return;
         }
