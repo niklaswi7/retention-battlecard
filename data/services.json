@@ -1,0 +1,722 @@
+{
+  "verifiedAt": "2026-10-02",
+  "note": "Public consumer products collected from official provider pages. null price means address/order-flow dependent and is intentionally excluded from numeric comparisons.",
+  "providers": [
+    {
+      "company": "YouSee",
+      "internet": [
+        {
+          "id": "yousee-fixed",
+          "name": "Fast internet (fiber/coax)",
+          "type": "fixed",
+          "normalPrice": null,
+          "addressDependent": true,
+          "technology": "Fiber / coax",
+          "priceNote": "Pris og tilgængelighed afhænger af adressen.",
+          "sourceUrl": "https://yousee.dk/shop/internet"
+        }
+      ],
+      "mobileBroadband": [
+        {
+          "id": "yousee-mbb-30",
+          "name": "Mobilt 4G Internet 30 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 119,
+          "data": 30,
+          "technology": "4G",
+          "sourceUrl": "https://yousee.dk/shop/mobilt-internet"
+        },
+        {
+          "id": "yousee-mbb-200",
+          "name": "Mobilt 4G Internet 200 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 219,
+          "data": 200,
+          "technology": "4G",
+          "sourceUrl": "https://yousee.dk/shop/mobilt-internet"
+        },
+        {
+          "id": "yousee-mbb-500",
+          "name": "Mobilt 4G Internet 500 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 249,
+          "data": 500,
+          "technology": "4G",
+          "sourceUrl": "https://yousee.dk/shop/mobilt-internet"
+        },
+        {
+          "id": "yousee-5g-fri",
+          "name": "Mobilt 5G Internet Fri",
+          "type": "5g-home",
+          "normalPrice": 349,
+          "campaignPrice": 149,
+          "campaignMonths": 3,
+          "data": -1,
+          "technology": "5G",
+          "sourceUrl": "https://yousee.dk/shop/mobilt-internet"
+        }
+      ],
+      "tv": [
+        {
+          "id": "yousee-play-10",
+          "name": "YouSee Play 10 point",
+          "type": "tv",
+          "normalPrice": 329,
+          "technology": "Streaming / TV",
+          "sourceUrl": "https://yousee.dk/shop/tv/yousee-play"
+        },
+        {
+          "id": "yousee-play-20",
+          "name": "YouSee Play 20 point",
+          "type": "tv",
+          "normalPrice": 429,
+          "technology": "Streaming / TV",
+          "sourceUrl": "https://yousee.dk/shop/tv/yousee-play"
+        },
+        {
+          "id": "yousee-play-30",
+          "name": "YouSee Play 30 point",
+          "type": "tv",
+          "normalPrice": 529,
+          "technology": "Streaming / TV",
+          "sourceUrl": "https://yousee.dk/shop/tv/yousee-play"
+        },
+        {
+          "id": "yousee-play-40",
+          "name": "YouSee Play 40 point",
+          "type": "tv",
+          "normalPrice": 629,
+          "technology": "Streaming / TV",
+          "sourceUrl": "https://yousee.dk/shop/tv/yousee-play"
+        }
+      ]
+    },
+    {
+      "company": "Norlys",
+      "internet": [
+        {
+          "id": "norlys-5g",
+          "name": "5G Internet",
+          "type": "5g-home",
+          "normalPrice": 299,
+          "campaignPrice": 199,
+          "campaignMonths": 6,
+          "data": -1,
+          "technology": "5G",
+          "sourceUrl": "https://shop.norlys.dk/internet/5g-internet/"
+        },
+        {
+          "id": "norlys-fixed",
+          "name": "Internet via fiber / kabel",
+          "type": "fixed",
+          "normalPrice": null,
+          "addressDependent": true,
+          "technology": "Fiber / kabel",
+          "priceNote": "Pris og tilgængelighed afhænger af adresse og net.",
+          "sourceUrl": "https://shop.norlys.dk/internet/"
+        }
+      ],
+      "mobileBroadband": [],
+      "tv": [
+        {
+          "id": "norlys-tv-lille",
+          "name": "Lille tv-pakke via Norlys Play",
+          "type": "tv",
+          "normalPrice": 369,
+          "technology": "Streaming-TV",
+          "sourceUrl": "https://norlys.dk/kundeservice/tv-streaming/viden/lille-tv-pakke/"
+        },
+        {
+          "id": "norlys-tv-mellem",
+          "name": "Mellem tv-pakke via Norlys Play",
+          "type": "tv",
+          "normalPrice": 619,
+          "technology": "Streaming-TV",
+          "sourceUrl": "https://norlys.dk/kundeservice/tv-streaming/viden/mellem-tv-pakke/"
+        },
+        {
+          "id": "norlys-tv-stor",
+          "name": "Stor tv-pakke via Norlys Play",
+          "type": "tv",
+          "normalPrice": 895,
+          "technology": "Streaming-TV",
+          "sourceUrl": "https://norlys.dk/kundeservice/tv-streaming/viden/stor-tv-pakke/"
+        }
+      ]
+    },
+    {
+      "company": "3",
+      "internet": [
+        {
+          "id": "3-internet",
+          "name": "3Internet",
+          "type": "5g-home",
+          "normalPrice": 299,
+          "campaignPrice": 199,
+          "campaignMonths": 3,
+          "data": -1,
+          "technology": "5G",
+          "sourceUrl": "https://www.3.dk/shop/mobilabonnementer/"
+        },
+        {
+          "id": "3-internet-flex",
+          "name": "3Internet Flex",
+          "type": "5g-home",
+          "normalPrice": null,
+          "addressDependent": false,
+          "technology": "5G",
+          "priceNote": "99 kr. basis + 15 kr. pr. brugsdag, maks. 329 kr./md.; variabel månedspris.",
+          "sourceUrl": "https://www.3.dk/internet/3internet-flex/"
+        }
+      ],
+      "mobileBroadband": [
+        {
+          "id": "3-mbb-10",
+          "name": "Mobilt internet 10 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 60,
+          "data": 10,
+          "technology": "5G",
+          "sourceUrl": "https://www.3.dk/shop/abonnementer/mobilt-internet-10gb/"
+        },
+        {
+          "id": "3-mbb-20",
+          "name": "Mobilt internet 20 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 100,
+          "data": 20,
+          "technology": "5G",
+          "sourceUrl": "https://www.3.dk/shop/abonnementer/mobilt-internet-20gb/"
+        },
+        {
+          "id": "3-mbb-50",
+          "name": "Mobilt internet 50 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 160,
+          "data": 50,
+          "technology": "5G",
+          "sourceUrl": "https://www.3.dk/shop/abonnementer/mobilt-internet-50gb/"
+        },
+        {
+          "id": "3-mbb-200",
+          "name": "Mobilt internet 200 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 210,
+          "data": 200,
+          "technology": "5G",
+          "sourceUrl": "https://www.3.dk/shop/abonnementer/mobilt-internet-200gb/"
+        }
+      ],
+      "tv": []
+    },
+    {
+      "company": "Telenor",
+      "internet": [
+        {
+          "id": "telenor-5g-home",
+          "name": "5G Internet til hjemmet",
+          "type": "5g-home",
+          "normalPrice": 319,
+          "campaignPrice": 99,
+          "campaignMonths": 3,
+          "data": -1,
+          "technology": "5G",
+          "sourceUrl": "https://www.telenor.dk/shop/internet/5g-til-hjemmet/"
+        },
+        {
+          "id": "telenor-fiber",
+          "name": "Fibernet",
+          "type": "fixed",
+          "normalPrice": null,
+          "addressDependent": true,
+          "technology": "Fiber",
+          "priceNote": "Pris og tilgængelighed afhænger af adresse og lokalt fibernet.",
+          "sourceUrl": "https://www.telenor.dk/shop/internet/bredbaand/"
+        }
+      ],
+      "mobileBroadband": [
+        {
+          "id": "telenor-mbb-30",
+          "name": "Mobilt Internet 30 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 129,
+          "data": 30,
+          "technology": "5G",
+          "sourceUrl": "https://www.telenor.dk/shop/mobilt-bredbaand-oversigt/"
+        },
+        {
+          "id": "telenor-mbb-80",
+          "name": "Mobilt Internet 80 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 189,
+          "data": 80,
+          "technology": "5G",
+          "sourceUrl": "https://www.telenor.dk/shop/mobilt-bredbaand-oversigt/"
+        },
+        {
+          "id": "telenor-mbb-250",
+          "name": "Mobilt Internet 250 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 229,
+          "data": 250,
+          "technology": "5G",
+          "sourceUrl": "https://www.telenor.dk/shop/mobilt-bredbaand-oversigt/"
+        }
+      ],
+      "tv": []
+    },
+    {
+      "company": "Oister",
+      "internet": [],
+      "mobileBroadband": [
+        {
+          "id": "oister-mbb-10",
+          "name": "Mobilt bredbånd 10 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 59,
+          "data": 10,
+          "technology": "5G",
+          "sourceUrl": "https://www.oister.dk/internet/mobilt-bredband/"
+        },
+        {
+          "id": "oister-mbb-100",
+          "name": "Mobilt bredbånd 100 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 119,
+          "data": 100,
+          "technology": "5G",
+          "sourceUrl": "https://www.oister.dk/internet/mobilt-bredband/"
+        },
+        {
+          "id": "oister-mbb-1000",
+          "name": "Mobilt bredbånd 1000 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 199,
+          "data": 1000,
+          "technology": "5G",
+          "sourceUrl": "https://www.oister.dk/internet/mobilt-bredband/"
+        }
+      ],
+      "tv": []
+    },
+    {
+      "company": "Telmore",
+      "internet": [
+        {
+          "id": "telmore-5g-fri",
+          "name": "5G Internet Fri Data",
+          "type": "5g-home",
+          "normalPrice": 319,
+          "campaignPrice": 26,
+          "campaignMonths": 2,
+          "data": -1,
+          "technology": "5G",
+          "campaignNote": "26-års kampagne; tilbud angivet t.o.m. 18.10.2026.",
+          "sourceUrl": "https://www.telmore.dk/internet"
+        },
+        {
+          "id": "telmore-4g-fri",
+          "name": "4G Internet Fri Data",
+          "type": "4g-home",
+          "normalPrice": 279,
+          "campaignPrice": 26,
+          "campaignMonths": 2,
+          "data": -1,
+          "technology": "4G",
+          "campaignNote": "26-års kampagne; tilbud angivet t.o.m. 18.10.2026.",
+          "sourceUrl": "https://www.telmore.dk/internet"
+        },
+        {
+          "id": "telmore-5g-play2",
+          "name": "5G Internet + 2 tjenester",
+          "type": "5g-home",
+          "normalPrice": 459,
+          "campaignPrice": 199,
+          "campaignMonths": 2,
+          "data": -1,
+          "technology": "5G + streaming",
+          "sourceUrl": "https://www.telmore.dk/internet"
+        },
+        {
+          "id": "telmore-5g-play3",
+          "name": "5G Internet + 3 tjenester",
+          "type": "5g-home",
+          "normalPrice": 539,
+          "campaignPrice": 199,
+          "campaignMonths": 2,
+          "data": -1,
+          "technology": "5G + streaming",
+          "sourceUrl": "https://www.telmore.dk/internet"
+        },
+        {
+          "id": "telmore-5g-play4",
+          "name": "5G Internet + 4 tjenester",
+          "type": "5g-home",
+          "normalPrice": 589,
+          "campaignPrice": 199,
+          "campaignMonths": 2,
+          "data": -1,
+          "technology": "5G + streaming",
+          "sourceUrl": "https://www.telmore.dk/internet"
+        }
+      ],
+      "mobileBroadband": [
+        {
+          "id": "telmore-mbb-6",
+          "name": "4G Internet 6 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 59,
+          "data": 6,
+          "technology": "4G",
+          "sourceUrl": "https://www.telmore.dk/internet/mbb-priser"
+        },
+        {
+          "id": "telmore-mbb-40",
+          "name": "4G Internet 40 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 99,
+          "data": 40,
+          "technology": "4G",
+          "sourceUrl": "https://www.telmore.dk/internet/mbb-priser"
+        },
+        {
+          "id": "telmore-mbb-150",
+          "name": "4G Internet 150 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 159,
+          "data": 150,
+          "technology": "4G",
+          "sourceUrl": "https://www.telmore.dk/internet/mbb-priser"
+        },
+        {
+          "id": "telmore-mbb-250",
+          "name": "4G Internet 250 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 199,
+          "data": 250,
+          "technology": "4G",
+          "sourceUrl": "https://www.telmore.dk/internet/mbb-priser"
+        }
+      ],
+      "tv": []
+    },
+    {
+      "company": "Call me",
+      "internet": [
+        {
+          "id": "callme-5g",
+          "name": "5G Internet",
+          "type": "5g-home",
+          "normalPrice": 199,
+          "campaignPrice": 99,
+          "campaignMonths": 3,
+          "data": 500,
+          "technology": "5G",
+          "sourceUrl": "https://www.callme.dk/"
+        }
+      ],
+      "mobileBroadband": [],
+      "tv": []
+    },
+    {
+      "company": "CBB",
+      "internet": [],
+      "mobileBroadband": [
+        {
+          "id": "cbb-mbb-7",
+          "name": "4G Mobilt bredbånd 7 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 59,
+          "data": 7,
+          "technology": "4G",
+          "sourceUrl": "https://www.cbb.dk/shop/mobilebroadband/"
+        },
+        {
+          "id": "cbb-mbb-40",
+          "name": "4G Mobilt bredbånd 40 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 99,
+          "data": 40,
+          "technology": "4G",
+          "sourceUrl": "https://www.cbb.dk/shop/mobilebroadband/"
+        },
+        {
+          "id": "cbb-mbb-75",
+          "name": "4G Mobilt bredbånd 75 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 129,
+          "data": 75,
+          "technology": "4G",
+          "sourceUrl": "https://www.cbb.dk/shop/mobilebroadband/"
+        },
+        {
+          "id": "cbb-mbb-175",
+          "name": "4G Mobilt bredbånd 175 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 159,
+          "data": 175,
+          "technology": "4G",
+          "sourceUrl": "https://www.cbb.dk/shop/mobilebroadband/"
+        },
+        {
+          "id": "cbb-mbb-300",
+          "name": "4G Mobilt bredbånd 300 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 199,
+          "data": 300,
+          "technology": "4G",
+          "sourceUrl": "https://www.cbb.dk/shop/mobilebroadband/"
+        }
+      ],
+      "tv": []
+    },
+    {
+      "company": "eesy",
+      "internet": [
+        {
+          "id": "eesy-5g",
+          "name": "5G Internet fri data",
+          "type": "5g-home",
+          "normalPrice": 319,
+          "campaignPrice": 219,
+          "campaignMonths": 12,
+          "data": -1,
+          "technology": "5G",
+          "campaignNote": "Kampagnesiden viser 219 kr./md. første 12 mdr.; produkt-/prissiden angiver 319 kr./md. som listepris.",
+          "sourceUrl": "https://eesy.dk/ekstra5gi"
+        }
+      ],
+      "mobileBroadband": [],
+      "tv": []
+    },
+    {
+      "company": "Greentel",
+      "internet": [],
+      "mobileBroadband": [
+        {
+          "id": "greentel-mbb-3",
+          "name": "Mobilt bredbånd 3 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 49,
+          "data": 3,
+          "technology": "4G / 5G-tilvalg",
+          "sourceUrl": "https://www.greentel.dk/mobilt-bredbaand/"
+        },
+        {
+          "id": "greentel-mbb-10",
+          "name": "Mobilt bredbånd 10 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 69,
+          "data": 10,
+          "technology": "4G / 5G-tilvalg",
+          "sourceUrl": "https://www.greentel.dk/mobilt-bredbaand/"
+        },
+        {
+          "id": "greentel-mbb-40",
+          "name": "Mobilt bredbånd 40 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 89,
+          "data": 40,
+          "technology": "4G / 5G-tilvalg",
+          "sourceUrl": "https://www.greentel.dk/mobilt-bredbaand/"
+        },
+        {
+          "id": "greentel-mbb-150",
+          "name": "Mobilt bredbånd 150 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 159,
+          "data": 150,
+          "technology": "4G / 5G-tilvalg",
+          "sourceUrl": "https://www.greentel.dk/mobilt-bredbaand/"
+        },
+        {
+          "id": "greentel-mbb-500",
+          "name": "Mobilt bredbånd 500 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 189,
+          "data": 500,
+          "technology": "4G / 5G-tilvalg",
+          "sourceUrl": "https://www.greentel.dk/mobilt-bredbaand/"
+        },
+        {
+          "id": "greentel-5g-1000",
+          "name": "5G Internet 1000 GB inkl. lånerouter",
+          "type": "5g-home",
+          "normalPrice": 259,
+          "data": 1000,
+          "technology": "5G",
+          "sourceUrl": "https://www.greentel.dk/mobilt-bredbaand/5g-internet-med-laanerouter/"
+        }
+      ],
+      "tv": []
+    },
+    {
+      "company": "Duka",
+      "internet": [],
+      "mobileBroadband": [
+        {
+          "id": "duka-4g-40",
+          "name": "4G mobilt internet 40 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 79,
+          "data": 40,
+          "technology": "4G",
+          "sourceUrl": "https://www.duka.dk/swift-tools/services/aktuelle-tilbud"
+        },
+        {
+          "id": "duka-4g-100",
+          "name": "4G mobilt internet 100 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 179,
+          "data": 100,
+          "technology": "4G",
+          "sourceUrl": "https://www.duka.dk/swift-tools/services/aktuelle-tilbud"
+        },
+        {
+          "id": "duka-4g-500",
+          "name": "4G mobilt internet 500 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 279,
+          "data": 500,
+          "technology": "4G",
+          "sourceUrl": "https://www.duka.dk/swift-tools/services/aktuelle-tilbud"
+        },
+        {
+          "id": "duka-4g-1000",
+          "name": "4G mobilt internet 1000 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 229,
+          "data": 1000,
+          "technology": "4G",
+          "sourceUrl": "https://www.duka.dk/swift-tools/services/aktuelle-tilbud"
+        },
+        {
+          "id": "duka-5g-500",
+          "name": "5G mobilt internet 500 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 219,
+          "data": 500,
+          "technology": "5G",
+          "sourceUrl": "https://www.duka.dk/swift-tools/services/aktuelle-tilbud"
+        },
+        {
+          "id": "duka-5g-fri",
+          "name": "5G mobilt internet Fri Data",
+          "type": "mobile-broadband",
+          "normalPrice": 249,
+          "data": -1,
+          "technology": "5G",
+          "sourceUrl": "https://www.duka.dk/swift-tools/services/aktuelle-tilbud"
+        }
+      ],
+      "tv": []
+    },
+    {
+      "company": "Lebara",
+      "internet": [],
+      "mobileBroadband": [
+        {
+          "id": "lebara-mbb-40",
+          "name": "Mobilt bredbånd 40 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 49,
+          "data": 40,
+          "technology": "4G",
+          "sourceUrl": "https://www.lebara.dk/da/data-packages.html"
+        },
+        {
+          "id": "lebara-mbb-70",
+          "name": "Mobilt bredbånd 70 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 69,
+          "data": 70,
+          "technology": "4G",
+          "sourceUrl": "https://www.lebara.dk/da/data-packages.html"
+        },
+        {
+          "id": "lebara-mbb-100",
+          "name": "Mobilt bredbånd 100 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 99,
+          "data": 100,
+          "technology": "4G",
+          "sourceUrl": "https://www.lebara.dk/da/data-packages.html"
+        },
+        {
+          "id": "lebara-mbb-200",
+          "name": "Mobilt bredbånd 200 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 159,
+          "data": 200,
+          "technology": "4G",
+          "sourceUrl": "https://www.lebara.dk/da/data-packages.html"
+        }
+      ],
+      "tv": []
+    },
+    {
+      "company": "Lyca Mobile",
+      "internet": [],
+      "mobileBroadband": [
+        {
+          "id": "lyca-data-m",
+          "name": "Data M 15 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 49,
+          "data": 15,
+          "technology": "5G",
+          "sourceUrl": "https://www.lycamobile.dk/da/bundle/data-m/"
+        },
+        {
+          "id": "lyca-data-xl",
+          "name": "Data XL 100 GB",
+          "type": "mobile-broadband",
+          "normalPrice": 99,
+          "data": 100,
+          "technology": "5G",
+          "sourceUrl": "https://www.lycamobile.dk/da/bundle/data-xl/"
+        }
+      ],
+      "tv": []
+    },
+    {
+      "company": "Waoo Mobil",
+      "internet": [
+        {
+          "id": "waoo-fiber",
+          "name": "Waoo Fibernet",
+          "type": "fixed",
+          "normalPrice": null,
+          "addressDependent": true,
+          "technology": "Fiber",
+          "priceNote": "Produkt og pris leveres via lokalt fiberselskab og afhænger af adresse.",
+          "sourceUrl": "https://www.waoo.dk/internet/"
+        }
+      ],
+      "mobileBroadband": [
+        {
+          "id": "waoo-mbb",
+          "name": "Waoo Mobilt Bredbånd",
+          "type": "mobile-broadband",
+          "normalPrice": null,
+          "addressDependent": false,
+          "technology": "5G",
+          "priceNote": "Waoo oplyser, at 5G er gratis på mobilt bredbånd; aktuel pakkepris skal verificeres i bestillingsflowet.",
+          "sourceUrl": "https://mobil.waoo.dk/hjaelp-og-spoergsmaal/5g-netvaerk/"
+        }
+      ],
+      "tv": [
+        {
+          "id": "waoo-tv",
+          "name": "Waoo TV",
+          "type": "tv",
+          "normalPrice": null,
+          "addressDependent": true,
+          "technology": "TV / streaming",
+          "priceNote": "Udvalg og pris afhænger af det lokale fiberselskab.",
+          "sourceUrl": "https://www.waoo.dk/tv/"
+        }
+      ]
+    }
+  ]
+}
