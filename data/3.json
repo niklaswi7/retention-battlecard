@@ -1,0 +1,65 @@
+{
+  "company": "3",
+  "network": "3",
+  "roaming": "3LikeHome · 100 lande",
+  "sourceUrl": "https://www.3.dk/shop/mobilabonnementer/",
+  "verifiedAt": "2026-10-02",
+  "subscriptions": [
+    {
+      "name": "Fri Tale 20 GB",
+      "price": 150,
+      "data": 20,
+      "euData": 20,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "3LikeHome i 100 lande",
+        "Op til 20 GB uden for EU/UK"
+      ]
+    },
+    {
+      "name": "Fri Tale 50 GB",
+      "price": 190,
+      "data": 50,
+      "euData": 50,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "3LikeHome i 100 lande",
+        "Op til 50 GB uden for EU/UK"
+      ]
+    },
+    {
+      "name": "Fri Tale 100 GB",
+      "price": 220,
+      "data": 100,
+      "euData": 100,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "3LikeHome i 100 lande",
+        "Op til 75 GB uden for EU/UK"
+      ]
+    },
+    {
+      "name": "Fri Tale Fri Data",
+      "price": 290,
+      "data": -1,
+      "euData": 1000,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fair use 1000 GB i EU/EØS/UK",
+        "Op til 75 GB uden for EU/UK"
+      ]
+    }
+  ]
+}

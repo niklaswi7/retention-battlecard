@@ -1,0 +1,85 @@
+{
+  "company": "Lyca Mobile",
+  "network": "TN-netværket",
+  "roaming": "EU + Ukraine + Moldova",
+  "sourceUrl": "https://www.lycamobile.dk/da/bundles/pay-as-you-go-sim/",
+  "verifiedAt": "2026-10-02",
+  "subscriptions": [
+    {
+      "name": "All in One 19 · 5 GB",
+      "price": 19,
+      "data": 5,
+      "euData": 4,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "5 timer i DK og til EU/USA/Australien/New Zealand",
+        "2 timer international tale"
+      ]
+    },
+    {
+      "name": "All in One 79 · 60 GB",
+      "price": 69,
+      "data": 60,
+      "euData": 14,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "60 timer i DK og til EU/USA/Australien/New Zealand",
+        "12 timer international tale"
+      ]
+    },
+    {
+      "name": "All in One 99 · 100 GB",
+      "price": 99,
+      "campaignPrice": 69,
+      "campaignMonths": 3,
+      "data": 100,
+      "euData": 20,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "69 kr./30 dage som aktuelt introtilbud",
+        "Herefter 99 kr./30 dage",
+        "10 timer international tale"
+      ]
+    },
+    {
+      "name": "All in One 119 · 200 GB",
+      "price": 119,
+      "campaignPrice": 59,
+      "campaignMonths": 6,
+      "data": 200,
+      "euData": 24,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "59 kr./30 dage som aktuelt introtilbud",
+        "Herefter 119 kr./30 dage",
+        "15 timer international tale"
+      ]
+    },
+    {
+      "name": "All in One 159 · 300 GB",
+      "price": 159,
+      "data": 300,
+      "euData": 31,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "15 timer international tale",
+        "30-dages pakke"
+      ]
+    }
+  ]
+}

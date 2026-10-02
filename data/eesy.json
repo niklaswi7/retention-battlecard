@@ -1,0 +1,57 @@
+{
+  "company": "eesy",
+  "network": "TDC NET",
+  "roaming": "EU",
+  "sourceUrl": "https://eesy.dk/",
+  "verifiedAt": "2026-10-02",
+  "subscriptions": [
+    {
+      "name": "30 GB",
+      "price": 129,
+      "campaignPrice": 35,
+      "campaignMonths": 2,
+      "data": 30,
+      "euData": 30,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "35 kr./md. de første 2 måneder ved nyt abonnement",
+        "Herefter 129 kr./md."
+      ]
+    },
+    {
+      "name": "80 GB",
+      "price": 149,
+      "campaignPrice": 45,
+      "campaignMonths": 2,
+      "data": 80,
+      "euData": 35,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "45 kr./md. de første 2 måneder ved nyt abonnement",
+        "Herefter 149 kr./md."
+      ]
+    },
+    {
+      "name": "Fri Data",
+      "price": 219,
+      "campaignPrice": 55,
+      "campaignMonths": 2,
+      "data": -1,
+      "euData": 50,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "55 kr./md. de første 2 måneder ved nyt abonnement",
+        "Herefter 219 kr./md."
+      ]
+    }
+  ]
+}

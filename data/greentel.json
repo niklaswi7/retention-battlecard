@@ -1,0 +1,79 @@
+{
+  "company": "Greentel",
+  "network": "TN-netværket",
+  "roaming": "EU · 39 lande",
+  "sourceUrl": "https://www.greentel.dk/mobilabonnement/",
+  "verifiedAt": "2026-10-02",
+  "subscriptions": [
+    {
+      "name": "10 GB",
+      "price": 69,
+      "data": 10,
+      "euData": 10,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fri tale i DK og EU",
+        "Fast pris uden binding"
+      ]
+    },
+    {
+      "name": "30 GB",
+      "price": 89,
+      "data": 30,
+      "euData": 18,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fri tale i DK og EU",
+        "Fast pris uden binding"
+      ]
+    },
+    {
+      "name": "50 GB",
+      "price": 99,
+      "data": 50,
+      "euData": 22,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fri tale i DK og EU",
+        "Fast pris uden binding"
+      ]
+    },
+    {
+      "name": "100 GB",
+      "price": 119,
+      "data": 100,
+      "euData": 26,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fri tale i DK og EU",
+        "Fast pris uden binding"
+      ]
+    },
+    {
+      "name": "1000 GB",
+      "price": 189,
+      "data": 1000,
+      "euData": 41,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fri tale i DK og EU",
+        "Fast pris uden binding"
+      ]
+    }
+  ]
+}

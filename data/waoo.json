@@ -1,0 +1,65 @@
+{
+  "company": "Waoo Mobil",
+  "network": "TN-netværket",
+  "roaming": "EU · 39 lande",
+  "sourceUrl": "https://mobil.waoo.dk/mobilabonnement/",
+  "verifiedAt": "2026-10-02",
+  "subscriptions": [
+    {
+      "name": "1 GB",
+      "price": 49,
+      "data": 1,
+      "euData": 1,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fri tale og SMS/MMS i DK & EU",
+        "Ingen binding"
+      ]
+    },
+    {
+      "name": "15 GB",
+      "price": 69,
+      "data": 15,
+      "euData": 15,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fri tale og SMS/MMS i DK & EU",
+        "Ingen binding"
+      ]
+    },
+    {
+      "name": "50 GB",
+      "price": 89,
+      "data": 50,
+      "euData": 18,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fri tale og SMS/MMS i DK & EU",
+        "Ingen binding"
+      ]
+    },
+    {
+      "name": "250 GB",
+      "price": 139,
+      "data": 250,
+      "euData": 28,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fri tale og SMS/MMS i DK & EU",
+        "Ingen binding"
+      ]
+    }
+  ]
+}

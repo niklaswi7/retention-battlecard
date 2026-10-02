@@ -1,0 +1,49 @@
+{
+  "company": "Oister",
+  "network": "3",
+  "roaming": "EU",
+  "subscriptions": [
+    {
+      "name": "30 GB",
+      "price": 99,
+      "campaignPrice": 49,
+      "data": 30,
+      "euData": 20,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Kampagnepris i introperioden"
+      ]
+    },
+    {
+      "name": "100 GB",
+      "price": 119,
+      "campaignPrice": 39,
+      "data": 100,
+      "euData": 30,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Kampagnepris resten af året"
+      ]
+    },
+    {
+      "name": "Fri Data",
+      "price": 199,
+      "campaignPrice": 149,
+      "data": -1,
+      "euData": 40,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Normalpris gælder efter kampagnen"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "company": "Norlys",
+  "network": "Norlys/Telia-Telenor",
+  "roaming": "EU + udvalgte lande",
+  "subscriptions": [
+    {
+      "name": "30 GB",
+      "price": 129,
+      "campaignPrice": 79,
+      "data": 30,
+      "euData": 20,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Introduktionspris kan være tidsbegrænset"
+      ]
+    },
+    {
+      "name": "100 GB",
+      "price": 179,
+      "campaignPrice": 129,
+      "data": 100,
+      "euData": 35,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "5G inkluderet"
+      ]
+    },
+    {
+      "name": "Fri Data",
+      "price": 249,
+      "campaignPrice": 199,
+      "data": -1,
+      "euData": 50,
+      "5g": true,
+      "esim": true,
+      "streaming": [
+        "Netflix"
+      ],
+      "music": [],
+      "notes": [
+        "Streaming kan afhænge af valgt pakke",
+        "Roamingvilkår bør verificeres"
+      ]
+    }
+  ]
+}

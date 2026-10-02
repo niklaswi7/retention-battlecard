@@ -1,0 +1,56 @@
+{
+  "company": "Telmore",
+  "network": "TDC NET",
+  "roaming": "EU",
+  "subscriptions": [
+    {
+      "name": "40 GB",
+      "price": 149,
+      "campaignPrice": 99,
+      "data": 40,
+      "euData": 25,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Kampagne kan være tidsbegrænset"
+      ]
+    },
+    {
+      "name": "100 GB + Play",
+      "price": 299,
+      "data": 100,
+      "euData": 35,
+      "5g": true,
+      "esim": true,
+      "streaming": [
+        "Netflix",
+        "TV 2 Play",
+        "Max"
+      ],
+      "music": [],
+      "notes": [
+        "Streamingpakke inkluderet"
+      ]
+    },
+    {
+      "name": "Fri Data + Play",
+      "price": 399,
+      "data": -1,
+      "euData": 50,
+      "5g": true,
+      "esim": true,
+      "streaming": [
+        "Netflix",
+        "TV 2 Play",
+        "Max",
+        "Disney+"
+      ],
+      "music": [],
+      "notes": [
+        "Stor streamingpakke"
+      ]
+    }
+  ]
+}

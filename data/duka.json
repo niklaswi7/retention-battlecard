@@ -1,0 +1,82 @@
+{
+  "company": "Duka",
+  "network": "TN-netværket",
+  "roaming": "EU · 39 lande",
+  "sourceUrl": "https://www.dukatale.dk/",
+  "verifiedAt": "2026-10-02",
+  "subscriptions": [
+    {
+      "name": "6 GB",
+      "price": 59,
+      "data": 6,
+      "euData": 6,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fri tale",
+        "Ingen oprettelsesgebyr"
+      ]
+    },
+    {
+      "name": "30 GB",
+      "price": 99,
+      "campaignPrice": 55,
+      "campaignUntil": "2027-03-31",
+      "data": 30,
+      "euData": 30,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "55 kr./md. for nye abonnementer til 31.03.2027",
+        "Herefter 99 kr./md."
+      ]
+    },
+    {
+      "name": "50 GB",
+      "price": 99,
+      "data": 50,
+      "euData": 20,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fri tale i, til og fra 39 lande"
+      ]
+    },
+    {
+      "name": "55 GB",
+      "price": 119,
+      "campaignPrice": 75,
+      "campaignUntil": "2027-03-31",
+      "data": 55,
+      "euData": 55,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "75 kr./md. for nye abonnementer til 31.03.2027",
+        "Herefter 119 kr./md."
+      ]
+    },
+    {
+      "name": "120 GB",
+      "price": 119,
+      "data": 120,
+      "euData": 30,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fri tale",
+        "30 GB i 39 lande"
+      ]
+    }
+  ]
+}
