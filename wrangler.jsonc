@@ -1,0 +1,10 @@
+{
+  "name": "damp-salad-b34c",
+  "compatibility_date": "2026-10-02",
+  "main": "./worker.js",
+  "assets": {
+    "directory": "./site",
+    "binding": "ASSETS",
+    "run_worker_first": ["/hf/*"]
+  }
+}

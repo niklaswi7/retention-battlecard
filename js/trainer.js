@@ -315,9 +315,31 @@
         state.modelName = modelId;
         setAiBadge('loading',hasF16 ? 'Lokal AI · 376 MB' : 'Lokal AI · 580 MB');
 
+        var originalModel = webllm.prebuiltAppConfig.model_list.find(function(item){
+          return item.model_id === modelId;
+        });
+        if(!originalModel) throw new Error('WebLLM mangler modeldefinitionen ' + modelId);
+
+        var modelLib = originalModel.model_lib;
+        var rawPrefix = 'https://raw.githubusercontent.com/mlc-ai/binary-mlc-llm-libs/main/';
+        if(modelLib && modelLib.indexOf(rawPrefix) === 0){
+          modelLib = 'https://cdn.jsdelivr.net/gh/mlc-ai/binary-mlc-llm-libs@main/' + modelLib.slice(rawPrefix.length);
+        }
+
+        var appConfig = {
+          cacheBackend:'cache',
+          model_list:[
+            Object.assign({},originalModel,{
+              model:window.location.origin + '/hf/mlc-ai/' + modelId,
+              model_lib:modelLib
+            })
+          ]
+        };
+
         state.engine = await webllm.CreateMLCEngine(
           modelId,
           {
+            appConfig:appConfig,
             initProgressCallback:function(report){
               var pct = 0;
               if(typeof report.progress === 'number'){
@@ -733,6 +755,10 @@
 
       try{
         var hf = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/+esm');
+        hf.env.remoteHost = window.location.origin + '/hf/';
+        hf.env.remotePathTemplate = '{model}/resolve/{revision}/{file}';
+        hf.env.allowRemoteModels = true;
+        hf.env.useBrowserCache = true;
         var device = navigator.gpu ? 'webgpu' : 'wasm';
         state.transcriber = await hf.pipeline(
           'automatic-speech-recognition',
