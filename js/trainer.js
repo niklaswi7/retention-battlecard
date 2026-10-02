@@ -5,8 +5,8 @@
   var el = function(id){ return document.getElementById(id); };
   var AudioContextCtor = window.AudioContext || window.webkitAudioContext;
   var WHISPER_MODEL = 'onnx-community/whisper-tiny';
-  var MODEL_F16 = 'Llama-3.2-1B-Instruct-q4f16_1-MLC';
-  var MODEL_F32 = 'Llama-3.2-1B-Instruct-q4f32_1-MLC';
+  var MODEL_F16 = 'SmolLM2-360M-Instruct-q4f16_1-MLC';
+  var MODEL_F32 = 'SmolLM2-360M-Instruct-q4f32_1-MLC';
 
   var state = {
     companies: [],
@@ -18,6 +18,8 @@
     enginePromise: null,
     engineReady: false,
     modelMode: 'fallback',
+    modelName: '',
+    modelError: '',
     audioStream: null,
     audioContext: null,
     audioSource: null,
@@ -178,6 +180,7 @@
     setStatus('Samtalen er i gang');
 
     if(navigator.gpu){
+      if(!state.engineReady) state.modelError = '';
       ensureLocalModel();
     }else{
       setAiBadge('fallback','Scripted fallback');
@@ -200,43 +203,75 @@
   }
 
   async function ensureLocalModel(){
-    if(state.engineReady || state.enginePromise) return state.enginePromise;
+    if(state.engineReady) return state.engine;
+    if(state.enginePromise) return state.enginePromise;
+
     state.enginePromise = (async function(){
       try{
+        state.modelError = '';
         setAiBadge('loading','Lokal AI indlæses…');
         showProgress(true);
-        var webllm = await import('https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm@0.2.85/+esm');
-        var adapter = await navigator.gpu.requestAdapter();
-        if(!adapter) throw new Error('Ingen WebGPU-adapter');
-        var modelId = adapter.features && adapter.features.has('shader-f16') ? MODEL_F16 : MODEL_F32;
-        state.engine = await webllm.CreateMLCEngine(modelId, {
-          initProgressCallback: function(report){
-            var pct = 0;
-            if(typeof report.progress === 'number') pct = Math.max(0,Math.min(100,Math.round(report.progress*100)));
-            el('trainerProgressBar').style.width = pct + '%';
-            el('trainerProgressPct').textContent = pct + '%';
-            el('trainerProgressText').textContent = report.text || 'Indlæser lokal AI…';
+        el('trainerProgressText').textContent = 'Starter lokal AI…';
+        el('trainerProgressPct').textContent = '';
+        el('trainerProgressBar').style.width = '4%';
+
+        if(!navigator.gpu) throw new Error('WebGPU er ikke tilgængelig i denne browser eller er deaktiveret af enhedspolitik');
+
+        var adapter = await navigator.gpu.requestAdapter({powerPreference:'high-performance'});
+        if(!adapter) throw new Error('Browseren kunne ikke oprette en WebGPU-adapter');
+
+        // Use the CDN route recommended in WebLLM's current documentation.
+        var webllm = await import('https://esm.run/@mlc-ai/web-llm');
+
+        var hasF16 = !!(adapter.features && adapter.features.has('shader-f16'));
+        var modelId = hasF16 ? MODEL_F16 : MODEL_F32;
+        state.modelName = modelId;
+        setAiBadge('loading',hasF16 ? 'Lokal AI · 376 MB' : 'Lokal AI · 580 MB');
+
+        state.engine = await webllm.CreateMLCEngine(
+          modelId,
+          {
+            initProgressCallback:function(report){
+              var pct = 0;
+              if(typeof report.progress === 'number'){
+                pct = Math.max(0,Math.min(100,Math.round(report.progress*100)));
+                el('trainerProgressBar').style.width = pct + '%';
+                el('trainerProgressPct').textContent = pct + '%';
+              }
+              el('trainerProgressText').textContent = report.text || ('Indlæser ' + modelId + '…');
+            },
+            logLevel:'INFO'
           },
-          logLevel:'WARN'
-        });
+          {context_window_size:2048}
+        );
+
         state.engineReady = true;
         state.modelMode = 'llm';
         setAiBadge('ready','Lokal AI klar');
+        el('trainerProgressBar').style.width = '100%';
+        el('trainerProgressPct').textContent = '100%';
+        el('trainerProgressText').textContent = 'Lokal AI klar';
         setStatus(state.active ? 'Samtalen er i gang · lokal AI klar' : 'Lokal AI klar');
-        setTimeout(function(){ showProgress(false); }, 900);
+        setTimeout(function(){ showProgress(false); },900);
+        return state.engine;
       }catch(err){
-        console.warn('Local trainer model failed:', err);
+        console.error('Local trainer model failed:',err);
+        state.engine = null;
         state.engineReady = false;
         state.modelMode = 'fallback';
-        setAiBadge('fallback','Scripted fallback');
-        el('trainerProgressText').textContent = 'Lokal AI kunne ikke indlæses. Trainer fortsætter i fallback-mode.';
+        state.modelError = err && err.message ? err.message : String(err || 'Ukendt fejl');
+        setAiBadge('fallback','AI kunne ikke loades');
+        el('trainerProgressText').textContent = 'Lokal AI fejl: ' + state.modelError;
         el('trainerProgressPct').textContent = '';
         el('trainerProgressBar').style.width = '100%';
-        setTimeout(function(){ showProgress(false); }, 2200);
+        setStatus('Lokal AI kunne ikke starte · scripted fallback er aktiv');
+        // Keep the error visible so the reason is not hidden.
+        return null;
       }finally{
         state.enginePromise = null;
       }
     })();
+
     return state.enginePromise;
   }
 
@@ -260,10 +295,16 @@
     var thinking = addMessage('customer','Tænker…',true);
     var reply = '';
     try{
+      if(!state.engineReady && navigator.gpu && !state.modelError){
+        setStatus('Venter på lokal AI…');
+        await ensureLocalModel();
+      }
       if(state.engineReady){
         reply = await localLlmReply();
       }
-      if(!reply) reply = fallbackReply(text);
+      if(!reply){
+        reply = fallbackReply(text);
+      }
     }catch(err){
       console.warn('Local LLM response failed:',err);
       reply = fallbackReply(text);
