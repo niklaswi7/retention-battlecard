@@ -3,7 +3,8 @@
   'use strict';
 
   var el = function(id){ return document.getElementById(id); };
-  var SpeechCtor = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var AudioContextCtor = window.AudioContext || window.webkitAudioContext;
+  var WHISPER_MODEL = 'onnx-community/whisper-tiny';
   var MODEL_F16 = 'Llama-3.2-1B-Instruct-q4f16_1-MLC';
   var MODEL_F32 = 'Llama-3.2-1B-Instruct-q4f32_1-MLC';
 
@@ -17,13 +18,20 @@
     enginePromise: null,
     engineReady: false,
     modelMode: 'fallback',
-    recognition: null,
-    listening: false,
-    keepListening: false,
-    pendingSpeechSend: false,
-    speechBuffer: '',
-    interimSpeech: '',
-    recognitionRestartTimer: null,
+    audioStream: null,
+    audioContext: null,
+    audioSource: null,
+    audioProcessor: null,
+    audioSink: null,
+    audioChunks: [],
+    audioSamples: 0,
+    audioSampleRate: 48000,
+    recording: false,
+    recordingStartedAt: 0,
+    lastMeterUpdate: 0,
+    transcriber: null,
+    transcriberPromise: null,
+    whisperReady: false,
     busy: false,
     metrics: {
       data:false, roaming:false, price:false, music:false, bundle:false, closing:false, openQuestion:false
@@ -94,9 +102,9 @@
 
   function featureStatus(){
     var gpu = !!navigator.gpu;
-    var voice = !!SpeechCtor;
-    el('trainerGpuStatus').textContent = gpu ? 'WebGPU: Ja' : 'WebGPU: Nej · fallback';
-    el('trainerVoiceStatus').textContent = voice ? 'Voice: Browser klar' : 'Voice: Tekst-mode';
+    var mic = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && AudioContextCtor);
+    el('trainerGpuStatus').textContent = gpu ? 'WebGPU: Ja' : 'WebGPU: Nej · WASM/fallback';
+    el('trainerVoiceStatus').textContent = mic ? 'Mic: Klar · Whisper ved første brug' : 'Mic: Ikke understøttet';
     if(!gpu){
       setAiBadge('fallback','Scripted fallback');
     }
@@ -160,7 +168,7 @@
     el('trainerInput').disabled = false;
     el('trainerSend').disabled = false;
     el('trainerFinish').disabled = false;
-    el('trainerMic').disabled = !SpeechCtor;
+    el('trainerMic').disabled = !(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && AudioContextCtor);
     el('trainerInput').focus();
 
     var intro = introText();
@@ -402,178 +410,260 @@
   }
 
   async function startMic(){
-    if(!state.active || !SpeechCtor || state.busy || state.keepListening) return;
-    state.keepListening = true;
-    state.pendingSpeechSend = false;
-    state.speechBuffer = '';
-    state.interimSpeech = '';
-    if(state.recognitionRestartTimer){
-      clearTimeout(state.recognitionRestartTimer);
-      state.recognitionRestartTimer = null;
-    }
-    if('speechSynthesis' in window){
-      try{ window.speechSynthesis.cancel(); }catch(_){}
+    if(!state.active || state.busy || state.recording) return;
+    if(!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && AudioContextCtor)){
+      setStatus('Denne browser kan ikke optage mikrofon · brug tekstfeltet');
+      return;
     }
 
     try{
-      var rec = new SpeechCtor();
-      state.recognition = rec;
-      rec.lang = 'da-DK';
-      rec.interimResults = true;
-      rec.maxAlternatives = 1;
-      rec.continuous = true;
-
-      // Use the browser-managed speech service for maximum compatibility.
-      // Do not force experimental on-device language packs; Danish packs are not
-      // consistently available and can make recognition fail before it starts.
-      if('processLocally' in rec){
-        try{ rec.processLocally = false; }catch(_){}
+      if('speechSynthesis' in window){
+        try{ window.speechSynthesis.cancel(); }catch(_){}
       }
-      el('trainerVoiceStatus').textContent = 'Voice: Browser · dansk';
 
-      rec.onstart = function(){
-        state.listening = true;
-        el('trainerMic').classList.add('listening');
-        el('trainerMic').textContent = '■';
-        el('trainerMic').setAttribute('aria-label','Stop tale og send');
-        el('trainerMic').title = 'Stop og send hele dit svar';
-        setStatus('Lytter kontinuerligt · tryk stop når du er færdig');
-      };
+      setStatus('Anmoder om mikrofontilladelse…');
+      var stream = await navigator.mediaDevices.getUserMedia({
+        audio:{
+          echoCancellation:true,
+          noiseSuppression:true,
+          autoGainControl:true,
+          channelCount:1
+        }
+      });
 
-      rec.onresult = function(ev){
-        var interim = '';
-        for(var i = ev.resultIndex || 0; i < ev.results.length; i++){
-          var item = ev.results[i];
-          var part = item && item[0] && item[0].transcript ? item[0].transcript.trim() : '';
-          if(!part) continue;
-          if(item.isFinal){
-            state.speechBuffer += (state.speechBuffer ? ' ' : '') + part;
-          }else{
-            interim += (interim ? ' ' : '') + part;
-          }
-        }
-        state.interimSpeech = interim;
-        var combined = [state.speechBuffer, state.interimSpeech].filter(Boolean).join(' ').trim();
-        if(combined) el('trainerInput').value = combined;
-      };
+      var ctx = new AudioContextCtor({latencyHint:'interactive'});
+      if(ctx.state === 'suspended') await ctx.resume();
 
-      rec.onerror = function(ev){
-        var code = ev.error || 'fejl';
-        if(code === 'not-allowed' || code === 'service-not-allowed' || code === 'audio-capture'){
-          state.keepListening = false;
-          state.pendingSpeechSend = false;
-          setStatus('Giv siden mikrofontilladelse i browseren · tekst virker stadig');
-          resetMicUi();
-          return;
-        }
-        if(code === 'language-not-supported'){
-          state.keepListening = false;
-          state.pendingSpeechSend = false;
-          setStatus('Dansk talegenkendelse er ikke understøttet i denne browser · brug Chrome/Edge eller tekst');
-          resetMicUi();
-          return;
-        }
-        if(code === 'network'){
-          state.keepListening = false;
-          state.pendingSpeechSend = false;
-          setStatus('Browserens talegenkendelse kunne ikke nås · prøv igen eller brug tekst');
-          resetMicUi();
-          return;
-        }
-        if(code !== 'aborted' && code !== 'no-speech'){
-          setStatus('Mikrofon: ' + code + ' · forsøger at fortsætte');
+      var source = ctx.createMediaStreamSource(stream);
+      var processor = ctx.createScriptProcessor(4096,1,1);
+      var sink = ctx.createGain();
+      sink.gain.value = 0;
+
+      state.audioStream = stream;
+      state.audioContext = ctx;
+      state.audioSource = source;
+      state.audioProcessor = processor;
+      state.audioSink = sink;
+      state.audioChunks = [];
+      state.audioSamples = 0;
+      state.audioSampleRate = ctx.sampleRate || 48000;
+      state.recording = true;
+      state.recordingStartedAt = Date.now();
+      state.lastMeterUpdate = 0;
+
+      processor.onaudioprocess = function(ev){
+        if(!state.recording) return;
+        var input = ev.inputBuffer.getChannelData(0);
+        var copy = new Float32Array(input.length);
+        copy.set(input);
+        state.audioChunks.push(copy);
+        state.audioSamples += copy.length;
+
+        var now = Date.now();
+        if(now - state.lastMeterUpdate > 250){
+          state.lastMeterUpdate = now;
+          var sum = 0;
+          for(var i=0;i<input.length;i++) sum += input[i]*input[i];
+          var rms = Math.sqrt(sum / Math.max(1,input.length));
+          var level = Math.min(100,Math.round(rms * 420));
+          var sec = Math.max(0,(now-state.recordingStartedAt)/1000);
+          el('trainerVoiceStatus').textContent = 'Mic: ' + level + '% · ' + sec.toFixed(1) + ' sek';
+          setStatus('Optager lokalt · tryk stop når du er færdig');
         }
       };
 
-      rec.onend = function(){
-        state.listening = false;
-        if(state.keepListening && state.active && !state.busy){
-          setStatus('Mikrofonen genstarter automatisk…');
-          if(state.recognitionRestartTimer) clearTimeout(state.recognitionRestartTimer);
-          state.recognitionRestartTimer = setTimeout(function(){
-            if(!state.keepListening || !state.active || state.busy) return;
-            try{
-              rec.start();
-            }catch(err){
-              state.recognitionRestartTimer = setTimeout(function(){
-                if(!state.keepListening || !state.active || state.busy) return;
-                try{ rec.start(); }catch(_){}
-              }, 450);
-            }
-          }, 160);
-          return;
-        }
+      source.connect(processor);
+      processor.connect(sink);
+      sink.connect(ctx.destination);
 
-        resetMicUi();
-        if(state.pendingSpeechSend){
-          state.pendingSpeechSend = false;
-          setTimeout(finalizeSpeechInput, 0);
-        }else if(state.active && !state.busy){
-          setStatus(state.engineReady ? 'Samtalen er i gang · lokal AI klar' : 'Samtalen er i gang');
-        }
-      };
-
-      rec.start();
+      el('trainerMic').classList.add('listening');
+      el('trainerMic').textContent = '■';
+      el('trainerMic').setAttribute('aria-label','Stop optagelse og transskriber');
+      el('trainerMic').title = 'Stop og transskriber';
+      el('trainerVoiceStatus').textContent = 'Mic: Optager…';
+      setStatus('Optager lokalt · tryk stop når du er færdig');
     }catch(err){
-      state.keepListening = false;
-      state.pendingSpeechSend = false;
-      resetMicUi();
-      setStatus('Mikrofon kunne ikke startes · brug tekstfeltet');
+      console.warn('Microphone start failed:',err);
+      cleanupMic();
+      var name = err && err.name ? err.name : '';
+      if(name === 'NotAllowedError' || name === 'PermissionDeniedError'){
+        setStatus('Mikrofon er blokeret · tillad mikrofon for siden i browserens adressefelt');
+      }else if(name === 'NotFoundError'){
+        setStatus('Ingen mikrofon fundet på computeren');
+      }else{
+        setStatus('Mikrofon kunne ikke startes · ' + (err && err.message ? err.message : 'ukendt fejl'));
+      }
     }
   }
 
-  function stopMicAndSend(){
-    if(!state.keepListening && !state.listening) return;
-    state.keepListening = false;
-    state.pendingSpeechSend = true;
-    if(state.recognitionRestartTimer){
-      clearTimeout(state.recognitionRestartTimer);
-      state.recognitionRestartTimer = null;
+  async function stopMicAndSend(){
+    if(!state.recording) return;
+    state.recording = false;
+    resetMicUi();
+    setStatus('Behandler lyd lokalt…');
+
+    var chunks = state.audioChunks.slice();
+    var total = state.audioSamples;
+    var inputRate = state.audioSampleRate || 48000;
+    cleanupMic(false);
+
+    if(!total || !chunks.length){
+      setStatus('Der blev ikke optaget nogen lyd · prøv igen');
+      return;
     }
-    setStatus('Afslutter tale og sender…');
-    if(state.recognition){
-      try{
-        state.recognition.stop();
+
+    var merged = new Float32Array(total);
+    var offset = 0;
+    for(var i=0;i<chunks.length;i++){
+      merged.set(chunks[i],offset);
+      offset += chunks[i].length;
+    }
+
+    var duration = merged.length / inputRate;
+    if(duration < 0.25){
+      setStatus('Optagelsen var for kort · tal lidt længere og prøv igen');
+      return;
+    }
+
+    try{
+      el('trainerMic').disabled = true;
+      el('trainerSend').disabled = true;
+      el('trainerInput').disabled = true;
+      setStatus('Transskriberer med lokal Whisper…');
+      var audio16 = resampleAudio(merged,inputRate,16000);
+      var transcriber = await ensureWhisper();
+      var result = await transcriber(audio16,{
+        language:'danish',
+        task:'transcribe',
+        chunk_length_s:30,
+        stride_length_s:5
+      });
+      var text = String(result && result.text || '').trim();
+      if(!text){
+        setStatus('Whisper hørte ingen tydelig tale · prøv igen tættere på mikrofonen');
         return;
-      }catch(_){}
+      }
+      el('trainerInput').value = text;
+      el('trainerVoiceStatus').textContent = 'Whisper: Klar · dansk';
+      await submitEmployee(text);
+    }catch(err){
+      console.warn('Whisper transcription failed:',err);
+      setStatus('Lokal Whisper kunne ikke transskribere · ' + (err && err.message ? err.message : 'ukendt fejl'));
+      el('trainerVoiceStatus').textContent = 'Whisper: Fejl · tekst virker';
+    }finally{
+      if(state.active && !state.busy){
+        el('trainerMic').disabled = false;
+        el('trainerSend').disabled = false;
+        el('trainerInput').disabled = false;
+      }
+    }
+  }
+
+  async function ensureWhisper(){
+    if(state.transcriber) return state.transcriber;
+    if(state.transcriberPromise) return state.transcriberPromise;
+
+    state.transcriberPromise = (async function(){
+      showProgress(true);
+      el('trainerProgressText').textContent = 'Henter lokal Whisper-model første gang…';
+      el('trainerProgressPct').textContent = '';
+      el('trainerProgressBar').style.width = '8%';
+      el('trainerVoiceStatus').textContent = 'Whisper: Indlæser…';
+
+      try{
+        var hf = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/+esm');
+        var device = navigator.gpu ? 'webgpu' : 'wasm';
+        state.transcriber = await hf.pipeline(
+          'automatic-speech-recognition',
+          WHISPER_MODEL,
+          {
+            device:device,
+            progress_callback:function(info){
+              var p = info && typeof info.progress === 'number' ? info.progress : null;
+              if(p != null){
+                var pct = Math.max(0,Math.min(100,Math.round(p)));
+                el('trainerProgressPct').textContent = pct + '%';
+                el('trainerProgressBar').style.width = pct + '%';
+              }
+              if(info && info.status){
+                el('trainerProgressText').textContent = 'Whisper · ' + info.status;
+              }
+            }
+          }
+        );
+        state.whisperReady = true;
+        el('trainerVoiceStatus').textContent = 'Whisper: Klar · dansk';
+        el('trainerProgressBar').style.width = '100%';
+        el('trainerProgressPct').textContent = '100%';
+        el('trainerProgressText').textContent = 'Whisper klar og cachet i browseren';
+        setTimeout(function(){ showProgress(false); },900);
+        return state.transcriber;
+      }catch(err){
+        state.transcriber = null;
+        state.whisperReady = false;
+        showProgress(false);
+        throw err;
+      }finally{
+        state.transcriberPromise = null;
+      }
+    })();
+
+    return state.transcriberPromise;
+  }
+
+  function resampleAudio(input,inputRate,targetRate){
+    if(inputRate === targetRate) return input;
+    var outLength = Math.max(1,Math.round(input.length * targetRate / inputRate));
+    var output = new Float32Array(outLength);
+    var ratio = inputRate / targetRate;
+    for(var i=0;i<outLength;i++){
+      var pos = i * ratio;
+      var left = Math.floor(pos);
+      var right = Math.min(input.length-1,left+1);
+      var frac = pos-left;
+      output[i] = input[left]*(1-frac) + input[right]*frac;
+    }
+    return output;
+  }
+
+  function cleanupMic(clearAudio){
+    if(state.audioProcessor){
+      try{ state.audioProcessor.onaudioprocess = null; state.audioProcessor.disconnect(); }catch(_){}
+    }
+    if(state.audioSource){ try{ state.audioSource.disconnect(); }catch(_){} }
+    if(state.audioSink){ try{ state.audioSink.disconnect(); }catch(_){} }
+    if(state.audioStream){
+      try{ state.audioStream.getTracks().forEach(function(t){t.stop();}); }catch(_){}
+    }
+    if(state.audioContext){
+      try{ state.audioContext.close(); }catch(_){}
+    }
+    state.audioStream = null;
+    state.audioContext = null;
+    state.audioSource = null;
+    state.audioProcessor = null;
+    state.audioSink = null;
+    state.recording = false;
+    if(clearAudio !== false){
+      state.audioChunks = [];
+      state.audioSamples = 0;
     }
     resetMicUi();
-    state.pendingSpeechSend = false;
-    finalizeSpeechInput();
-  }
-
-  function finalizeSpeechInput(){
-    var text = String(el('trainerInput').value || state.speechBuffer || '').trim();
-    state.speechBuffer = '';
-    state.interimSpeech = '';
-    if(text){
-      submitEmployee(text);
-    }else{
-      setStatus('Jeg hørte ikke noget · tryk mikrofonen og prøv igen');
-    }
   }
 
   function resetMicUi(){
-    state.listening = false;
-    el('trainerMic').classList.remove('listening');
-    el('trainerMic').textContent = '🎙';
-    el('trainerMic').setAttribute('aria-label','Start kontinuerlig tale');
-    el('trainerMic').title = 'Start tale';
+    var mic = el('trainerMic');
+    if(!mic) return;
+    mic.classList.remove('listening');
+    mic.textContent = '🎙';
+    mic.setAttribute('aria-label','Start lokal lydoptagelse');
+    mic.title = 'Start lokal lydoptagelse';
   }
 
   function finishTraining(){
     if(!state.active) return;
     state.active = false;
-    state.keepListening = false;
-    state.pendingSpeechSend = false;
-    if(state.recognitionRestartTimer){
-      clearTimeout(state.recognitionRestartTimer);
-      state.recognitionRestartTimer = null;
-    }
-    if(state.recognition){
-      try{ state.recognition.stop(); }catch(_){}
-    }
-    resetMicUi();
+    cleanupMic();
     window.speechSynthesis && window.speechSynthesis.cancel();
     el('trainerInput').disabled = true;
     el('trainerSend').disabled = true;
@@ -646,7 +736,7 @@
     el('trainerCompany').addEventListener('change',populatePlans);
     el('trainerStart').addEventListener('click',startTraining);
     el('trainerMic').addEventListener('click',function(){
-      if(state.keepListening || state.listening){
+      if(state.recording){
         stopMicAndSend();
       }else{
         startMic();

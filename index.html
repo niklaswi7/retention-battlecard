@@ -71,7 +71,7 @@
           </div>
           <div class="trainer-capabilities">
             <span id="trainerGpuStatus" class="trainer-mini">WebGPU: tjekker…</span>
-            <span id="trainerVoiceStatus" class="trainer-mini">Voice: tjekker browser…</span>
+            <span id="trainerVoiceStatus" class="trainer-mini">Mic/Whisper: tjekker…</span>
           </div>
         </div>
 
@@ -81,7 +81,7 @@
             <span id="trainerProgressPct">0%</span>
           </div>
           <div class="trainer-progress"><span id="trainerProgressBar"></span></div>
-          <small>Første gang hentes modellen til browserens cache. Efterfølgende starter den hurtigere.</small>
+          <small>Første gang hentes den relevante lokale model til browserens cache. Efterfølgende starter den hurtigere.</small>
         </div>
 
         <div id="trainerTranscript" class="trainer-transcript" aria-live="polite">
@@ -91,12 +91,12 @@
         </div>
 
         <form id="trainerForm" class="trainer-input-row">
-          <button id="trainerMic" class="trainer-mic" type="button" disabled aria-label="Start kontinuerlig tale">🎙</button>
+          <button id="trainerMic" class="trainer-mic" type="button" disabled aria-label="Start lokal lydoptagelse">🎙</button>
           <input id="trainerInput" type="text" autocomplete="off" placeholder="Skriv dit svar eller brug mikrofonen…" disabled>
           <button id="trainerSend" class="btn trainer-primary" type="submit" disabled>Send</button>
           <button id="trainerFinish" class="btn secondary" type="button" disabled>Afslut</button>
         </form>
-        <div id="trainerPrivacy" class="trainer-privacy">AI-modellen kører lokalt via WebGPU. Mikrofonen bruger browserens danske talegenkendelse uden at downloade en lokal voice-pakke; tryk én gang for at starte og igen for at stoppe/sende.</div>
+        <div id="trainerPrivacy" class="trainer-privacy">AI-modellen kører lokalt via WebGPU. Mikrofonen optager rå lyd lokalt; når du trykker stop, transskriberer Whisper Tiny på enheden. Første brug downloader og cacher Whisper-modellen.</div>
 
         <div id="trainerFeedback" class="trainer-feedback" hidden></div>
       </div>
