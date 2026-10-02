@@ -1,0 +1,57 @@
+{
+  "company": "Lebara",
+  "network": "Telenor / TN-netværket",
+  "roaming": "EU",
+  "sourceUrl": "https://www.lebara.dk/da/home",
+  "verifiedAt": "2026-10-02",
+  "subscriptions": [
+    {
+      "name": "5 GB",
+      "price": 19,
+      "data": 5,
+      "euData": 3,
+      "5g": false,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "5 timer i DK og EU",
+        "1 time til udland",
+        "Lebara oplyser aktuelt 2G/4G – ikke 5G"
+      ]
+    },
+    {
+      "name": "70 GB",
+      "price": 59,
+      "data": 70,
+      "euData": 20,
+      "5g": false,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fri tale i DK",
+        "5 timer i EU",
+        "2 timer til udland",
+        "Lebara oplyser aktuelt 2G/4G – ikke 5G"
+      ]
+    },
+    {
+      "name": "100 GB",
+      "price": 99,
+      "campaignPrice": 49,
+      "campaignMonths": 2,
+      "data": 100,
+      "euData": 20,
+      "5g": false,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "49 kr./md. de første 2 måneder",
+        "Herefter 99 kr./md.",
+        "Lebara oplyser aktuelt 2G/4G – ikke 5G"
+      ]
+    }
+  ]
+}

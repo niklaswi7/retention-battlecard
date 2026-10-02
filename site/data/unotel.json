@@ -1,0 +1,54 @@
+{
+  "company": "UnoTel",
+  "network": "TDC NET",
+  "roaming": "EU · 38 lande",
+  "sourceUrl": "https://www.unotel.dk/mobilabonnementer",
+  "verifiedAt": "2026-10-02",
+  "subscriptions": [
+    {
+      "name": "30 GB",
+      "price": 99,
+      "data": 30,
+      "euData": 20,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fri tale og SMS/MMS",
+        "5G inkluderet"
+      ]
+    },
+    {
+      "name": "60 GB",
+      "price": 119,
+      "campaignPrice": 69,
+      "campaignMonths": 3,
+      "data": 60,
+      "euData": 30,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "69 kr./md. de første 3 måneder",
+        "Herefter 119 kr./md.",
+        "5G inkluderet"
+      ]
+    },
+    {
+      "name": "Fri Data",
+      "price": 199,
+      "data": -1,
+      "euData": 50,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fri tale og SMS/MMS",
+        "5G inkluderet"
+      ]
+    }
+  ]
+}

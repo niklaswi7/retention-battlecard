@@ -1,0 +1,47 @@
+{
+  "company": "Call me",
+  "network": "Norlys/Telia-Telenor",
+  "roaming": "EU",
+  "subscriptions": [
+    {
+      "name": "25 GB",
+      "price": 119,
+      "campaignPrice": 79,
+      "data": 25,
+      "euData": 20,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Intropris"
+      ]
+    },
+    {
+      "name": "80 GB",
+      "price": 149,
+      "data": 80,
+      "euData": 30,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Standardabonnement"
+      ]
+    },
+    {
+      "name": "Fri Data",
+      "price": 229,
+      "data": -1,
+      "euData": 45,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fri data i Danmark"
+      ]
+    }
+  ]
+}

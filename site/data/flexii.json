@@ -1,0 +1,74 @@
+{
+  "company": "Flexii",
+  "network": "3",
+  "roaming": "EU + UK + udvalgte lande",
+  "sourceUrl": "https://telemobil.dk/udbydere/flexii/",
+  "verifiedAt": "2026-10-01",
+  "subscriptions": [
+    {
+      "name": "20 GB 5G",
+      "price": 69,
+      "campaignPrice": 59,
+      "campaignMonths": 12,
+      "data": 20,
+      "euData": 20,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Aktuelt datafeed: 59 kr./md. første 12 måneder",
+        "Herefter 69 kr./md."
+      ]
+    },
+    {
+      "name": "50 GB 5G",
+      "price": 89,
+      "campaignPrice": 79,
+      "campaignMonths": 12,
+      "data": 50,
+      "euData": 30,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Aktuelt datafeed: 79 kr./md. første 12 måneder",
+        "Herefter 89 kr./md."
+      ]
+    },
+    {
+      "name": "150 GB 5G",
+      "price": 109,
+      "campaignPrice": 94,
+      "campaignMonths": 12,
+      "data": 150,
+      "euData": 30,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Aktuelt datafeed: 94 kr./md. første 12 måneder",
+        "Herefter 109 kr./md."
+      ]
+    },
+    {
+      "name": "Fri Data 5G",
+      "price": 149,
+      "campaignPrice": 129,
+      "campaignMonths": 12,
+      "data": -1,
+      "euData": 40,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fair use 2 TB",
+        "Aktuelt datafeed: 129 kr./md. første 12 måneder",
+        "Herefter 149 kr./md."
+      ]
+    }
+  ]
+}

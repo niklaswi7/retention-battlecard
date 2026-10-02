@@ -1,0 +1,48 @@
+{
+  "company": "CBB",
+  "network": "Telenor",
+  "roaming": "EU",
+  "subscriptions": [
+    {
+      "name": "20 GB",
+      "price": 109,
+      "campaignPrice": 59,
+      "data": 20,
+      "euData": 15,
+      "5g": true,
+      "esim": false,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Kampagnepris"
+      ]
+    },
+    {
+      "name": "100 GB",
+      "price": 149,
+      "campaignPrice": 99,
+      "data": 100,
+      "euData": 30,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "5G inkluderet"
+      ]
+    },
+    {
+      "name": "Fri Data",
+      "price": 219,
+      "data": -1,
+      "euData": 40,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "Fri data i Danmark"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Norlys",
+    "file": "norlys.json"
+  },
+  {
+    "name": "Oister",
+    "file": "oister.json"
+  },
+  {
+    "name": "Telmore",
+    "file": "telmore.json"
+  },
+  {
+    "name": "Call me",
+    "file": "callme.json"
+  },
+  {
+    "name": "CBB",
+    "file": "cbb.json"
+  },
+  {
+    "name": "3",
+    "file": "3.json"
+  },
+  {
+    "name": "Telenor",
+    "file": "telenor.json"
+  },
+  {
+    "name": "eesy",
+    "file": "eesy.json"
+  },
+  {
+    "name": "Flexii",
+    "file": "flexii.json"
+  },
+  {
+    "name": "Greentel",
+    "file": "greentel.json"
+  },
+  {
+    "name": "Lebara",
+    "file": "lebara.json"
+  },
+  {
+    "name": "Lyca Mobile",
+    "file": "lycamobile.json"
+  },
+  {
+    "name": "Duka",
+    "file": "duka.json"
+  },
+  {
+    "name": "Waoo Mobil",
+    "file": "waoo.json"
+  },
+  {
+    "name": "UnoTel",
+    "file": "unotel.json"
+  }
+]

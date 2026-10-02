@@ -1,0 +1,65 @@
+{
+  "company": "Telenor",
+  "network": "TN-netværket",
+  "roaming": "70+ lande",
+  "sourceUrl": "https://www.telenor.dk/mobilabonnementer/",
+  "verifiedAt": "2026-10-02",
+  "subscriptions": [
+    {
+      "name": "30 GB",
+      "price": 169,
+      "data": 30,
+      "euData": 30,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "30 GB i 70+ lande",
+        "Samlerabat: 50 kr./md. på ekstra abonnementer"
+      ]
+    },
+    {
+      "name": "80 GB",
+      "price": 209,
+      "data": 80,
+      "euData": 45,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "45 GB i 70+ lande",
+        "Samlerabat: 50 kr./md. på ekstra abonnementer"
+      ]
+    },
+    {
+      "name": "120 GB",
+      "price": 239,
+      "data": 120,
+      "euData": 55,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "55 GB i 70+ lande",
+        "Samlerabat: 50 kr./md. på ekstra abonnementer"
+      ]
+    },
+    {
+      "name": "Fri Data",
+      "price": 289,
+      "data": -1,
+      "euData": 65,
+      "5g": true,
+      "esim": true,
+      "streaming": [],
+      "music": [],
+      "notes": [
+        "65 GB i 70+ lande",
+        "Samlerabat: 50 kr./md. på ekstra abonnementer"
+      ]
+    }
+  ]
+}
