@@ -96,7 +96,7 @@
           <button id="trainerSend" class="btn trainer-primary" type="submit" disabled>Send</button>
           <button id="trainerFinish" class="btn secondary" type="button" disabled>Afslut</button>
         </form>
-        <div id="trainerPrivacy" class="trainer-privacy">AI-modellen kører lokalt via WebGPU. Mikrofonen optager rå lyd lokalt; når du trykker stop, transskriberer Whisper Tiny på enheden. Første brug downloader og cacher Whisper-modellen.</div>
+        <div id="trainerPrivacy" class="trainer-privacy">Traineren bruger browserens indbyggede AI først, hvis den findes; ellers WebLLM. Hvis arbejdsnetværket blokerer jsDelivr eller Hugging Face, vises den konkrete blokering. Mikrofonen transskriberes lokalt med Whisper, når modellen kan hentes.</div>
 
         <div id="trainerFeedback" class="trainer-feedback" hidden></div>
       </div>

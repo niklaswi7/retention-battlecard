@@ -20,6 +20,9 @@
     modelMode: 'fallback',
     modelName: '',
     modelError: '',
+    browserAiSession: null,
+    browserAiReady: false,
+    browserAiError: '',
     audioStream: null,
     audioContext: null,
     audioSource: null,
@@ -105,7 +108,7 @@
   function featureStatus(){
     var gpu = !!navigator.gpu;
     var mic = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && AudioContextCtor);
-    el('trainerGpuStatus').textContent = gpu ? 'WebGPU: Ja' : 'WebGPU: Nej · WASM/fallback';
+    el('trainerGpuStatus').textContent = ('LanguageModel' in window) ? 'Browser-AI: Ja' : (gpu ? 'WebGPU: Ja' : 'AI: fallback');
     el('trainerVoiceStatus').textContent = mic ? 'Mic: Klar · Whisper ved første brug' : 'Mic: Ikke understøttet';
     if(!gpu){
       setAiBadge('fallback','Scripted fallback');
@@ -179,11 +182,10 @@
     speak(intro);
     setStatus('Samtalen er i gang');
 
-    if(navigator.gpu){
-      if(!state.engineReady) state.modelError = '';
+    if(!state.engineReady && !state.browserAiReady){
+      state.modelError = '';
+      state.browserAiError = '';
       ensureLocalModel();
-    }else{
-      setAiBadge('fallback','Scripted fallback');
     }
   }
 
@@ -203,25 +205,86 @@
   }
 
   async function ensureLocalModel(){
-    if(state.engineReady) return state.engine;
+    if(state.engineReady || state.browserAiReady) return state.browserAiSession || state.engine;
     if(state.enginePromise) return state.enginePromise;
 
     state.enginePromise = (async function(){
-      try{
-        state.modelError = '';
-        setAiBadge('loading','Lokal AI indlæses…');
-        showProgress(true);
-        el('trainerProgressText').textContent = 'Starter lokal AI…';
-        el('trainerProgressPct').textContent = '';
-        el('trainerProgressBar').style.width = '4%';
+      state.modelError = '';
+      state.browserAiError = '';
+      showProgress(true);
 
+      // 1) Prefer the browser's built-in Prompt API when available.
+      // This avoids third-party model downloads from the webpage entirely.
+      if('LanguageModel' in window){
+        try{
+          setAiBadge('loading','Prøver browserens AI…');
+          el('trainerProgressText').textContent = 'Tjekker browserens indbyggede AI…';
+          el('trainerProgressPct').textContent = '';
+          el('trainerProgressBar').style.width = '12%';
+
+          var availability = await LanguageModel.availability();
+          if(availability !== 'unavailable'){
+            state.browserAiSession = await LanguageModel.create({
+              initialPrompts:[
+                {role:'system',content:systemPrompt()}
+              ],
+              monitor:function(m){
+                m.addEventListener('downloadprogress',function(e){
+                  var pct = Math.round((e.loaded || 0) * 100);
+                  el('trainerProgressBar').style.width = pct + '%';
+                  el('trainerProgressPct').textContent = pct + '%';
+                  el('trainerProgressText').textContent = 'Browser-AI downloades lokalt…';
+                });
+              }
+            });
+            state.browserAiReady = true;
+            state.modelMode = 'browser-ai';
+            state.modelName = 'Browser LanguageModel';
+            setAiBadge('ready','Browser-AI klar');
+            el('trainerProgressBar').style.width = '100%';
+            el('trainerProgressPct').textContent = '100%';
+            el('trainerProgressText').textContent = 'Browserens indbyggede AI er klar';
+            setStatus(state.active ? 'Samtalen er i gang · browser-AI klar' : 'Browser-AI klar');
+            setTimeout(function(){ showProgress(false); },900);
+            return state.browserAiSession;
+          }
+          state.browserAiError = 'LanguageModel er unavailable';
+        }catch(err){
+          state.browserAiError = err && err.message ? err.message : String(err || 'Ukendt browser-AI fejl');
+          console.warn('Built-in browser AI unavailable:',err);
+        }
+      }
+
+      // 2) WebLLM fallback. Probe the two external hosts separately first,
+      // so corporate network blocks are visible instead of just "Failed to fetch".
+      try{
         if(!navigator.gpu) throw new Error('WebGPU er ikke tilgængelig i denne browser eller er deaktiveret af enhedspolitik');
+
+        setAiBadge('loading','Tester AI-netværk…');
+        el('trainerProgressText').textContent = 'Tester adgang til jsDelivr…';
+        el('trainerProgressBar').style.width = '18%';
+
+        await probeUrl(
+          'https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm/+esm',
+          'jsDelivr'
+        );
+
+        el('trainerProgressText').textContent = 'Tester adgang til Hugging Face…';
+        el('trainerProgressBar').style.width = '25%';
+
+        await probeUrl(
+          'https://huggingface.co/mlc-ai/SmolLM2-360M-Instruct-q4f16_1-MLC/resolve/main/mlc-chat-config.json',
+          'Hugging Face'
+        );
 
         var adapter = await navigator.gpu.requestAdapter({powerPreference:'high-performance'});
         if(!adapter) throw new Error('Browseren kunne ikke oprette en WebGPU-adapter');
 
-        // Use the CDN route recommended in WebLLM's current documentation.
-        var webllm = await import('https://esm.run/@mlc-ai/web-llm');
+        setAiBadge('loading','WebLLM indlæses…');
+        el('trainerProgressText').textContent = 'Henter WebLLM…';
+
+        // Direct jsDelivr URL instead of the esm.run alias.
+        var webllm = await import('https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm/+esm');
 
         var hasF16 = !!(adapter.features && adapter.features.has('shader-f16'));
         var modelId = hasF16 ? MODEL_F16 : MODEL_F32;
@@ -260,12 +323,13 @@
         state.engineReady = false;
         state.modelMode = 'fallback';
         state.modelError = err && err.message ? err.message : String(err || 'Ukendt fejl');
-        setAiBadge('fallback','AI kunne ikke loades');
-        el('trainerProgressText').textContent = 'Lokal AI fejl: ' + state.modelError;
+        setAiBadge('fallback','AI-netværk blokeret');
+        el('trainerProgressText').textContent =
+          'AI fejl: ' + state.modelError +
+          (state.browserAiError ? ' · Browser-AI: ' + state.browserAiError : '');
         el('trainerProgressPct').textContent = '';
         el('trainerProgressBar').style.width = '100%';
-        setStatus('Lokal AI kunne ikke starte · scripted fallback er aktiv');
-        // Keep the error visible so the reason is not hidden.
+        setStatus('AI kunne ikke starte · scripted fallback er aktiv');
         return null;
       }finally{
         state.enginePromise = null;
@@ -273,6 +337,18 @@
     })();
 
     return state.enginePromise;
+  }
+
+  async function probeUrl(url,label){
+    try{
+      var r = await fetch(url,{cache:'no-store',mode:'cors'});
+      if(!r.ok) throw new Error('HTTP ' + r.status);
+      // Consume only small responses used by these probes.
+      await r.text();
+      return true;
+    }catch(err){
+      throw new Error(label + ' kan ikke nås fra browseren (' + (err && err.message ? err.message : 'Failed to fetch') + ')');
+    }
   }
 
   function showProgress(show){
@@ -295,11 +371,13 @@
     var thinking = addMessage('customer','Tænker…',true);
     var reply = '';
     try{
-      if(!state.engineReady && navigator.gpu && !state.modelError){
-        setStatus('Venter på lokal AI…');
+      if(!state.engineReady && !state.browserAiReady && !state.modelError){
+        setStatus('Venter på AI…');
         await ensureLocalModel();
       }
-      if(state.engineReady){
+      if(state.browserAiReady){
+        reply = await browserAiReply(text);
+      }else if(state.engineReady){
         reply = await localLlmReply();
       }
       if(!reply){
@@ -318,6 +396,24 @@
     el('trainerSend').disabled = false;
     el('trainerInput').disabled = false;
     el('trainerInput').focus();
+  }
+
+  async function browserAiReply(text){
+    if(!state.browserAiSession) return '';
+    try{
+      var prompt = [
+        'Continue the roleplay as the customer.',
+        'The employee just said in Danish:',
+        text,
+        'Reply only as the customer, naturally and briefly in Danish. Do not coach the employee.'
+      ].join('\n');
+      var out = await state.browserAiSession.prompt(prompt);
+      return cleanReply(out);
+    }catch(err){
+      console.warn('Browser AI reply failed:',err);
+      state.browserAiError = err && err.message ? err.message : String(err || 'Browser AI error');
+      return '';
+    }
   }
 
   async function localLlmReply(){
