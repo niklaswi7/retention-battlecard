@@ -19,6 +19,11 @@
     modelMode: 'fallback',
     recognition: null,
     listening: false,
+    keepListening: false,
+    pendingSpeechSend: false,
+    speechBuffer: '',
+    interimSpeech: '',
+    recognitionRestartTimer: null,
     busy: false,
     metrics: {
       data:false, roaming:false, price:false, music:false, bundle:false, closing:false, openQuestion:false
@@ -397,14 +402,26 @@
   }
 
   async function startMic(){
-    if(!state.active || !SpeechCtor || state.listening) return;
+    if(!state.active || !SpeechCtor || state.busy || state.keepListening) return;
+    state.keepListening = true;
+    state.pendingSpeechSend = false;
+    state.speechBuffer = '';
+    state.interimSpeech = '';
+    if(state.recognitionRestartTimer){
+      clearTimeout(state.recognitionRestartTimer);
+      state.recognitionRestartTimer = null;
+    }
+    if('speechSynthesis' in window){
+      try{ window.speechSynthesis.cancel(); }catch(_){}
+    }
+
     try{
       var rec = new SpeechCtor();
       state.recognition = rec;
       rec.lang = 'da-DK';
-      rec.interimResults = false;
+      rec.interimResults = true;
       rec.maxAlternatives = 1;
-      rec.continuous = false;
+      rec.continuous = true;
 
       if('processLocally' in rec && typeof SpeechCtor.available === 'function'){
         try{
@@ -440,36 +457,131 @@
         state.listening = true;
         el('trainerMic').classList.add('listening');
         el('trainerMic').textContent = '■';
-        setStatus('Lytter…');
+        el('trainerMic').setAttribute('aria-label','Stop tale og send');
+        el('trainerMic').title = 'Stop og send hele dit svar';
+        setStatus('Lytter kontinuerligt · tryk stop når du er færdig');
       };
-      rec.onend = function(){
-        state.listening = false;
-        el('trainerMic').classList.remove('listening');
-        el('trainerMic').textContent = '🎙';
-        if(state.active && !state.busy) setStatus(state.engineReady ? 'Samtalen er i gang · lokal AI klar' : 'Samtalen er i gang');
-      };
-      rec.onerror = function(ev){
-        setStatus('Mikrofon: ' + (ev.error || 'fejl') + ' · skriv evt. svaret');
-      };
+
       rec.onresult = function(ev){
-        var result = ev.results && ev.results[0] && ev.results[0][0] && ev.results[0][0].transcript;
-        if(result){
-          el('trainerInput').value = result;
-          submitEmployee(result);
+        var interim = '';
+        for(var i = ev.resultIndex || 0; i < ev.results.length; i++){
+          var item = ev.results[i];
+          var part = item && item[0] && item[0].transcript ? item[0].transcript.trim() : '';
+          if(!part) continue;
+          if(item.isFinal){
+            state.speechBuffer += (state.speechBuffer ? ' ' : '') + part;
+          }else{
+            interim += (interim ? ' ' : '') + part;
+          }
+        }
+        state.interimSpeech = interim;
+        var combined = [state.speechBuffer, state.interimSpeech].filter(Boolean).join(' ').trim();
+        if(combined) el('trainerInput').value = combined;
+      };
+
+      rec.onerror = function(ev){
+        var code = ev.error || 'fejl';
+        if(code === 'not-allowed' || code === 'service-not-allowed' || code === 'audio-capture'){
+          state.keepListening = false;
+          state.pendingSpeechSend = false;
+          setStatus('Mikrofon kunne ikke bruges · skriv evt. svaret');
+          resetMicUi();
+          return;
+        }
+        if(code !== 'aborted' && code !== 'no-speech'){
+          setStatus('Mikrofon: ' + code + ' · forsøger at fortsætte');
         }
       };
+
+      rec.onend = function(){
+        state.listening = false;
+        if(state.keepListening && state.active && !state.busy){
+          setStatus('Mikrofonen genstarter automatisk…');
+          if(state.recognitionRestartTimer) clearTimeout(state.recognitionRestartTimer);
+          state.recognitionRestartTimer = setTimeout(function(){
+            if(!state.keepListening || !state.active || state.busy) return;
+            try{
+              rec.start();
+            }catch(err){
+              state.recognitionRestartTimer = setTimeout(function(){
+                if(!state.keepListening || !state.active || state.busy) return;
+                try{ rec.start(); }catch(_){}
+              }, 450);
+            }
+          }, 160);
+          return;
+        }
+
+        resetMicUi();
+        if(state.pendingSpeechSend){
+          state.pendingSpeechSend = false;
+          setTimeout(finalizeSpeechInput, 0);
+        }else if(state.active && !state.busy){
+          setStatus(state.engineReady ? 'Samtalen er i gang · lokal AI klar' : 'Samtalen er i gang');
+        }
+      };
+
       rec.start();
     }catch(err){
+      state.keepListening = false;
+      state.pendingSpeechSend = false;
+      resetMicUi();
       setStatus('Mikrofon kunne ikke startes · brug tekstfeltet');
     }
+  }
+
+  function stopMicAndSend(){
+    if(!state.keepListening && !state.listening) return;
+    state.keepListening = false;
+    state.pendingSpeechSend = true;
+    if(state.recognitionRestartTimer){
+      clearTimeout(state.recognitionRestartTimer);
+      state.recognitionRestartTimer = null;
+    }
+    setStatus('Afslutter tale og sender…');
+    if(state.recognition){
+      try{
+        state.recognition.stop();
+        return;
+      }catch(_){}
+    }
+    resetMicUi();
+    state.pendingSpeechSend = false;
+    finalizeSpeechInput();
+  }
+
+  function finalizeSpeechInput(){
+    var text = String(el('trainerInput').value || state.speechBuffer || '').trim();
+    state.speechBuffer = '';
+    state.interimSpeech = '';
+    if(text){
+      submitEmployee(text);
+    }else{
+      setStatus('Jeg hørte ikke noget · tryk mikrofonen og prøv igen');
+    }
+  }
+
+  function resetMicUi(){
+    state.listening = false;
+    el('trainerMic').classList.remove('listening');
+    el('trainerMic').textContent = '🎙';
+    el('trainerMic').setAttribute('aria-label','Start kontinuerlig tale');
+    el('trainerMic').title = 'Start tale';
   }
 
   function finishTraining(){
     if(!state.active) return;
     state.active = false;
-    if(state.recognition && state.listening){
+    state.keepListening = false;
+    state.pendingSpeechSend = false;
+    if(state.recognitionRestartTimer){
+      clearTimeout(state.recognitionRestartTimer);
+      state.recognitionRestartTimer = null;
+    }
+    if(state.recognition){
       try{ state.recognition.stop(); }catch(_){}
     }
+    resetMicUi();
     window.speechSynthesis && window.speechSynthesis.cancel();
     el('trainerInput').disabled = true;
     el('trainerSend').disabled = true;
@@ -542,8 +654,8 @@
     el('trainerCompany').addEventListener('change',populatePlans);
     el('trainerStart').addEventListener('click',startTraining);
     el('trainerMic').addEventListener('click',function(){
-      if(state.listening && state.recognition){
-        try{ state.recognition.stop(); }catch(_){}
+      if(state.keepListening || state.listening){
+        stopMicAndSend();
       }else{
         startMic();
       }

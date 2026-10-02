@@ -91,12 +91,12 @@
         </div>
 
         <form id="trainerForm" class="trainer-input-row">
-          <button id="trainerMic" class="trainer-mic" type="button" disabled aria-label="Tal med kunden">🎙</button>
+          <button id="trainerMic" class="trainer-mic" type="button" disabled aria-label="Start kontinuerlig tale">🎙</button>
           <input id="trainerInput" type="text" autocomplete="off" placeholder="Skriv dit svar eller brug mikrofonen…" disabled>
           <button id="trainerSend" class="btn trainer-primary" type="submit" disabled>Send</button>
           <button id="trainerFinish" class="btn secondary" type="button" disabled>Afslut</button>
         </form>
-        <div id="trainerPrivacy" class="trainer-privacy">Selve AI-modellen kører lokalt via WebGPU. Talegenkendelse forsøger on-device først; browserstøtte varierer.</div>
+        <div id="trainerPrivacy" class="trainer-privacy">Selve AI-modellen kører lokalt via WebGPU. Tryk mikrofonen én gang for at starte; den genstarter automatisk ved browserens tidsgrænse og lytter, indtil du trykker stop.</div>
 
         <div id="trainerFeedback" class="trainer-feedback" hidden></div>
       </div>
