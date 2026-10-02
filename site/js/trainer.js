@@ -8,6 +8,30 @@
   var MODEL_F16 = 'SmolLM2-360M-Instruct-q4f16_1-MLC';
   var MODEL_F32 = 'SmolLM2-360M-Instruct-q4f32_1-MLC';
 
+  var nativeFetch = window.fetch.bind(window);
+
+  function hfProxyUrl(value){
+    try{
+      var raw = typeof value === 'string' ? value : (value instanceof URL ? value.href : value && value.url);
+      if(!raw || raw.indexOf('https://huggingface.co/') !== 0) return null;
+      var u = new URL(raw);
+      return window.location.origin + '/hf/' + u.pathname.replace(/^\//,'') + u.search;
+    }catch(_){
+      return null;
+    }
+  }
+
+  window.fetch = function(input,init){
+    var proxied = hfProxyUrl(input);
+    if(!proxied) return nativeFetch(input,init);
+    if(typeof Request !== 'undefined' && input instanceof Request){
+      try{
+        return nativeFetch(new Request(proxied,input),init);
+      }catch(_){}
+    }
+    return nativeFetch(proxied,init);
+  };
+
   var state = {
     companies: [],
     yousee: null,
@@ -269,12 +293,12 @@
           'jsDelivr'
         );
 
-        el('trainerProgressText').textContent = 'Tester adgang til Hugging Face…';
+        el('trainerProgressText').textContent = 'Tester Cloudflare model-proxy…';
         el('trainerProgressBar').style.width = '25%';
 
         await probeUrl(
-          'https://huggingface.co/mlc-ai/SmolLM2-360M-Instruct-q4f16_1-MLC/resolve/main/mlc-chat-config.json',
-          'Hugging Face'
+          '/hf/mlc-ai/SmolLM2-360M-Instruct-q4f16_1-MLC/resolve/main/mlc-chat-config.json',
+          'Cloudflare model-proxy'
         );
 
         var adapter = await navigator.gpu.requestAdapter({powerPreference:'high-performance'});
@@ -347,7 +371,7 @@
       await r.text();
       return true;
     }catch(err){
-      throw new Error(label + ' kan ikke nås fra browseren (' + (err && err.message ? err.message : 'Failed to fetch') + ')');
+      throw new Error(label + ' fejlede (' + (err && err.message ? err.message : 'Failed to fetch') + ')');
     }
   }
 
