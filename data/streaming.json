@@ -1,0 +1,308 @@
+{
+  "verifiedAt": "2026-10-14",
+  "note": "Normal-/efter-intropriser fundet på officielle udbydersider. pricingMode=addon lægges oven i øvrige produkter. pricingMode=bundle er en samlet mobil+streaming-pakke og erstatter prisen på første mobil, når Mobil også er valgt.",
+  "providers": [
+    {
+      "company": "Norlys",
+      "sourceUrl": "https://shop.norlys.dk/mobil/abonnementer/",
+      "offers": [
+        {
+          "id": "norlys-tv2",
+          "name": "TV 2 Play",
+          "price": 89,
+          "pricingMode": "addon",
+          "note": "Fra 89 kr./md. · aktuelt 2 mdr. 0 kr. ved nyt mobilabonnement"
+        },
+        {
+          "id": "norlys-max",
+          "name": "HBO Max",
+          "price": 109,
+          "pricingMode": "addon",
+          "note": "Fra 109 kr./md. · aktuelt 2 mdr. 0 kr."
+        },
+        {
+          "id": "norlys-viaplay",
+          "name": "Viaplay",
+          "price": 139,
+          "pricingMode": "addon",
+          "note": "Fra 139 kr./md. · aktuelt 2 mdr. 0 kr."
+        },
+        {
+          "id": "norlys-netflix",
+          "name": "Netflix",
+          "price": 129,
+          "pricingMode": "addon",
+          "note": "Fra 129 kr./md."
+        },
+        {
+          "id": "norlys-podimo",
+          "name": "Podimo",
+          "price": 69,
+          "pricingMode": "addon",
+          "note": "Fra 69 kr./md. · aktuelt 2 mdr. 0 kr."
+        },
+        {
+          "id": "norlys-deezer",
+          "name": "Deezer",
+          "price": 89,
+          "pricingMode": "addon",
+          "note": "Fra 89 kr./md. · aktuelt 2 mdr. 0 kr."
+        }
+      ]
+    },
+    {
+      "company": "Call me",
+      "sourceUrl": "https://www.callme.dk/abonnementer/mobil/",
+      "offers": [
+        {
+          "id": "callme-tv2",
+          "name": "TV 2 Play",
+          "price": 89,
+          "pricingMode": "addon",
+          "note": "Fra 89 kr./md. · aktuelt 2 mdr. 0 kr."
+        },
+        {
+          "id": "callme-viaplay",
+          "name": "Viaplay",
+          "price": 139,
+          "pricingMode": "addon",
+          "note": "139 kr./md. · aktuelt 2 mdr. 0 kr."
+        },
+        {
+          "id": "callme-max",
+          "name": "HBO Max",
+          "price": 109,
+          "pricingMode": "addon",
+          "note": "Fra 109 kr./md. · aktuelt 2 mdr. 0 kr."
+        },
+        {
+          "id": "callme-deezer",
+          "name": "Deezer",
+          "price": 89,
+          "pricingMode": "addon",
+          "note": "Fra 89 kr./md. · aktuelt 2 mdr. 0 kr."
+        },
+        {
+          "id": "callme-podimo",
+          "name": "Podimo",
+          "price": 69,
+          "pricingMode": "addon",
+          "note": "69 kr./md. · aktuelt 2 mdr. 0 kr."
+        }
+      ]
+    },
+    {
+      "company": "3",
+      "sourceUrl": "https://www.3.dk/tilvalg/underholdning/",
+      "offers": [
+        {
+          "id": "3-tv2-basis",
+          "name": "TV 2 Play Basis Partner",
+          "price": 89,
+          "pricingMode": "addon",
+          "note": "89 kr./md."
+        },
+        {
+          "id": "3-tv2-favorit",
+          "name": "TV 2 Play Favorit Partner",
+          "price": 169,
+          "pricingMode": "addon",
+          "note": "169 kr./md."
+        },
+        {
+          "id": "3-tv2-sport",
+          "name": "TV 2 Play Favorit + Sport Partner",
+          "price": 239,
+          "pricingMode": "addon",
+          "note": "239 kr./md."
+        },
+        {
+          "id": "3-deezer-premium",
+          "name": "Deezer Premium",
+          "price": 89,
+          "pricingMode": "addon",
+          "note": "89 kr./md. efter 1 gratis måned"
+        },
+        {
+          "id": "3-deezer-family",
+          "name": "Deezer Family",
+          "price": 159,
+          "pricingMode": "addon",
+          "note": "159 kr./md. efter 1 gratis måned"
+        },
+        {
+          "id": "3-wype",
+          "name": "Wype",
+          "price": 79,
+          "pricingMode": "addon",
+          "note": "79 kr./md. efter 1 gratis måned"
+        }
+      ]
+    },
+    {
+      "company": "CBB",
+      "sourceUrl": "https://www.cbb.dk/shop/mobilabonnement-med-streaming/tjenester/netflix/",
+      "offers": [
+        {
+          "id": "cbb-mix-2",
+          "name": "CBB MIX · 2 tjenester",
+          "price": 180,
+          "pricingMode": "addon",
+          "serviceCount": 2,
+          "note": "Vælg mindst 2 tjenester"
+        },
+        {
+          "id": "cbb-mix-3",
+          "name": "CBB MIX · 3 tjenester",
+          "price": 230,
+          "pricingMode": "addon",
+          "serviceCount": 3,
+          "note": "Streamingtilkøb"
+        },
+        {
+          "id": "cbb-mix-4",
+          "name": "CBB MIX · 4 tjenester",
+          "price": 280,
+          "pricingMode": "addon",
+          "serviceCount": 4,
+          "note": "Streamingtilkøb"
+        },
+        {
+          "id": "cbb-mix-5",
+          "name": "CBB MIX · 5 tjenester",
+          "price": 330,
+          "pricingMode": "addon",
+          "serviceCount": 5,
+          "note": "Streamingtilkøb"
+        },
+        {
+          "id": "cbb-mix-6",
+          "name": "CBB MIX · 6 tjenester",
+          "price": 380,
+          "pricingMode": "addon",
+          "serviceCount": 6,
+          "note": "Streamingtilkøb"
+        },
+        {
+          "id": "cbb-mix-7",
+          "name": "CBB MIX · 7 tjenester",
+          "price": 430,
+          "pricingMode": "addon",
+          "serviceCount": 7,
+          "note": "Streamingtilkøb"
+        },
+        {
+          "id": "cbb-mix-8",
+          "name": "CBB MIX · 8 tjenester",
+          "price": 480,
+          "pricingMode": "addon",
+          "serviceCount": 8,
+          "note": "Streamingtilkøb"
+        }
+      ],
+      "services": [
+        "Netflix",
+        "TV 2 Play",
+        "HBO Max",
+        "Viaplay",
+        "Podimo",
+        "Mofibo",
+        "Nordisk Film+",
+        "Deezer"
+      ]
+    },
+    {
+      "company": "Telmore",
+      "sourceUrl": "https://www.telmore.dk/telmoreplay",
+      "offers": [
+        {
+          "id": "telmore-play-2",
+          "name": "Telmore Play · 100 GB + 2 tjenester",
+          "price": 299,
+          "pricingMode": "bundle",
+          "note": "Samlet pakkepris inkl. mobil"
+        },
+        {
+          "id": "telmore-play-3",
+          "name": "Telmore Play · Fri Data + 3 tjenester",
+          "price": 399,
+          "pricingMode": "bundle",
+          "note": "Samlet pakkepris inkl. mobil"
+        },
+        {
+          "id": "telmore-play-4",
+          "name": "Telmore Play · Fri Data + 4 tjenester",
+          "price": 449,
+          "pricingMode": "bundle",
+          "note": "Samlet pakkepris inkl. mobil"
+        },
+        {
+          "id": "telmore-play-5",
+          "name": "Telmore Play · Fri Data + 5 tjenester",
+          "price": 499,
+          "pricingMode": "bundle",
+          "note": "Samlet pakkepris inkl. mobil"
+        },
+        {
+          "id": "telmore-play-all",
+          "name": "Telmore Play · Fri Data + alle tjenester",
+          "price": 599,
+          "pricingMode": "bundle",
+          "note": "Samlet pakkepris inkl. mobil"
+        }
+      ],
+      "services": [
+        "Netflix",
+        "Disney+",
+        "HBO Max",
+        "TV 2 Play",
+        "Viaplay",
+        "Prime Video",
+        "SkyShowtime",
+        "Saxo",
+        "Telmore Musik"
+      ]
+    },
+    {
+      "company": "Oister",
+      "sourceUrl": "https://www.oister.dk/mobilabonnement/streaming/",
+      "offers": [
+        {
+          "id": "oister-tv2",
+          "name": "45 GB + TV 2 Play Basis Partner",
+          "price": 169,
+          "pricingMode": "bundle",
+          "note": "Samlet mobil+streaming-pakke"
+        },
+        {
+          "id": "oister-disney",
+          "name": "45 GB + Disney+ Standard",
+          "price": 169,
+          "pricingMode": "bundle",
+          "note": "Samlet mobil+streaming-pakke"
+        },
+        {
+          "id": "oister-viaplay",
+          "name": "45 GB + Viaplay Film & Serier",
+          "price": 169,
+          "pricingMode": "bundle",
+          "note": "Samlet mobil+streaming-pakke"
+        },
+        {
+          "id": "oister-podimo",
+          "name": "45 GB + Podimo Premium",
+          "price": 169,
+          "pricingMode": "bundle",
+          "note": "Samlet mobil+streaming-pakke"
+        },
+        {
+          "id": "oister-deezer",
+          "name": "45 GB + Deezer Premium",
+          "price": 169,
+          "pricingMode": "bundle",
+          "note": "Samlet mobil+streaming-pakke"
+        }
+      ]
+    }
+  ]
+}
