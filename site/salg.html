@@ -17,213 +17,222 @@
 
 .need-picker{padding:14px;border:1px solid rgba(14,165,233,.42);border-radius:13px;background:rgba(14,165,233,.07);margin-bottom:14px}.need-picker>span{display:block;color:#cbd5e1;font-size:.82rem;font-weight:800;margin-bottom:9px}.need-toggles{display:flex;gap:8px;flex-wrap:wrap}.need-toggle{margin:0}.need-toggle input{display:none}.need-toggle span{display:flex;align-items:center;gap:7px;padding:9px 13px;border:1px solid var(--line);border-radius:10px;background:#0b1324;color:var(--muted);font-size:.8rem;font-weight:850;cursor:pointer;user-select:none}.need-toggle span:before{content:'+';display:grid;place-items:center;width:17px;height:17px;border-radius:5px;background:#1e293b;color:#94a3b8}.need-toggle input:checked+span{border-color:var(--blue);background:rgba(14,165,233,.16);color:#e0f2fe}.need-toggle input:checked+span:before{content:'✓';background:var(--blue);color:white}.need-group[hidden]{display:none!important}.need-hint{margin:-4px 0 12px;color:var(--muted);font-size:.74rem}
 
-/* Light YouSee-inspired theme */
+/* Official YouSee light theme — palette from YouSee DNA */
 :root{
-  --bg:#f4f8fb;
+  --bg:#fafafa;
   --panel:#ffffff;
-  --panel2:#f7fbfe;
-  --line:#d8e5ee;
-  --text:#123047;
-  --muted:#667f91;
-  --blue:#009fe3;
-  --blue2:#007fbd;
-  --green:#1f9d55;
-  --red:#dc3f4f;
-  --amber:#d88a00;
-  --shadow:0 14px 34px rgba(32,78,104,.10)
+  --panel2:#f7fbf7;
+  --line:#d9d9d9;
+  --text:#484848;
+  --muted:#767676;
+  --blue:#1fab2e;
+  --blue2:#1a8924;
+  --green:#1fab2e;
+  --red:#d31a20;
+  --amber:#ff8a00;
+  --shadow:0 10px 28px rgba(0,34,25,.08)
 }
 body{
   background:
-    radial-gradient(circle at 85% -8%,rgba(0,159,227,.12),transparent 30%),
-    linear-gradient(180deg,#f8fbfd 0%,#f2f7fa 100%);
+    radial-gradient(circle at 88% -10%,rgba(31,171,46,.10),transparent 30%),
+    linear-gradient(180deg,#ffffff 0%,#fafafa 100%);
   color:var(--text)
 }
 .topbar{
   margin-top:22px;
-  padding:24px 28px;
-  border-radius:22px;
-  background:linear-gradient(135deg,#006fa8 0%,#009fe3 58%,#27b5ec 100%);
-  box-shadow:0 18px 42px rgba(0,111,168,.22);
-  color:#fff
+  padding:22px 26px;
+  border-radius:20px;
+  background:#ffffff;
+  border:1px solid #d9d9d9;
+  border-top:5px solid #1fab2e;
+  box-shadow:var(--shadow);
+  color:#484848
 }
-.brand-lockup{display:flex;align-items:center;gap:18px;min-width:0}
-.ys-wordmark{
-  display:grid;place-items:center;
-  min-width:108px;height:54px;padding:0 17px;
-  border-radius:16px;
-  background:#fff;
-  color:#008fca;
-  font-size:1.42rem;
-  font-weight:900;
-  letter-spacing:-.055em;
-  box-shadow:0 8px 22px rgba(0,0,0,.12)
+.brand-lockup{display:flex;align-items:center;gap:22px;min-width:0}
+.ys-logo{
+  display:block;
+  width:116px;
+  height:auto;
+  flex:0 0 auto
 }
-.topbar .eyebrow{color:#dff6ff;margin-bottom:4px}
-.topbar h1{color:#fff}
-.topbar .subtitle{color:#eaf8ff}
+.topbar .eyebrow{color:#1a8924;margin-bottom:4px}
+.topbar h1{color:#191919}
+.topbar .subtitle{color:#767676}
 .topbar .status-pill{
-  color:#fff;
-  border-color:rgba(255,255,255,.34);
-  background:rgba(255,255,255,.14);
-  backdrop-filter:blur(8px)
+  color:#0c4d33;
+  border-color:#b8dfbd;
+  background:#ebf9ec
 }
-.topbar .status-pill span{background:#9cf7bd;box-shadow:0 0 10px #9cf7bd}
+.topbar .status-pill span{
+  background:#1fab2e;
+  box-shadow:0 0 9px rgba(31,171,46,.48)
+}
 .card{
   background:#fff;
-  border-color:var(--line);
+  border-color:#d9d9d9;
   box-shadow:var(--shadow)
 }
-.toolbar{background:rgba(255,255,255,.92)}
-.search{background:#f8fbfd;border-color:var(--line)}
-.search span{color:#6d8799}
-label{color:#38536a}
+.toolbar{background:#fff}
+.search{background:#fafafa;border-color:#d9d9d9}
+.search span{color:#767676}
+label{color:#484848}
 input,select,textarea{
   background:#fff;
-  color:#17364d;
-  border-color:#cbdde8
+  color:#383838;
+  border-color:#d9d9d9
 }
-input::placeholder,textarea::placeholder{color:#91a5b3}
+input::placeholder,textarea::placeholder{color:#929292}
 input:focus,select:focus,textarea:focus{
-  border-color:#009fe3;
-  box-shadow:0 0 0 3px rgba(0,159,227,.12)
+  border-color:#1fab2e;
+  box-shadow:0 0 0 3px rgba(31,171,46,.13)
 }
-option{background:#fff;color:#17364d}
-.divider{background:#dce8ef}
-.panel-head h2,h3{color:#16364d}
-.icon-badge,.yousee-mark{
-  background:#e7f6fd;
-  color:#008fca
+option{background:#fff;color:#383838}
+.divider{background:#f0f0f0}
+.panel-head h2,h3{color:#191919}
+.icon-badge{
+  background:#ebf9ec;
+  color:#1a8924
 }
 .yousee-mark{
-  background:#009fe3;
+  background:#1fab2e;
   color:#fff;
-  box-shadow:0 8px 18px rgba(0,159,227,.22)
+  box-shadow:0 7px 18px rgba(31,171,46,.20)
 }
 .mode-nav{
   background:#fff;
-  border-color:#d7e5ee;
-  box-shadow:0 8px 20px rgba(32,78,104,.07)
+  border-color:#d9d9d9;
+  box-shadow:0 6px 18px rgba(0,34,25,.05)
 }
-.mode-link{color:#5f788a}
-.mode-link:hover{background:#eff8fc;color:#007eae}
-.mode-link.active{background:#009fe3;color:#fff}
+.mode-link{color:#767676}
+.mode-link:hover{background:#ebf9ec;color:#0c4d33}
+.mode-link.active{background:#1fab2e;color:#fff}
 .mode-note{
-  background:#edf9fe;
-  border-color:#bfe9f8;
-  color:#406176
+  background:#ebf9ec;
+  border-color:#cceccc;
+  color:#0c4d33
 }
-.mode-note b{color:#006f9f}
+.mode-note b{color:#0c4d33}
 .need-picker{
-  background:#eef9fe;
-  border-color:#bfe8f6
+  background:#ebf9ec;
+  border-color:#cceccc
 }
-.need-picker>span{color:#234a63}
+.need-picker>span{color:#0c4d33}
 .need-toggle span{
   background:#fff;
-  color:#557083;
-  border-color:#cddfe9
+  color:#484848;
+  border-color:#d9d9d9
 }
-.need-toggle span:before{background:#eef4f7;color:#668397}
+.need-toggle span:before{background:#f0f0f0;color:#767676}
 .need-toggle input:checked+span{
-  background:#009fe3;
-  border-color:#009fe3;
+  background:#1fab2e;
+  border-color:#1fab2e;
   color:#fff;
-  box-shadow:0 7px 16px rgba(0,159,227,.18)
+  box-shadow:0 7px 16px rgba(31,171,46,.18)
 }
-.need-toggle input:checked+span:before{background:#fff;color:#009fe3}
-.need-hint{color:#70889a}
+.need-toggle input:checked+span:before{
+  background:#fff;
+  color:#1fab2e
+}
+.need-hint{color:#767676}
 .price-hero{
-  background:linear-gradient(135deg,#e8f7fd,#f6fcff);
-  border-color:#bfe7f6
+  background:linear-gradient(135deg,#ebf9ec,#f8fcf8);
+  border-color:#cceccc
 }
-.price-hero span,.price-hero small{color:#648296}
-.price-hero strong{color:#005d88}
+.price-hero span,.price-hero small{color:#767676}
+.price-hero strong{color:#0c4d33}
 .fact,.tips li,.battle-list,.stream-row,.plan-card,.service-card,
 .offer-line,.offer-summary-row,.yousee-plan-info,.toggle-row,
 .service-summary-row,.manual-price-box{
-  background:#f8fbfd;
-  border-color:#dbe8ef
+  background:#fafafa;
+  border-color:#e4e4e4
 }
-.fact span{color:#6a8596}
-.fact strong{color:#17364d}
-.tips li{color:#38586c}
-.tips li:before{color:#009fe3}
-.toggle-row{color:#23465d}
-.toggle-row span small{color:#738a99}
+.fact span{color:#767676}
+.fact strong{color:#383838}
+.tips li{color:#484848}
+.tips li:before{color:#1fab2e}
+.toggle-row{color:#484848}
+.toggle-row span small{color:#767676}
 .save-toggle{
-  border-color:#ccebd9;
-  background:#f2fbf6
+  border-color:#bfe5c4;
+  background:#ebf9ec
 }
-.save-toggle b{color:#197a46}
-.yousee-plan-info .row{color:#6d8799}
-.yousee-plan-info strong{color:#17364d}
-.offer-summary-row span{color:#6c8596}
+.save-toggle b{color:#0c4d33}
+.yousee-plan-info .row{color:#767676}
+.yousee-plan-info strong{color:#383838}
+.offer-summary-row span{color:#767676}
 .offer-total{
-  background:#eaf8fe;
-  border-color:#b9e7f7
+  background:#ebf9ec;
+  border-color:#c8e9cc
 }
-.offer-total strong{color:#006e9e}
+.offer-total strong{color:#0c4d33}
 .address-warning{
-  background:#fff7e7;
-  color:#9b6500
+  background:#fff7e5;
+  color:#7a5200
 }
 .kpi{background:#fff}
-.kpi span,.kpi small{color:#70899a}
-.kpi strong{color:#193a50}
+.kpi span,.kpi small{color:#767676}
+.kpi strong{color:#383838}
 .kpi.accent{
-  background:linear-gradient(135deg,#006fa8,#00a7e8);
+  background:linear-gradient(135deg,#0c4d33,#1fab2e);
   border-color:transparent;
-  box-shadow:0 14px 28px rgba(0,129,188,.18)
+  box-shadow:0 12px 26px rgba(12,77,51,.18)
 }
 .kpi.accent span,.kpi.accent small,.kpi.accent strong{color:#fff}
-.kpi.winner strong.positive{color:#198b4a}
-.kpi.winner strong.negative{color:#d43c4b}
-.battle-list{color:#38576a}
-.battle-list b{color:#17364d}
-.battle-list ul{color:#49687a}
+.kpi.winner strong.positive{color:#1a8924}
+.kpi.winner strong.negative{color:#d31a20}
+.battle-list{color:#484848}
+.battle-list b{color:#191919}
+.battle-list ul{color:#484848}
 .focus-box{
-  background:#eef9fe;
-  border-left-color:#009fe3;
-  color:#31566d
+  background:#ebf9ec;
+  border-left-color:#1fab2e;
+  color:#0c4d33
 }
-.stream-row.keep{border-left-color:#1f9d55}
-.stream-row.extra{border-left-color:#009fe3}
-.stream-row.lose{border-left-color:#dc3f4f}
+.stream-row.keep{border-left-color:#1fab2e}
+.stream-row.extra{border-left-color:#27a4d7}
+.stream-row.lose{border-left-color:#d31a20}
 .plan-card,.service-card{
   background:#fff;
-  box-shadow:0 7px 18px rgba(29,73,96,.05)
+  box-shadow:0 6px 16px rgba(0,34,25,.04)
 }
 .plan-card:hover,.service-card:hover{
-  border-color:#a9dff2;
-  box-shadow:0 12px 24px rgba(20,111,153,.10)
+  border-color:#b6deb9;
+  box-shadow:0 10px 22px rgba(12,77,51,.09)
 }
-.plan-card p,.service-card p{color:#71899a}
-.plan-price{color:#0b5275}
+.plan-card p,.service-card p{color:#767676}
+.plan-price{color:#0c4d33}
 .tag{
-  background:#edf5f9;
-  color:#456679
+  background:#f0f0f0;
+  color:#484848
 }
 .service-kind{
-  background:#eaf7fd;
-  color:#087eae
+  background:#ebf9ec;
+  color:#0c4d33
 }
-.service-card .service-price{color:#12445f}
-.service-card .source-note{color:#859ba8}
+.service-card .service-price{color:#0c4d33}
+.service-card .source-note{color:#929292}
 .count-badge,.network-badge{
-  background:#f1f7fa;
-  border-color:#d6e5ed;
-  color:#416477
+  background:#fafafa;
+  border-color:#d9d9d9;
+  color:#484848
 }
 .btn.secondary{
-  background:#e9f2f7;
-  color:#31576d
+  background:#f0f0f0;
+  color:#383838
 }
-.btn.secondary:hover{background:#dcebf3}
-footer{color:#758c9b}
+.btn.secondary:hover{background:#e5e5e5}
+button:not(.btn):not(.mode-link),
+.btn:not(.secondary){
+  background:#1fab2e;
+  color:#fff
+}
+button:not(.btn):not(.mode-link):hover,
+.btn:not(.secondary):hover{background:#1a8924}
+footer{color:#767676}
 @media(max-width:760px){
-  .topbar{padding:20px;border-radius:18px}
+  .topbar{padding:19px;border-radius:17px}
   .brand-lockup{align-items:flex-start}
-  .ys-wordmark{min-width:92px;height:48px;font-size:1.2rem}
+  .ys-logo{width:100px}
 }
 @media(max-width:520px){
   .brand-lockup{flex-direction:column}
@@ -234,7 +243,10 @@ footer{color:#758c9b}
 <body data-mode="sales">
 <header class="topbar">
   <div class="brand-lockup">
-    <div class="ys-wordmark" aria-label="YouSee">YouSee</div>
+    <svg class="ys-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 728 189" role="img" aria-label="YouSee">
+      <title>YouSee</title>
+      <path fill="#484848" d="M171 154c-40 0-58-26-58-56s18-57 58-57c41 0 59 27 59 57s-18 56-59 56m0-83c-15 0-17 15-17 27 0 11 2 27 17 27 16 0 18-16 18-27 0-12-2-27-18-27m176 81h-40v-14h-1c-7 11-18 16-34 16-20 0-37-11-37-36V44h41v56c0 13 1 22 13 22 7 0 17-4 17-21V44h41v108zm50-50l1 10c3 8 13 10 22 10 8 0 19-2 19-13 0-8-7-10-32-17-23-7-50-13-50-43 0-34 29-49 60-49 32 0 60 12 61 48h-43c1-5-2-9-5-12-4-2-9-3-14-3-6 0-16 1-16 10 1 10 22 13 43 18 21 6 42 16 42 43 0 39-36 51-69 51-17 0-65-6-65-53h46zm130 5c1 12 8 21 21 21 7 0 14-3 18-8h38c-8 23-31 34-55 34-35 0-61-20-61-56 0-31 23-57 57-57 43 0 61 24 61 66h-79zm40-21c0-10-8-18-18-18-12 0-20 6-21 18h39zm82 21c1 12 8 21 21 21 6 0 14-3 17-8h38c-8 23-31 34-55 34-34 0-60-20-60-56 0-31 22-57 56-57 43 0 62 24 62 66h-79zm39-21c0-10-7-18-18-18-12 0-19 6-21 18h39zM35 189c-8 0-21-3-21-3v-28l9 1c6 0 9-2 12-5l4-8L0 44h44l16 63 19-63h42L79 158c-7 19-24 31-44 31"/>
+    </svg>
     <div><p id="pageEyebrow" class="eyebrow">YouSee · Retention Workspace</p><h1 id="pageTitle">Retention Battlecard System</h1><p id="pageSubtitle" class="subtitle">Sammenlign mobilabonnementer, streaming og fastholdelsesmuligheder på få sekunder.</p></div>
   </div>
   <div class="status-pill"><span></span> Intern salgsplatform</div>
