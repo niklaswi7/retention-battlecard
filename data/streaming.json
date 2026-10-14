@@ -1,6 +1,6 @@
 {
   "verifiedAt": "2026-10-14",
-  "note": "Normal-/efter-intropriser fundet på officielle udbydersider. pricingMode=addon lægges oven i øvrige produkter. pricingMode=bundle er en samlet mobil+streaming-pakke og erstatter prisen på første mobil, når Mobil også er valgt.",
+  "note": "Streamingnormalpriser og præcise pakkevarianter. 'Køber selv' er den sammenlignelige direkte månedspris hos streamingtjenesten, når en identisk eller nærmeste sammenlignelig plan findes.",
   "providers": [
     {
       "company": "Norlys",
@@ -8,45 +8,70 @@
       "offers": [
         {
           "id": "norlys-tv2",
-          "name": "TV 2 Play",
+          "name": "TV 2 Play Basis Partner",
           "price": 89,
           "pricingMode": "addon",
-          "note": "Fra 89 kr./md. · aktuelt 2 mdr. 0 kr. ved nyt mobilabonnement"
+          "note": "Fra 89 kr./md. · aktuelt 2 mdr. 0 kr. ved nyt mobilabonnement",
+          "tier": "Basis Partner",
+          "ads": "Nej",
+          "retailPlanId": "tv2-basis-noads",
+          "includedLabel": "Tilkøb hos Norlys"
         },
         {
           "id": "norlys-max",
           "name": "HBO Max",
           "price": 109,
           "pricingMode": "addon",
-          "note": "Fra 109 kr./md. · aktuelt 2 mdr. 0 kr."
+          "note": "Fra 109 kr./md. · aktuelt 2 mdr. 0 kr.",
+          "tier": "Niveau ikke navngivet hos Norlys",
+          "ads": "Ikke oplyst",
+          "retailText": "HBO Max Standard: 129 kr./md. · uden reklamer",
+          "includedLabel": "Tilkøb hos Norlys"
         },
         {
           "id": "norlys-viaplay",
-          "name": "Viaplay",
+          "name": "Viaplay Film & Serier",
           "price": 139,
           "pricingMode": "addon",
-          "note": "Fra 139 kr./md. · aktuelt 2 mdr. 0 kr."
+          "note": "Fra 139 kr./md. · aktuelt 2 mdr. 0 kr.",
+          "tier": "Film & Serier",
+          "ads": "Ikke oplyst hos Norlys",
+          "retailText": "99 kr./md. med reklamer · 159 kr./md. uden reklamer",
+          "includedLabel": "Tilkøb hos Norlys"
         },
         {
           "id": "norlys-netflix",
-          "name": "Netflix",
+          "name": "Netflix Standard",
           "price": 129,
           "pricingMode": "addon",
-          "note": "Fra 129 kr./md."
+          "note": "Fra 129 kr./md.",
+          "tier": "Standard",
+          "ads": "Nej",
+          "retailPlanId": "netflix-standard",
+          "includedLabel": "Tilkøb hos Norlys"
         },
         {
           "id": "norlys-podimo",
-          "name": "Podimo",
+          "name": "Podimo Podcast",
           "price": 69,
           "pricingMode": "addon",
-          "note": "Fra 69 kr./md. · aktuelt 2 mdr. 0 kr."
+          "note": "Fra 69 kr./md. · aktuelt 2 mdr. 0 kr.",
+          "tier": "Podcast",
+          "ads": "Nej",
+          "retailPlanId": "podimo-premium",
+          "retailPrefix": "Nærmeste direkte plan",
+          "includedLabel": "Tilkøb hos Norlys"
         },
         {
           "id": "norlys-deezer",
-          "name": "Deezer",
+          "name": "Deezer Premium",
           "price": 89,
           "pricingMode": "addon",
-          "note": "Fra 89 kr./md. · aktuelt 2 mdr. 0 kr."
+          "note": "Fra 89 kr./md. · aktuelt 2 mdr. 0 kr.",
+          "tier": "Premium",
+          "ads": "Nej",
+          "retailPlanId": "deezer-premium",
+          "includedLabel": "Tilkøb hos Norlys"
         }
       ]
     },
@@ -56,38 +81,59 @@
       "offers": [
         {
           "id": "callme-tv2",
-          "name": "TV 2 Play",
+          "name": "TV 2 Play Basis Partner",
           "price": 89,
           "pricingMode": "addon",
-          "note": "Fra 89 kr./md. · aktuelt 2 mdr. 0 kr."
+          "note": "Fra 89 kr./md. · aktuelt 2 mdr. 0 kr.",
+          "tier": "Basis Partner",
+          "ads": "Nej",
+          "retailPlanId": "tv2-basis-noads",
+          "includedLabel": "Tilkøb hos Call me"
         },
         {
           "id": "callme-viaplay",
-          "name": "Viaplay",
+          "name": "Viaplay Film & Serier",
           "price": 139,
           "pricingMode": "addon",
-          "note": "139 kr./md. · aktuelt 2 mdr. 0 kr."
+          "note": "139 kr./md. · aktuelt 2 mdr. 0 kr.",
+          "tier": "Film & Serier",
+          "ads": "Nej",
+          "retailPlanId": "viaplay-film",
+          "includedLabel": "Tilkøb hos Call me"
         },
         {
           "id": "callme-max",
-          "name": "HBO Max",
+          "name": "HBO Max Standard",
           "price": 109,
           "pricingMode": "addon",
-          "note": "Fra 109 kr./md. · aktuelt 2 mdr. 0 kr."
+          "note": "Fra 109 kr./md. · aktuelt 2 mdr. 0 kr.",
+          "tier": "Standard",
+          "ads": "Nej",
+          "retailPlanId": "max-standard",
+          "includedLabel": "Tilkøb hos Call me"
         },
         {
           "id": "callme-deezer",
-          "name": "Deezer",
+          "name": "Deezer Premium",
           "price": 89,
           "pricingMode": "addon",
-          "note": "Fra 89 kr./md. · aktuelt 2 mdr. 0 kr."
+          "note": "Fra 89 kr./md. · aktuelt 2 mdr. 0 kr.",
+          "tier": "Premium",
+          "ads": "Nej",
+          "retailPlanId": "deezer-premium",
+          "includedLabel": "Tilkøb hos Call me"
         },
         {
           "id": "callme-podimo",
-          "name": "Podimo",
+          "name": "Podimo Podcast",
           "price": 69,
           "pricingMode": "addon",
-          "note": "69 kr./md. · aktuelt 2 mdr. 0 kr."
+          "note": "69 kr./md. · aktuelt 2 mdr. 0 kr.",
+          "tier": "Podcast",
+          "ads": "Nej",
+          "retailPlanId": "podimo-premium",
+          "retailPrefix": "Nærmeste direkte plan",
+          "includedLabel": "Tilkøb hos Call me"
         }
       ]
     },
@@ -98,44 +144,68 @@
         {
           "id": "3-tv2-basis",
           "name": "TV 2 Play Basis Partner",
-          "price": 89,
+          "price": 79,
           "pricingMode": "addon",
-          "note": "89 kr./md."
+          "note": "79 kr./md.",
+          "tier": "Basis Partner",
+          "ads": "Nej",
+          "retailPlanId": "tv2-basis-noads",
+          "includedLabel": "Tilkøb hos 3"
         },
         {
           "id": "3-tv2-favorit",
           "name": "TV 2 Play Favorit Partner",
-          "price": 169,
+          "price": 149,
           "pricingMode": "addon",
-          "note": "169 kr./md."
+          "note": "149 kr./md. · live-tv har normale reklameblokke",
+          "tier": "Favorit Partner",
+          "ads": "Nej*",
+          "retailPlanId": "tv2-favorit-noads",
+          "includedLabel": "Tilkøb hos 3"
         },
         {
           "id": "3-tv2-sport",
           "name": "TV 2 Play Favorit + Sport Partner",
-          "price": 239,
+          "price": 209,
           "pricingMode": "addon",
-          "note": "239 kr./md."
+          "note": "209 kr./md. · live-tv har normale reklameblokke",
+          "tier": "Favorit + Sport Partner",
+          "ads": "Nej*",
+          "retailPlanId": "tv2-sport-noads",
+          "includedLabel": "Tilkøb hos 3"
         },
         {
           "id": "3-deezer-premium",
           "name": "Deezer Premium",
           "price": 89,
           "pricingMode": "addon",
-          "note": "89 kr./md. efter 1 gratis måned"
+          "note": "89 kr./md. efter 1 gratis måned",
+          "tier": "Premium",
+          "ads": "Nej",
+          "retailPlanId": "deezer-premium",
+          "includedLabel": "Tilkøb hos 3"
         },
         {
           "id": "3-deezer-family",
           "name": "Deezer Family",
           "price": 159,
           "pricingMode": "addon",
-          "note": "159 kr./md. efter 1 gratis måned"
+          "note": "159 kr./md. efter 1 gratis måned",
+          "tier": "Family",
+          "ads": "Nej",
+          "retailPlanId": "deezer-family",
+          "includedLabel": "Tilkøb hos 3"
         },
         {
           "id": "3-wype",
           "name": "Wype",
           "price": 79,
           "pricingMode": "addon",
-          "note": "79 kr./md. efter 1 gratis måned"
+          "note": "79 kr./md. efter 1 gratis måned",
+          "tier": "Fuld adgang",
+          "ads": "Ikke relevant",
+          "retailPlanId": "wype",
+          "includedLabel": "Tilkøb hos 3"
         }
       ]
     },
@@ -209,6 +279,56 @@
         "Mofibo",
         "Nordisk Film+",
         "Deezer"
+      ],
+      "comparisonChoices": [
+        {
+          "service": "Netflix",
+          "tier": "Standard",
+          "ads": "Nej",
+          "retailPlanId": "netflix-standard"
+        },
+        {
+          "service": "TV 2 Play",
+          "tier": "Basis Partner",
+          "ads": "Nej",
+          "retailPlanId": "tv2-basis-noads"
+        },
+        {
+          "service": "HBO Max",
+          "tier": "Standard",
+          "ads": "Nej",
+          "retailPlanId": "max-standard"
+        },
+        {
+          "service": "Viaplay",
+          "tier": "Film & Serier",
+          "ads": "Nej",
+          "retailPlanId": "viaplay-film"
+        },
+        {
+          "service": "Podimo",
+          "tier": "Premium",
+          "ads": "Nej",
+          "retailPlanId": "podimo-premium"
+        },
+        {
+          "service": "Mofibo",
+          "tier": "20 timer",
+          "ads": "Nej",
+          "retailPlanId": "mofibo-flex"
+        },
+        {
+          "service": "Nordisk Film+",
+          "tier": "Standard",
+          "ads": "Nej",
+          "retailPlanId": "nordisk-film-plus"
+        },
+        {
+          "service": "Deezer",
+          "tier": "Premium",
+          "ads": "Nej",
+          "retailPlanId": "deezer-premium"
+        }
       ]
     },
     {
@@ -261,6 +381,50 @@
         "SkyShowtime",
         "Saxo",
         "Telmore Musik"
+      ],
+      "comparisonChoices": [
+        {
+          "service": "Netflix",
+          "tier": "Standard",
+          "ads": "Nej",
+          "retailPlanId": "netflix-standard"
+        },
+        {
+          "service": "Disney+",
+          "tier": "Standard",
+          "ads": "Nej",
+          "retailPlanId": "disney-standard"
+        },
+        {
+          "service": "HBO Max",
+          "tier": "Standard",
+          "ads": "Nej",
+          "retailPlanId": "max-standard"
+        },
+        {
+          "service": "TV 2 Play",
+          "tier": "Basis Partner",
+          "ads": "Nej",
+          "retailPlanId": "tv2-basis-noads"
+        },
+        {
+          "service": "Viaplay",
+          "tier": "Film & Serier",
+          "ads": "Nej",
+          "retailPlanId": "viaplay-film"
+        },
+        {
+          "service": "Prime Video",
+          "tier": "Standard",
+          "ads": "Ja",
+          "retailPlanId": "prime-video"
+        },
+        {
+          "service": "SkyShowtime",
+          "tier": "Standard",
+          "ads": "Nej*",
+          "retailPlanId": "skyshowtime-standard"
+        }
       ]
     },
     {
@@ -272,37 +436,222 @@
           "name": "45 GB + TV 2 Play Basis Partner",
           "price": 169,
           "pricingMode": "bundle",
-          "note": "Samlet mobil+streaming-pakke"
+          "note": "Samlet mobil+streaming-pakke",
+          "tier": "Basis Partner",
+          "ads": "Nej",
+          "retailPlanId": "tv2-basis-noads",
+          "includedLabel": "Inkl. i mobilpakken"
+        },
+        {
+          "id": "oister-disney-ads",
+          "name": "45 GB + Disney+ Standard med reklamer",
+          "price": 139,
+          "pricingMode": "bundle",
+          "note": "Samlet mobil+streaming-pakke · med reklamer",
+          "tier": "Standard",
+          "ads": "Ja",
+          "retailPlanId": "disney-standard-ads",
+          "includedLabel": "Inkl. i mobilpakken"
         },
         {
           "id": "oister-disney",
           "name": "45 GB + Disney+ Standard",
           "price": 169,
           "pricingMode": "bundle",
-          "note": "Samlet mobil+streaming-pakke"
+          "note": "Samlet mobil+streaming-pakke",
+          "tier": "Standard",
+          "ads": "Nej",
+          "retailPlanId": "disney-standard",
+          "includedLabel": "Inkl. i mobilpakken"
         },
         {
           "id": "oister-viaplay",
-          "name": "45 GB + Viaplay Film & Serier",
+          "name": "45 GB + Viaplay Film & Serier med reklamer",
           "price": 169,
           "pricingMode": "bundle",
-          "note": "Samlet mobil+streaming-pakke"
+          "note": "Samlet mobil+streaming-pakke · med reklamer",
+          "tier": "Film & Serier",
+          "ads": "Ja",
+          "retailPlanId": "viaplay-film-ads",
+          "includedLabel": "Inkl. i mobilpakken"
         },
         {
           "id": "oister-podimo",
           "name": "45 GB + Podimo Premium",
           "price": 169,
           "pricingMode": "bundle",
-          "note": "Samlet mobil+streaming-pakke"
+          "note": "Samlet mobil+streaming-pakke",
+          "tier": "Premium",
+          "ads": "Nej",
+          "retailPlanId": "podimo-premium",
+          "includedLabel": "Inkl. i mobilpakken"
         },
         {
           "id": "oister-deezer",
           "name": "45 GB + Deezer Premium",
           "price": 169,
           "pricingMode": "bundle",
-          "note": "Samlet mobil+streaming-pakke"
+          "note": "Samlet mobil+streaming-pakke",
+          "tier": "Premium",
+          "ads": "Nej",
+          "retailPlanId": "deezer-premium",
+          "includedLabel": "Inkl. i mobilpakken"
         }
       ]
     }
-  ]
+  ],
+  "retailCatalog": {
+    "netflix-standard": {
+      "service": "Netflix",
+      "tier": "Standard",
+      "price": 149,
+      "ads": "Nej",
+      "detail": "1080p · 2 samtidige streams",
+      "sourceUrl": "https://www.netflix.com/dk/"
+    },
+    "max-standard": {
+      "service": "HBO Max",
+      "tier": "Standard",
+      "price": 129,
+      "ads": "Nej",
+      "detail": "Full HD · 2 samtidige streams",
+      "sourceUrl": "https://www.hbomax.com/dk/da"
+    },
+    "max-basic-ads": {
+      "service": "HBO Max",
+      "tier": "Basis med reklamer",
+      "price": 79,
+      "ads": "Ja",
+      "detail": "Full HD · 2 samtidige streams",
+      "sourceUrl": "https://www.hbomax.com/dk/da"
+    },
+    "viaplay-film": {
+      "service": "Viaplay",
+      "tier": "Film & Serier",
+      "price": 159,
+      "ads": "Nej",
+      "detail": "Film, serier og børneindhold · ingen sport",
+      "sourceUrl": "https://viaplay.dk/dk-da/"
+    },
+    "viaplay-film-ads": {
+      "service": "Viaplay",
+      "tier": "Film & Serier med reklamer",
+      "price": 99,
+      "ads": "Ja",
+      "detail": "Film, serier og børneindhold · ingen sport · ingen offline",
+      "sourceUrl": "https://viaplay.dk/dk-da/"
+    },
+    "disney-standard": {
+      "service": "Disney+",
+      "tier": "Standard",
+      "price": 99,
+      "ads": "Nej",
+      "detail": "Full HD · 2 samtidige streams",
+      "sourceUrl": "https://www.disneyplus.com/da-dk"
+    },
+    "disney-standard-ads": {
+      "service": "Disney+",
+      "tier": "Standard med reklamer",
+      "price": 59,
+      "ads": "Ja",
+      "detail": "Full HD · 2 samtidige streams",
+      "sourceUrl": "https://www.disneyplus.com/da-dk"
+    },
+    "tv2-basis-noads": {
+      "service": "TV 2 Play",
+      "tier": "Basis uden reklamer",
+      "price": 99,
+      "ads": "Nej",
+      "detail": "On demand · ingen livekanaler/sport",
+      "sourceUrl": "https://play.tv2.dk/"
+    },
+    "tv2-favorit-noads": {
+      "service": "TV 2 Play",
+      "tier": "Favorit uden reklamer",
+      "price": 179,
+      "ads": "Nej*",
+      "detail": "On demand + 5 livekanaler · *live-tv har normale reklameblokke",
+      "sourceUrl": "https://play.tv2.dk/"
+    },
+    "tv2-sport-noads": {
+      "service": "TV 2 Play",
+      "tier": "Favorit + Sport uden reklamer",
+      "price": 249,
+      "ads": "Nej*",
+      "detail": "On demand + livekanaler + sport · *live-tv har normale reklameblokke",
+      "sourceUrl": "https://play.tv2.dk/"
+    },
+    "prime-video": {
+      "service": "Prime Video",
+      "tier": "Standard",
+      "price": 69,
+      "ads": "Ja",
+      "detail": "Film, serier og Amazon Originals",
+      "sourceUrl": "https://www.primevideo.com/"
+    },
+    "skyshowtime-standard": {
+      "service": "SkyShowtime",
+      "tier": "Standard",
+      "price": 109,
+      "ads": "Nej*",
+      "detail": "Full HD · 2 streams · *kan have kampagnetrailere",
+      "sourceUrl": "https://www.skyshowtime.com/dk/plans"
+    },
+    "podimo-premium": {
+      "service": "Podimo",
+      "tier": "Premium",
+      "price": 99,
+      "ads": "Nej",
+      "detail": "Alle Podimo-podcasts + 20 timers lydbøger",
+      "sourceUrl": "https://podimo.com/dk"
+    },
+    "deezer-premium": {
+      "service": "Deezer",
+      "tier": "Premium",
+      "price": 119,
+      "ads": "Nej",
+      "detail": "1 konto · musik og podcasts",
+      "sourceUrl": "https://www.deezer.com/dk/offers"
+    },
+    "deezer-family": {
+      "service": "Deezer",
+      "tier": "Family",
+      "price": 199,
+      "ads": "Nej",
+      "detail": "Familieplan · flere konti",
+      "sourceUrl": "https://www.deezer.com/dk/offers"
+    },
+    "mofibo-flex": {
+      "service": "Mofibo",
+      "tier": "Flex",
+      "price": 89,
+      "ads": "Nej",
+      "detail": "20 timer pr. måned",
+      "sourceUrl": "https://mofibo.com/dk/subscriptions"
+    },
+    "mofibo-premium": {
+      "service": "Mofibo",
+      "tier": "Premium",
+      "price": 129,
+      "ads": "Nej",
+      "detail": "100 timer pr. måned",
+      "sourceUrl": "https://mofibo.com/dk/subscriptions"
+    },
+    "nordisk-film-plus": {
+      "service": "Nordisk Film+",
+      "tier": "Standard",
+      "price": 69,
+      "ads": "Nej",
+      "detail": "Danske, nordiske og udvalgte internationale film",
+      "sourceUrl": "https://nordiskfilmplus.com/"
+    },
+    "wype": {
+      "service": "Wype",
+      "tier": "Fuld adgang",
+      "price": 99,
+      "ads": "Ikke relevant",
+      "detail": "500+ digitale magasiner",
+      "sourceUrl": "https://wype.dk/"
+    }
+  }
 }
