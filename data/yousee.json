@@ -1,13 +1,13 @@
 {
   "company": "YouSee",
-  "verifiedAt": "2026-10-02",
-  "source": "User-provided internal offer list / screenshots",
+  "verifiedAt": "2026-10-14",
+  "source": "Official YouSee public pricing for standard/family plans + user-provided internal Save offers",
   "note": "saveOnly=true means the offer is hidden unless Save-rettigheder is enabled.",
   "subscriptions": [
     {
       "id": "world-25",
       "name": "25 GB Mobil",
-      "monthlyPrice": 149,
+      "monthlyPrice": 179,
       "normalMonthlyPrice": 179,
       "upfrontPrice": 99,
       "data": 25,
@@ -21,12 +21,16 @@
         "Fri tale, sms og mms",
         "YouSee Musik",
         "EU-tillægspris efter fair-use grænse kan gælde"
-      ]
+      ],
+      "familyEligible": true,
+      "familyExtraPrice": 129,
+      "familyIdenticalOnly": true,
+      "familyDoubleData": true
     },
     {
       "id": "world-50",
       "name": "50 GB Mobil",
-      "monthlyPrice": 189,
+      "monthlyPrice": 219,
       "normalMonthlyPrice": 219,
       "upfrontPrice": 99,
       "data": 50,
@@ -40,12 +44,16 @@
         "Fri tale, sms og mms",
         "YouSee Musik",
         "EU-tillægspris efter fair-use grænse kan gælde"
-      ]
+      ],
+      "familyEligible": true,
+      "familyExtraPrice": 129,
+      "familyIdenticalOnly": true,
+      "familyDoubleData": true
     },
     {
       "id": "world-100",
       "name": "100 GB Mobil",
-      "monthlyPrice": 219,
+      "monthlyPrice": 249,
       "normalMonthlyPrice": 249,
       "upfrontPrice": 99,
       "data": 100,
@@ -58,12 +66,16 @@
       "notes": [
         "Fri tale, sms og mms",
         "YouSee Musik"
-      ]
+      ],
+      "familyEligible": true,
+      "familyExtraPrice": 129,
+      "familyIdenticalOnly": true,
+      "familyDoubleData": true
     },
     {
       "id": "world-fri",
       "name": "Fri Data Mobil",
-      "monthlyPrice": 269,
+      "monthlyPrice": 299,
       "normalMonthlyPrice": 299,
       "upfrontPrice": 99,
       "data": -1,
@@ -76,7 +88,11 @@
       "notes": [
         "Fri tale, sms og mms",
         "YouSee Musik"
-      ]
+      ],
+      "familyEligible": true,
+      "familyExtraPrice": 129,
+      "familyIdenticalOnly": true,
+      "familyDoubleData": true
     },
     {
       "id": "basic-3gb",
@@ -247,5 +263,24 @@
         "Internt save-tilbud"
       ]
     }
-  ]
+  ],
+  "familyOffer": {
+    "eligiblePlanIds": [
+      "world-25",
+      "world-50",
+      "world-100",
+      "world-fri"
+    ],
+    "mainPlanNormalPrices": {
+      "world-25": 179,
+      "world-50": 219,
+      "world-100": 249,
+      "world-fri": 299
+    },
+    "extraSubscriptionPrice": 129,
+    "maxExtraSubscriptions": 5,
+    "identicalToMainPlan": true,
+    "doubleData": true,
+    "sourceUrl": "https://yousee.dk/shop/ekstra"
+  }
 }
