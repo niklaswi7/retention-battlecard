@@ -837,15 +837,37 @@ function closeDepartmentPicker(){
   if(!modal)return;
   modal.hidden=true;modal.setAttribute('aria-hidden','true');document.body.style.overflow='';
 }
-function populateCallCompanySelect(preferredIndex){
-  const select=$('callCompanySelect');
-  if(!select)return;
-  const previous=preferredIndex??Number(select.value);
-  select.innerHTML=companies.length?companies.map((c,i)=>`<option value="${i}">${c.data?.company||c.name||('Selskab '+(i+1))}</option>`).join(''):'<option value="">Ingen selskaber indlæst</option>';
-  if(companies.length){
-    const next=Number.isInteger(previous)&&companies[previous]?previous:0;
-    select.value=String(next);
-  }
+function providerDisplayName(name){return name==='Waoo Mobil'?'Waoo':name}
+function callProviderNames(need){
+  if(need==='mobile')return companies.map(c=>c.data?.company||c.name).filter(Boolean);
+  if(need==='broadband')return (servicesData.providers||[]).filter(p=>[...(p.internet||[]),...(p.mobileBroadband||[])].length).map(p=>p.company);
+  if(need==='tv')return (servicesData.providers||[]).filter(p=>(p.tv||[]).length).map(p=>p.company);
+  if(need==='streaming')return (streamingData.providers||[]).filter(p=>(p.offers||[]).length).map(p=>p.company);
+  return[];
+}
+function fillCallProviderSelect(id,names,{allowEmpty=false,emptyLabel='Ingen / kun direkte'}={}){
+  const select=$(id);if(!select)return;
+  const previous=select.value;
+  select.innerHTML=(allowEmpty?`<option value="">${emptyLabel}</option>`:'')+names.map(name=>`<option value="${name}">${providerDisplayName(name)}</option>`).join('');
+  if(previous&&names.includes(previous))select.value=previous;
+  else if(!allowEmpty&&names.length)select.value=names[0];
+}
+function populateCallCompanySelect(){
+  fillCallProviderSelect('callMobileCompanySelect',callProviderNames('mobile'));
+  fillCallProviderSelect('callBroadbandCompanySelect',callProviderNames('broadband'));
+  fillCallProviderSelect('callTvCompanySelect',callProviderNames('tv'));
+  fillCallProviderSelect('callStreamingCompanySelect',callProviderNames('streaming'),{allowEmpty:true,emptyLabel:'Ingen · kun direkte streaming'});
+  syncCallProviderRows();
+}
+function selectedCallProvider(need){
+  const ids={mobile:'callMobileCompanySelect',broadband:'callBroadbandCompanySelect',tv:'callTvCompanySelect',streaming:'callStreamingCompanySelect'};
+  return $(ids[need])?.value||'';
+}
+function callCompanyEntryByName(name){return companies.find(c=>String(c.data?.company||c.name).toLowerCase()===String(name||'').toLowerCase())||null}
+function selectedCallCompany(){
+  const needs=callNeeds(),name=(needs.includes('mobile')&&selectedCallProvider('mobile'))||(needs.includes('broadband')&&selectedCallProvider('broadband'))||(needs.includes('tv')&&selectedCallProvider('tv'))||selectedCallProvider('streaming')||'';
+  const entry=callCompanyEntryByName(name)||companies[0]||null,index=entry?companies.indexOf(entry):0;
+  return{index,entry,name};
 }
 function initCallAssistant(){
   currentDepartment=readDepartmentPreference();
@@ -855,6 +877,7 @@ function initCallAssistant(){
   if(!currentDepartment)showDepartmentPicker();
   syncCallNeedAvailability();
   syncCallNeedControls();
+  syncCallProviderRows();
   setCallStep(1);
 }
 
@@ -879,8 +902,10 @@ function resetCallAssistant(hide=false){
   guidedTvOverride=null;guidedDirectStreamingAmount=0;guidedDirectStreamingItems=[];guidedRetainedStreamingAmount=0;guidedManualYouseePrice=null;guidedStreamingOptimization=null;guidedSaveDiscountKey='none';
   if($('callSaveConnection'))$('callSaveConnection').value='none';
   syncSaveConnectionDiscount();
+  populateCallCompanySelect();
   syncCallNeedAvailability();
   syncCallNeedControls();
+  syncCallProviderRows();
   setCallStep(1);
   if(hide&&$('callWizard'))$('callWizard').hidden=true;
 }
@@ -893,11 +918,6 @@ function setAdvancedWorkspace(show){
 }
 function toggleAdvancedWorkspace(){setAdvancedWorkspace($('advancedWorkspace')?.hidden!==false)}
 
-function selectedCallCompany(){
-  const i=Number($('callCompanySelect')?.value||0);
-  return {index:i,entry:companies[i]||companies[0],name:companies[i]?.data?.company||companies[i]?.name||''};
-}
-
 function callNeeds(){
   return [
     $('callNeedMobile')?.checked?'mobile':null,
@@ -908,23 +928,27 @@ function callNeeds(){
 }
 
 function syncCallNeedAvailability(){
-  const {name}=selectedCallCompany();
+  const availability={
+    mobile:callProviderNames('mobile').length>0,
+    broadband:callProviderNames('broadband').length>0,
+    tv:callProviderNames('tv').length>0,
+    streaming:true
+  };
   const map={mobile:'callNeedMobile',broadband:'callNeedBroadband',tv:'callNeedTv',streaming:'callNeedStreaming'};
   Object.entries(map).forEach(([need,id])=>{
-    const input=$(id),label=$(id+'Label');
-    if(!input)return;
-    const supported=need==='streaming'?true:companySupportsNeed(name,need);
-    input.disabled=!supported;
-    if(!supported)input.checked=false;
-    label?.classList.toggle('disabled',!supported);
+    const input=$(id),label=$(id+'Label');if(!input)return;
+    input.disabled=!availability[need];
+    if(!availability[need])input.checked=false;
+    label?.classList.toggle('disabled',!availability[need]);
   });
-  if(!$('callNeedMobile')?.checked&&!$('callNeedBroadband')?.checked&&!$('callNeedTv')?.checked&&!$('callNeedStreaming')?.checked){
-    const first=Object.entries(map).find(([need])=>companySupportsNeed(name,need));
-    if(first)$(first[1]).checked=true;
-  }
+  if(!callNeeds().length&&availability.mobile&&$('callNeedMobile'))$('callNeedMobile').checked=true;
   syncCallNeedControls();
+  syncCallProviderRows();
 }
-
+function syncCallProviderRows(){
+  const rows={mobile:'callMobileProviderRow',broadband:'callBroadbandProviderRow',tv:'callTvProviderRow',streaming:'callStreamingProviderRow'};
+  Object.entries(rows).forEach(([need,id])=>{const row=$(id);if(row)row.hidden=!callNeeds().includes(need)});
+}
 function syncCallNeedControls(){
   const wrap=$('callMobileCountWrap');
   if(wrap)wrap.hidden=!$('callNeedMobile')?.checked;
@@ -944,9 +968,15 @@ function setCallStep(step){
 }
 
 function advanceCallAssistant(){
-  if(callStep===1){setCallStep(2);return}
-  if(callStep===2){
+  if(callStep===1){
     if(!callNeeds().length){syncCallNeedAvailability();return}
+    syncCallProviderRows();
+    setCallStep(2);
+    return;
+  }
+  if(callStep===2){
+    const missing=callNeeds().filter(need=>need!=='streaming'&&!selectedCallProvider(need));
+    if(missing.length)return;
     renderCallCurrentProducts();
     setCallStep(3);
   }
