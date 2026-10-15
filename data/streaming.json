@@ -73,7 +73,8 @@
           "retailPlanId": "deezer-premium",
           "includedLabel": "Tilkøb hos Norlys"
         }
-      ]
+      ],
+      "multiSelectAddons": true
     },
     {
       "company": "Call me",
@@ -135,7 +136,8 @@
           "retailPrefix": "Nærmeste direkte plan",
           "includedLabel": "Tilkøb hos Call me"
         }
-      ]
+      ],
+      "multiSelectAddons": true
     },
     {
       "company": "3",
@@ -207,7 +209,8 @@
           "retailPlanId": "wype",
           "includedLabel": "Tilkøb hos 3"
         }
-      ]
+      ],
+      "multiSelectAddons": true
     },
     {
       "company": "CBB",
