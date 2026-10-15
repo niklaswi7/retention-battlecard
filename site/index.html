@@ -361,6 +361,7 @@ footer{color:#767676}
         <h3>3. Hvad har kunden helt konkret?</h3>
         <p>Vælg de produkter, kunden bruger nu. Så matcher vi behovet — ikke bare prisen.</p>
         <div id="callCurrentProducts" class="call-current-products"></div>
+        <div id="callValidation" class="stream-eligibility bad" hidden></div>
       </div>
 
       <div class="call-step" data-call-step="4" hidden>
@@ -883,7 +884,12 @@ function applyCallSelectionsToWorkspace(){
     if($('subscriptionCount'))$('subscriptionCount').value=$('callMobileCount')?.value||'1';
     renderSubscriptionSelectors();
     const first=document.querySelector('.sub-select');
-    if(first&&$('callMobilePlan')){first.value=$('callMobilePlan').value;first.dispatchEvent(new Event('change'))}
+    if(first&&$('callMobilePlan')){
+      first.value=$('callMobilePlan').value;
+      first.dispatchEvent(new Event('change'));
+      const wanted=$('callMobilePlan').value;
+      [...document.querySelectorAll('.sub-select')].slice(1).forEach(x=>{if(!x.disabled&&[...x.options].some(o=>o.value===wanted))x.value=wanted});
+    }
   }
   if(needs.includes('broadband')&&$('callBroadbandProduct')){
     $('competitorBroadbandProductSelect').value=$('callBroadbandProduct').value;
@@ -992,6 +998,7 @@ function renderCallResult(rec){
   if(rec.broadbandNote)notes.push(rec.broadbandNote);
   if(needs.includes('streaming')&&!rec.useYouseeStream&&rec.stream.count===1)notes.push('Kunden har 1 streamingtjeneste. YouSee Stream starter ved 2 tjenester, så den er ikke lagt til automatisk.');
   if(needs.includes('streaming')&&!needs.includes('mobile'))notes.push('YouSee Stream kræver et kvalificerende YouSee-mobilabonnement og er derfor ikke lagt til automatisk.');
+  if(needs.includes('tv'))notes.push('Den billigste YouSee TV-pakke er valgt. Bekræft kundens kanal- og pointbehov, før tilbuddet gives.');
   if(needs.includes('mobile')&&!rec.bestPlan)notes.push('Der blev ikke fundet et almindeligt YouSee-mobilabonnement, der matcher kundens nuværende databehov.');
 
   $('callResult').innerHTML=`
@@ -1008,8 +1015,12 @@ function renderCallResult(rec){
 }
 
 function finishCallAssistant(){
-  const stream=callStreamingSelection();
-  if(callNeeds().includes('streaming')&&!stream.valid)return;
+  const stream=callStreamingSelection(),validation=$('callValidation');
+  if(validation){validation.hidden=true;validation.textContent=''}
+  if(callNeeds().includes('streaming')&&!stream.valid){
+    if(validation){validation.hidden=false;validation.textContent=stream.offers.length?'Vælg det rigtige antal streamingtjenester i pakken.':'Vælg kundens streamingpakke først.'}
+    return;
+  }
   applyCallSelectionsToWorkspace();
   const rec=recommendCheapestYousee();
   renderCallResult(rec);
