@@ -816,6 +816,8 @@ function selectDepartment(v){
   try{
     syncSaveConnectionDiscount();
     applyDepartmentState();
+    populateCallCompanySelect();
+    syncCallNeedAvailability();
   }catch(err){
     console.error('Kunne ikke opdatere afdelingsvisning',err);
   }
@@ -830,14 +832,23 @@ function closeDepartmentPicker(){
   if(!modal)return;
   modal.hidden=true;modal.setAttribute('aria-hidden','true');document.body.style.overflow='';
 }
+function populateCallCompanySelect(preferredIndex){
+  const select=$('callCompanySelect');
+  if(!select)return;
+  const previous=preferredIndex??Number(select.value);
+  select.innerHTML=companies.length?companies.map((c,i)=>`<option value="${i}">${c.data?.company||c.name||('Selskab '+(i+1))}</option>`).join(''):'<option value="">Ingen selskaber indlæst</option>';
+  if(companies.length){
+    const next=Number.isInteger(previous)&&companies[previous]?previous:0;
+    select.value=String(next);
+  }
+}
 function initCallAssistant(){
   $('departmentModal')?.addEventListener('click',e=>{const btn=e.target.closest?.('[data-department]');if(btn)selectDepartment(btn.dataset.department)});
   currentDepartment=readDepartmentPreference();
   renderDepartmentState();
   applyDepartmentState();
+  populateCallCompanySelect();
   if(!currentDepartment)showDepartmentPicker();
-  const select=$('callCompanySelect');
-  if(select)select.innerHTML=companies.map((c,i)=>`<option value="${i}">${c.name}</option>`).join('');
   syncCallNeedAvailability();
   syncCallNeedControls();
   setCallStep(1);
@@ -845,6 +856,8 @@ function initCallAssistant(){
 
 function startCallAssistant(){
   if(!currentDepartment){showDepartmentPicker();return}
+  populateCallCompanySelect();
+  syncCallNeedAvailability();
   const wizard=$('callWizard');
   if(wizard)wizard.hidden=false;
   resetCallAssistant(false);
