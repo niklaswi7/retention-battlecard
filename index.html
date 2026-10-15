@@ -391,22 +391,19 @@ footer{color:#767676}
           <label>Faktisk YouSee-pris pr. måned
             <div class="money-input"><input id="callManualYouseePrice" type="number" min="0" step="1" inputmode="numeric" placeholder="Fx 399"><span>kr.</span></div>
           </label>
-        </div>
-        <div id="callSaveDiscountBox" class="save-discount-box" hidden>
-          <h4>Save Rabatter</h4>
-          <p>Vælg den Save-rabat, der passer til kundens YouSee-internet. Rabatten trækkes fra normal-/adresseprisen.</p>
-          <label>Save-rabat
-            <select id="callSaveDiscount">
-              <option value="none">Ingen internetrabat</option>
-              <option value="fiber1000">1000 Mbit fiber · −30 kr./md.</option>
-              <option value="coax">Coax · −40 kr./md.</option>
-              <option value="fiber200">200 Mbit fiber · −20 kr./md.</option>
-              <option value="mbb">Mobilt bredbånd · −50 kr./md.</option>
-            </select>
-          </label>
-          <div class="save-rule-list">
-            <div class="save-rule-row"><span>Save Fri / Fri</span><strong>229 kr. første bruger</strong></div>
-            <div class="save-rule-row"><span>Ekstra Save Fri / Fri-bruger</span><strong>129 kr./md.</strong></div>
+          <div id="callSaveConnectionWrap" class="save-discount-box" hidden style="margin-top:12px">
+            <h4>Save · forbindelse</h4>
+            <p>Vælg teknologien på YouSee-forbindelsen. Save-rabatten sættes automatisk.</p>
+            <label>Forbindelse / teknologi
+              <select id="callSaveConnection">
+                <option value="none">Vælg forbindelse</option>
+                <option value="fiber200">Fiber · 200 Mbit</option>
+                <option value="fiber1000">Fiber · 1000 Mbit</option>
+                <option value="coax">Coax</option>
+                <option value="mbb">Mobilt bredbånd</option>
+              </select>
+            </label>
+            <div id="callSaveConnectionResult" class="call-channel-summary">Ingen Save-rabat valgt</div>
           </div>
         </div>
         <div id="callValidation" class="stream-eligibility bad" hidden></div>
@@ -775,7 +772,7 @@ async function load(){
   init()
 }
 function init(){populateFilters();bind();applyMode();renderYouseeSelectors('basic-100');renderYouseeServiceSelectors();renderYouseeStream();renderNeedSelection();renderCatalog();renderServiceCatalog();initCallAssistant()}
-function bind(){document.querySelectorAll('[data-department]').forEach(x=>x.addEventListener('click',()=>selectDepartment(x.dataset.department)));$('changeDepartmentBtn')?.addEventListener('click',showDepartmentPicker);$('callSaveDiscount')?.addEventListener('change',e=>{guidedSaveDiscountKey=e.target.value||'none'});$('startCallBtn')?.addEventListener('click',startCallAssistant);$('toggleAdvancedBtn')?.addEventListener('click',toggleAdvancedWorkspace);$('callCompanySelect')?.addEventListener('change',syncCallNeedAvailability);document.querySelectorAll('#callNeedMobile,#callNeedBroadband,#callNeedTv,#callNeedStreaming').forEach(x=>x?.addEventListener('change',syncCallNeedControls));$('callBackBtn')?.addEventListener('click',()=>setCallStep(Math.max(1,callStep-1)));$('callNextBtn')?.addEventListener('click',advanceCallAssistant);$('callFindBtn')?.addEventListener('click',finishCallAssistant);$('callNewBtn')?.addEventListener('click',resetCallAssistant);$('callUseBtn')?.addEventListener('click',()=>{setAdvancedWorkspace(true);$('advancedWorkspace')?.scrollIntoView({behavior:'smooth',block:'start'})});document.querySelectorAll('#needMobile,#needBroadband,#needTv,#needStreaming').forEach(x=>x.addEventListener('change',()=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';renderNeedSelection()}));$('companySelect').addEventListener('change',e=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';setCompany(+e.target.value)});$('subscriptionCount').addEventListener('change',renderSubscriptionSelectors);$('youseeCount').addEventListener('change',()=>renderYouseeSelectors());$('saveRights')?.addEventListener('change',()=>renderYouseeSelectors());$('competitorInternetPrice')?.addEventListener('input',update);$('competitorBroadbandProductSelect')?.addEventListener('change',()=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';syncFixedInternetPriceField();syncBroadbandProviderButton();update()});$('competitorTvSelect')?.addEventListener('change',update);$('competitorStreamingSelect')?.addEventListener('change',()=>{renderCompetitorStreamingServiceChoices();renderCompetitorStreamingInfo();update()});$('youseeInternetSelect')?.addEventListener('change',()=>{if($('youseeInternetPrice'))$('youseeInternetPrice').value='';syncYouseeInternetTools();update()});$('youseeBroadbandSelect')?.addEventListener('change',()=>{syncYouseeInternetTools();update()});$('youseeInternetPrice')?.addEventListener('input',update);$('youseeStreamCount')?.addEventListener('change',()=>{renderYouseeStreamInfo();update()});$('youseeTvSelect')?.addEventListener('change',e=>{guidedTvOverride=null;syncPointCalculatorButton();update();if(e.target.value)openPointCalculator()});$('competitorCoverageBtn')?.addEventListener('click',()=>{const cfg=coverageConfigForCompany();if(cfg)openCoverageMap(cfg.networkKey,cfg.label)});$('youseeCoverageBtn')?.addEventListener('click',()=>openCoverageMap('tdc','YouSee'));document.querySelectorAll('[data-coverage-network]').forEach(btn=>btn.addEventListener('click',()=>setCoverageNetwork(btn.dataset.coverageNetwork)));$('coverageOutdoorSpeed')?.addEventListener('input',updateCoverageIndoorSpeed);$('closeCoverageMapBtn')?.addEventListener('click',closeCoverageMap);$('coverageMapModal')?.addEventListener('click',e=>{if(e.target===$('coverageMapModal'))closeCoverageMap()});$('openPointCalculatorBtn')?.addEventListener('click',openPointCalculator);$('closePointCalculatorBtn')?.addEventListener('click',closePointCalculator);$('pointCalculatorModal')?.addEventListener('click',e=>{if(e.target===$('pointCalculatorModal'))closePointCalculator()});window.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(!$('coverageMapModal')?.hidden)closeCoverageMap();else if(!$('pointCalculatorModal')?.hidden)closePointCalculator()});$('searchInput').addEventListener('input',()=>{renderCatalog();renderServiceCatalog()});document.querySelectorAll('.filters input,.filters select').forEach(x=>x.addEventListener('input',renderCatalog));$('resetBtn').addEventListener('click',()=>{document.querySelectorAll('.filters input').forEach(x=>x.value='');document.querySelectorAll('.filters select').forEach(x=>x.value='');$('searchInput').value='';if($('competitorInternetPrice'))$('competitorInternetPrice').value='';if($('youseeInternetPrice'))$('youseeInternetPrice').value='';syncYouseeInternetTools();update();renderCatalog();renderServiceCatalog()})}
+function bind(){document.querySelectorAll('[data-department]').forEach(x=>x.addEventListener('click',()=>selectDepartment(x.dataset.department)));$('changeDepartmentBtn')?.addEventListener('click',showDepartmentPicker);$('callSaveConnection')?.addEventListener('change',syncSaveConnectionDiscount);$('startCallBtn')?.addEventListener('click',startCallAssistant);$('toggleAdvancedBtn')?.addEventListener('click',toggleAdvancedWorkspace);$('callCompanySelect')?.addEventListener('change',syncCallNeedAvailability);document.querySelectorAll('#callNeedMobile,#callNeedBroadband,#callNeedTv,#callNeedStreaming').forEach(x=>x?.addEventListener('change',syncCallNeedControls));$('callBackBtn')?.addEventListener('click',()=>setCallStep(Math.max(1,callStep-1)));$('callNextBtn')?.addEventListener('click',advanceCallAssistant);$('callFindBtn')?.addEventListener('click',finishCallAssistant);$('callNewBtn')?.addEventListener('click',resetCallAssistant);$('callUseBtn')?.addEventListener('click',()=>{setAdvancedWorkspace(true);$('advancedWorkspace')?.scrollIntoView({behavior:'smooth',block:'start'})});document.querySelectorAll('#needMobile,#needBroadband,#needTv,#needStreaming').forEach(x=>x.addEventListener('change',()=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';renderNeedSelection()}));$('companySelect').addEventListener('change',e=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';setCompany(+e.target.value)});$('subscriptionCount').addEventListener('change',renderSubscriptionSelectors);$('youseeCount').addEventListener('change',()=>renderYouseeSelectors());$('saveRights')?.addEventListener('change',()=>renderYouseeSelectors());$('competitorInternetPrice')?.addEventListener('input',update);$('competitorBroadbandProductSelect')?.addEventListener('change',()=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';syncFixedInternetPriceField();syncBroadbandProviderButton();update()});$('competitorTvSelect')?.addEventListener('change',update);$('competitorStreamingSelect')?.addEventListener('change',()=>{renderCompetitorStreamingServiceChoices();renderCompetitorStreamingInfo();update()});$('youseeInternetSelect')?.addEventListener('change',()=>{if($('youseeInternetPrice'))$('youseeInternetPrice').value='';syncYouseeInternetTools();update()});$('youseeBroadbandSelect')?.addEventListener('change',()=>{syncYouseeInternetTools();update()});$('youseeInternetPrice')?.addEventListener('input',update);$('youseeStreamCount')?.addEventListener('change',()=>{renderYouseeStreamInfo();update()});$('youseeTvSelect')?.addEventListener('change',e=>{guidedTvOverride=null;syncPointCalculatorButton();update();if(e.target.value)openPointCalculator()});$('competitorCoverageBtn')?.addEventListener('click',()=>{const cfg=coverageConfigForCompany();if(cfg)openCoverageMap(cfg.networkKey,cfg.label)});$('youseeCoverageBtn')?.addEventListener('click',()=>openCoverageMap('tdc','YouSee'));document.querySelectorAll('[data-coverage-network]').forEach(btn=>btn.addEventListener('click',()=>setCoverageNetwork(btn.dataset.coverageNetwork)));$('coverageOutdoorSpeed')?.addEventListener('input',updateCoverageIndoorSpeed);$('closeCoverageMapBtn')?.addEventListener('click',closeCoverageMap);$('coverageMapModal')?.addEventListener('click',e=>{if(e.target===$('coverageMapModal'))closeCoverageMap()});$('openPointCalculatorBtn')?.addEventListener('click',openPointCalculator);$('closePointCalculatorBtn')?.addEventListener('click',closePointCalculator);$('pointCalculatorModal')?.addEventListener('click',e=>{if(e.target===$('pointCalculatorModal'))closePointCalculator()});window.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(!$('coverageMapModal')?.hidden)closeCoverageMap();else if(!$('pointCalculatorModal')?.hidden)closePointCalculator()});$('searchInput').addEventListener('input',()=>{renderCatalog();renderServiceCatalog()});document.querySelectorAll('.filters input,.filters select').forEach(x=>x.addEventListener('input',renderCatalog));$('resetBtn').addEventListener('click',()=>{document.querySelectorAll('.filters input').forEach(x=>x.value='');document.querySelectorAll('.filters select').forEach(x=>x.value='');$('searchInput').value='';if($('competitorInternetPrice'))$('competitorInternetPrice').value='';if($('youseeInternetPrice'))$('youseeInternetPrice').value='';syncYouseeInternetTools();update();renderCatalog();renderServiceCatalog()})}
 
 const YOUSEE_CHANNELS=[
   {name:'DR1',points:0,group:'Gratis'},{name:'DR2',points:0,group:'Gratis'},{name:'DR Ramasjang',points:0,group:'Gratis'},
@@ -805,14 +802,15 @@ function applyDepartmentState(){
   const saveToggle=document.querySelector('.save-toggle');
   if(saveToggle)saveToggle.hidden=!isSaveDepartment();
   if($('saveRights'))$('saveRights').checked=isSaveDepartment();
-  if($('callSaveDiscountBox'))$('callSaveDiscountBox').hidden=!isSaveDepartment()||!callNeeds().includes('broadband');
+  if($('callSaveConnectionWrap'))$('callSaveConnectionWrap').hidden=!isSaveDepartment()||!callNeeds().includes('broadband');
   if(companies.length)renderYouseeSelectors();
   renderDepartmentState();
 }
 function selectDepartment(v){
   if(v!=='save'&&v!=='support')return;
   currentDepartment=v;writeDepartmentPreference(v);guidedSaveDiscountKey='none';
-  if($('callSaveDiscount'))$('callSaveDiscount').value='none';
+  if($('callSaveConnection'))$('callSaveConnection').value='none';
+  syncSaveConnectionDiscount();
   applyDepartmentState();
 }
 function showDepartmentPicker(){
@@ -850,7 +848,8 @@ function resetCallAssistant(hide=false){
   if($('callCurrentProducts'))$('callCurrentProducts').innerHTML='';
   if($('callResult'))$('callResult').innerHTML='';
   guidedTvOverride=null;guidedDirectStreamingAmount=0;guidedDirectStreamingItems=[];guidedRetainedStreamingAmount=0;guidedManualYouseePrice=null;guidedSaveDiscountKey='none';
-  if($('callSaveDiscount'))$('callSaveDiscount').value='none';
+  if($('callSaveConnection'))$('callSaveConnection').value='none';
+  syncSaveConnectionDiscount();
   syncCallNeedAvailability();
   syncCallNeedControls();
   setCallStep(1);
@@ -900,8 +899,8 @@ function syncCallNeedAvailability(){
 function syncCallNeedControls(){
   const wrap=$('callMobileCountWrap');
   if(wrap)wrap.hidden=!$('callNeedMobile')?.checked;
-  const saveBox=$('callSaveDiscountBox');
-  if(saveBox)saveBox.hidden=!isSaveDepartment()||!$('callNeedBroadband')?.checked;
+  const saveConnection=$('callSaveConnectionWrap');
+  if(saveConnection)saveConnection.hidden=!isSaveDepartment()||!$('callNeedBroadband')?.checked;
 }
 
 function setCallStep(step){
@@ -952,16 +951,21 @@ function renderCallCurrentProducts(){
     parts.push(`<div class="call-product-box"><h4>▶ Streaming</h4>${providerPart}${direct}</div>`);
   }
   $('callCurrentProducts').innerHTML=parts.join('');
-  $('callBroadbandProduct')?.addEventListener('change',()=>{renderCallBroadbandPrice();suggestCallSaveDiscount()});
+  $('callBroadbandProduct')?.addEventListener('change',renderCallBroadbandPrice);
   $('callStreamingOffer')?.addEventListener('change',renderCallStreamingServices);
   document.querySelectorAll('.call-tv-channel').forEach(x=>x.addEventListener('change',renderCallChannelSummary));
   renderCallBroadbandPrice();
-  suggestCallSaveDiscount();
+  syncSaveConnectionDiscount();
   renderCallStreamingServices();
   renderCallChannelSummary();
 }
 
-function suggestCallSaveDiscount(){const select=$('callSaveDiscount'),service=callServiceById($('callBroadbandProduct')?.value);if(!select||!isSaveDepartment()||!service)return;if(['mobile-broadband','5g-home','4g-home'].includes(service.type)){select.value='mbb';guidedSaveDiscountKey='mbb'}else if(guidedSaveDiscountKey==='mbb'){select.value='none';guidedSaveDiscountKey='none'}}
+function syncSaveConnectionDiscount(){
+  const select=$('callSaveConnection'),result=$('callSaveConnectionResult');
+  guidedSaveDiscountKey=isSaveDepartment()?(select?.value||'none'):'none';
+  const cfg=saveDiscountConfig();
+  if(result)result.textContent=cfg.amount?`Save-rabat: −${cfg.amount} kr./md. · ${cfg.label}`:'Ingen Save-rabat valgt';
+}
 function renderCallBroadbandPrice(){
   const target=$('callBroadbandPriceWrap'),service=callServiceById($('callBroadbandProduct')?.value);
   if(!target)return;
@@ -1001,7 +1005,7 @@ function callStreamingSelection(){
 }
 
 function applyCallSelectionsToWorkspace(){
-  guidedSaveDiscountKey=isSaveDepartment()?($('callSaveDiscount')?.value||'none'):'none';
+  syncSaveConnectionDiscount();
   const manualRaw=$('callManualYouseePrice')?.value?.trim()??'';
   guidedManualYouseePrice=manualRaw===''?null:Number(manualRaw);
   if(guidedManualYouseePrice!==null&&(!Number.isFinite(guidedManualYouseePrice)||guidedManualYouseePrice<0))guidedManualYouseePrice=null;
@@ -1083,13 +1087,13 @@ function recommendCheapestYousee(){
 
   let broadbandNote='';
   if(needs.includes('broadband')){
-    const currentBroadband=callServiceById($('callBroadbandProduct')?.value);
-    if(currentBroadband?.type==='fixed'){
+    const currentBroadband=callServiceById($('callBroadbandProduct')?.value),saveConnection=isSaveDepartment()?($('callSaveConnection')?.value||'none'):'none',forceMbb=saveConnection==='mbb',forceFixed=['fiber200','fiber1000','coax'].includes(saveConnection);
+    if(forceFixed||(!forceMbb&&currentBroadband?.type==='fixed')){
       const fixed=(providerServices('YouSee').internet||[]).find(s=>s.type==='fixed');
       if(fixed)$('youseeInternetSelect').value=fixed.id;
-      broadbandNote='Fast internet har adressepris og skal slås op, før den endelige besparelse kan beregnes.';
-    }else if(currentBroadband){
-      const mbb=chooseCheapestYouseeMobileBroadband(currentBroadband.data??0);
+      broadbandNote='Fast internet har adressepris. Den valgte Save-rabat trækkes automatisk fra den pris, der bruges i tilbuddet.';
+    }else if(forceMbb||currentBroadband){
+      const required=forceMbb?(currentBroadband?.data??0):(currentBroadband?.data??0),mbb=chooseCheapestYouseeMobileBroadband(required);
       if(mbb)$('youseeBroadbandSelect').value=mbb.id;
     }
   }
@@ -1103,11 +1107,11 @@ function recommendCheapestYousee(){
   renderYouseeServiceSelectors();
   // restore recommendations after selector refresh
   if(needs.includes('broadband')){
-    const currentBroadband=callServiceById($('callBroadbandProduct')?.value);
-    if(currentBroadband?.type==='fixed'){
+    const currentBroadband=callServiceById($('callBroadbandProduct')?.value),saveConnection=isSaveDepartment()?($('callSaveConnection')?.value||'none'):'none',forceMbb=saveConnection==='mbb',forceFixed=['fiber200','fiber1000','coax'].includes(saveConnection);
+    if(forceFixed||(!forceMbb&&currentBroadband?.type==='fixed')){
       const fixed=(providerServices('YouSee').internet||[]).find(s=>s.type==='fixed');if(fixed)$('youseeInternetSelect').value=fixed.id;
-    }else if(currentBroadband){
-      const mbb=chooseCheapestYouseeMobileBroadband(currentBroadband.data??0);if(mbb)$('youseeBroadbandSelect').value=mbb.id;
+    }else if(forceMbb||currentBroadband){
+      const mbb=chooseCheapestYouseeMobileBroadband(currentBroadband?.data??0);if(mbb)$('youseeBroadbandSelect').value=mbb.id;
     }
   }
   if(needs.includes('tv')){
