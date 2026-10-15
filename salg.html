@@ -1187,20 +1187,26 @@ function renderCallResult(rec){
 }
 
 function finishCallAssistant(){
-  const stream=callStreamingSelection(),validation=$('callValidation');
-  if(validation){validation.hidden=true;validation.textContent=''}
-  if(callNeeds().includes('tv')&&selectedCallChannels().length===0){
-    if(validation){validation.hidden=false;validation.textContent='Vælg mindst én TV-kanal, kunden gerne vil beholde.'}
-    return;
+  const validation=$('callValidation');
+  try{
+    const stream=callStreamingSelection();
+    if(validation){validation.hidden=true;validation.textContent=''}
+    if(callNeeds().includes('tv')&&selectedCallChannels().length===0){
+      if(validation){validation.hidden=false;validation.textContent='Vælg mindst én TV-kanal, kunden gerne vil beholde.'}
+      return;
+    }
+    if(callNeeds().includes('streaming')&&!stream.valid){
+      if(validation){validation.hidden=false;validation.textContent=stream.offers.length?'Vælg det rigtige antal streamingtjenester i pakken.':'Vælg mindst én streamingtjeneste — hos teleselskabet eller direkte.'}
+      return;
+    }
+    applyCallSelectionsToWorkspace();
+    const rec=recommendCheapestYousee();
+    renderCallResult(rec);
+    setCallStep(4);
+  }catch(err){
+    console.error('Find billigste løsning fejlede',err);
+    if(validation){validation.hidden=false;validation.textContent='Der opstod en fejl i beregningen. Prøv igen eller brug Vis avanceret.'}
   }
-  if(callNeeds().includes('streaming')&&!stream.valid){
-    if(validation){validation.hidden=false;validation.textContent=stream.offers.length?'Vælg det rigtige antal streamingtjenester i pakken.':'Vælg mindst én streamingtjeneste — hos teleselskabet eller direkte.'}
-    return;
-  }
-  applyCallSelectionsToWorkspace();
-  const rec=recommendCheapestYousee();
-  renderCallResult(rec);
-  setCallStep(4);
 }
 
 function broadbandProviderTarget(){const p=providerServices(current?.company),selected=selectedService('competitorBroadbandProductSelect'),products=[...(p.internet||[]),...(p.mobileBroadband||[])],fallback=products.find(s=>s.addressDependent||['fixed','5g-home','4g-home'].includes(s.type))||products[0],service=selected||fallback;if(!service?.sourceUrl)return null;const addressCheck=!!(service.addressDependent||['fixed','5g-home','4g-home'].includes(service.type));return{company:current?.company||'udbyder',service,url:service.sourceUrl,addressCheck}}
