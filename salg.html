@@ -252,6 +252,8 @@ footer{color:#767676}
 .yousee-stream-product{margin-top:4px;padding:14px;border:1px solid #c8e9cc;border-radius:13px;background:#f8fcf8}.yousee-stream-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.yousee-stream-head h3{margin:0}.yousee-stream-head a{color:#0c4d33;font-size:.72rem;font-weight:850;text-decoration:none}.yousee-stream-services{display:grid;gap:7px;margin-top:10px}.yousee-stream-service{padding:8px 10px;border:1px solid #e4e4e4;border-radius:9px;background:#fff;font-size:.72rem}.yousee-stream-service strong{display:block;color:#383838}.yousee-stream-service small{display:block;color:#767676;margin-top:2px}.stream-eligibility{margin-top:8px;padding:8px 10px;border-radius:9px;font-size:.72rem;font-weight:750}.stream-eligibility.ok{background:#ebf9ec;color:#167524}.stream-eligibility.bad{background:#fff1e6;color:#9a4d00}
 
 .coverage-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:-2px 0 14px}.coverage-tools[hidden]{display:none!important}.coverage-tools small{color:#767676;font-size:.7rem}.coverage-link{display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+
+.coverage-modal{position:fixed;inset:0;z-index:1100;display:grid;place-items:center;padding:18px;background:rgba(0,34,25,.58);backdrop-filter:blur(4px)}.coverage-modal[hidden]{display:none!important}.coverage-modal-card{width:min(1240px,96vw);height:min(850px,92vh);display:grid;grid-template-rows:auto auto auto 1fr;overflow:hidden;border:1px solid #cfd8cf;border-radius:18px;background:#fff;box-shadow:0 30px 80px rgba(0,34,25,.28)}.coverage-modal-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;border-bottom:1px solid #e4e4e4}.coverage-modal-head h3{margin:0}.coverage-modal-actions{display:flex;align-items:center;gap:10px}.coverage-modal-actions a{color:#0c4d33;font-size:.78rem;font-weight:850}.coverage-map-tabs{display:flex;gap:7px;flex-wrap:wrap;padding:10px 16px 0}.coverage-map-tabs button{padding:7px 11px;border:1px solid #d9d9d9!important;border-radius:999px!important;background:#fff!important;color:#484848!important;font-size:.72rem;font-weight:850;cursor:pointer}.coverage-map-tabs button.active{border-color:#1fab2e!important;background:#ebf9ec!important;color:#0c4d33!important}.coverage-modal-card .point-modal-note{margin:8px 16px;color:#767676}.coverage-modal-card iframe{width:100%;height:100%;min-height:0;border:0;background:#f4f4f4}.coverage-link{cursor:pointer}@media(max-width:650px){.coverage-modal{padding:0}.coverage-modal-card{width:100vw;height:100vh;border-radius:0}.coverage-modal-head{align-items:flex-start}.coverage-modal-actions{flex-direction:column;align-items:flex-end}}
 </style>
 </head>
 <body data-mode="sales">
@@ -295,7 +297,7 @@ footer{color:#767676}
       </div>
       <label>Selskab<select id="companySelect"></select></label>
       <div id="competitorCoverageTools" class="coverage-tools" hidden>
-        <a id="competitorCoverageLink" class="point-btn coverage-link" href="#" target="_blank" rel="noopener">Åbn dækningskort</a>
+        <button id="competitorCoverageBtn" class="point-btn coverage-link" type="button">Åbn dækningskort</button>
         <small id="competitorCoverageNote"></small>
       </div>
 
@@ -351,7 +353,7 @@ footer{color:#767676}
       <div id="youseeSelectors" class="offer-lines"></div>
       <div id="youseeOfferSummary" class="offer-summary"></div>
       <div id="youseeCoverageTools" class="coverage-tools">
-        <a id="youseeCoverageLink" class="point-btn coverage-link" href="https://yousee.dk/hjaelp/driftsinformation/mobilt-bredbaand/daekningskort" target="_blank" rel="noopener">Åbn YouSee dækningskort</a>
+        <button id="youseeCoverageBtn" class="point-btn coverage-link" type="button">Åbn YouSee dækningskort</button>
         <small>TDC NET · mobil og mobilt internet</small>
       </div>
       <div class="divider"></div>
@@ -425,6 +427,28 @@ footer{color:#767676}
   </section>
 
 </main>
+<div id="coverageMapModal" class="coverage-modal" hidden aria-hidden="true">
+  <div class="coverage-modal-card" role="dialog" aria-modal="true" aria-labelledby="coverageMapTitle">
+    <div class="coverage-modal-head">
+      <div>
+        <p class="kicker">Mobildækning</p>
+        <h3 id="coverageMapTitle">Dækningskort</h3>
+      </div>
+      <div class="coverage-modal-actions">
+        <a id="coverageMapExternalLink" href="#" target="_blank" rel="noopener">Åbn kort direkte</a>
+        <button id="closeCoverageMapBtn" class="point-modal-close" type="button" aria-label="Luk">×</button>
+      </div>
+    </div>
+    <div id="coverageMapTabs" class="coverage-map-tabs">
+      <button type="button" data-coverage-network="tn">TN-nettet</button>
+      <button type="button" data-coverage-network="tdc">TDC NET</button>
+      <button type="button" data-coverage-network="three">3-nettet</button>
+    </div>
+    <p id="coverageMapNote" class="point-modal-note">Søg adressen direkte i kortet og skift mellem netværkene ovenfor.</p>
+    <iframe id="coverageMapFrame" src="about:blank" title="Dækningskort" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</div>
+
 <div id="pointCalculatorModal" class="point-modal" hidden aria-hidden="true">
   <div class="point-modal-card" role="dialog" aria-modal="true" aria-labelledby="pointCalculatorTitle">
     <div class="point-modal-head">
@@ -468,24 +492,34 @@ const TELMORE_FAMILY_PLANS=[
   {id:'telmore-family-150',name:'Familie · 150 GB',price:159,data:150,euData:32,'5g':true,esim:true,streaming:[],music:[],notes:['Familierabat']},
   {id:'telmore-family-fri',name:'Familie · Fri Data',price:209,data:-1,euData:41,'5g':true,esim:true,streaming:[],music:[],notes:['Familierabat']}
 ];
-const COVERAGE_MAPS={
-  'norlys':{url:'https://norlys.dk/kundeservice/mobil/daekning-og-drift/daekningskort/',label:'Norlys dækningskort',network:'Norlys / TN-netværket'},
-  'oister':{url:'https://www.oister.dk/daekning/',label:'OiSTER dækningskort',network:'3-netværket'},
-  'telmore':{url:'https://www.telmore.dk/internet/daekningskort',label:'Telmore dækningskort',network:'TDC NET'},
-  'call me':{url:'https://norlys.dk/kundeservice/mobil/daekning-og-drift/daekningskort/',label:'Dækningskort for Call me-netværket',network:'Norlys / TN-netværket'},
-  'cbb':{url:'https://www.cbb.dk/priser/dakningskort/',label:'CBB dækningskort',network:'Telenor / TN-netværket'},
-  '3':{url:'https://www.3.dk/abonnementer/dakning/',label:'3 dækningskort',network:'3-netværket'},
-  'telenor':{url:'https://www.telenor.dk/kundeservice/drift-og-dakning/dakning/dakningskort/',label:'Telenor dækningskort',network:'TN-netværket'},
-  'eesy':{url:'https://yousee.dk/hjaelp/driftsinformation/mobilt-bredbaand/daekningskort',label:'TDC NET dækningskort',network:'TDC NET'},
-  'flexii':{url:'https://www.flexii.dk/daekningskort',label:'Flexii dækningskort',network:'3-netværket'},
-  'greentel':{url:'https://www.telenor.dk/kundeservice/drift-og-dakning/dakning/dakningskort/',label:'Telenor dækningskort',network:'TN-netværket'},
-  'lebara':{url:'https://www.telenor.dk/kundeservice/drift-og-dakning/dakning/dakningskort/',label:'Telenor dækningskort',network:'TN-netværket'},
-  'lyca mobile':{url:'https://www.telenor.dk/kundeservice/drift-og-dakning/dakning/dakningskort/',label:'Telenor dækningskort',network:'TN-netværket'},
-  'duka':{url:'https://www.telenor.dk/kundeservice/drift-og-dakning/dakning/dakningskort/',label:'Telenor dækningskort',network:'TN-netværket'},
-  'waoo mobil':{url:'https://www.telenor.dk/kundeservice/drift-og-dakning/dakning/dakningskort/',label:'Telenor dækningskort',network:'TN-netværket'},
-  'unotel':{url:'https://yousee.dk/hjaelp/driftsinformation/mobilt-bredbaand/daekningskort',label:'TDC NET dækningskort',network:'TDC NET'}
+const COVERAGE_NETWORKS={
+  tn:{label:'TN-nettet',embedUrl:'https://coverage.telenor.dk/',directUrl:'https://coverage.telenor.dk/',note:'Telenor/Norlys fælles mobilnet · søg adresse og vælg lag direkte i kortet.'},
+  tdc:{label:'TDC NET',embedUrl:'https://daekning.tdc.dk/tdcnetmap_ext_tile2/',directUrl:'https://daekning.tdc.dk/tdcnetmap_ext_tile2/',note:'TDC NET · bruges bl.a. af YouSee, Telmore, eesy og UnoTel.'},
+  three:{label:'3-nettet',embedUrl:'https://daekningskort.dk/3mobil.html',directUrl:'https://www.3.dk/abonnementer/dakning/',note:'3-nettet · bruges bl.a. af 3, OiSTER og Flexii.'}
 };
-function syncCoverageLinks(){const tools=$('competitorCoverageTools'),link=$('competitorCoverageLink'),note=$('competitorCoverageNote'),key=String(current?.company||'').toLowerCase(),cfg=COVERAGE_MAPS[key];if(tools&&link&&note){tools.hidden=!cfg;if(cfg){link.href=cfg.url;link.textContent='Åbn '+cfg.label;note.textContent=cfg.network}}}
+const COVERAGE_MAPS={
+  'norlys':{networkKey:'tn',label:'Norlys'},
+  'oister':{networkKey:'three',label:'OiSTER'},
+  'telmore':{networkKey:'tdc',label:'Telmore'},
+  'call me':{networkKey:'tn',label:'Call me'},
+  'cbb':{networkKey:'tn',label:'CBB'},
+  '3':{networkKey:'three',label:'3'},
+  'telenor':{networkKey:'tn',label:'Telenor'},
+  'eesy':{networkKey:'tdc',label:'eesy'},
+  'flexii':{networkKey:'three',label:'Flexii'},
+  'greentel':{networkKey:'tn',label:'Greentel'},
+  'lebara':{networkKey:'tn',label:'Lebara'},
+  'lyca mobile':{networkKey:'tn',label:'Lyca Mobile'},
+  'duka':{networkKey:'tn',label:'Duka'},
+  'waoo mobil':{networkKey:'tn',label:'Waoo Mobil'},
+  'unotel':{networkKey:'tdc',label:'UnoTel'}
+};
+let activeCoverageNetwork='tn';
+function coverageConfigForCompany(){return COVERAGE_MAPS[String(current?.company||'').toLowerCase()]||null}
+function setCoverageNetwork(networkKey){const cfg=COVERAGE_NETWORKS[networkKey];if(!cfg)return;activeCoverageNetwork=networkKey;$('coverageMapFrame').src=cfg.embedUrl;$('coverageMapExternalLink').href=cfg.directUrl;$('coverageMapTitle').textContent=cfg.label+' · dækningskort';$('coverageMapNote').textContent=cfg.note;document.querySelectorAll('[data-coverage-network]').forEach(btn=>btn.classList.toggle('active',btn.dataset.coverageNetwork===networkKey))}
+function openCoverageMap(networkKey,providerLabel=''){const modal=$('coverageMapModal');if(!modal)return;setCoverageNetwork(networkKey||'tn');if(providerLabel)$('coverageMapTitle').textContent=providerLabel+' · '+COVERAGE_NETWORKS[networkKey].label;modal.hidden=false;modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}
+function closeCoverageMap(){const modal=$('coverageMapModal');if(!modal)return;modal.hidden=true;modal.setAttribute('aria-hidden','true');$('coverageMapFrame').src='about:blank';document.body.style.overflow=''}
+function syncCoverageLinks(){const tools=$('competitorCoverageTools'),btn=$('competitorCoverageBtn'),note=$('competitorCoverageNote'),cfg=coverageConfigForCompany();if(tools&&btn&&note){tools.hidden=!cfg;if(cfg){const net=COVERAGE_NETWORKS[cfg.networkKey];btn.textContent='Åbn dækningskort · '+cfg.label;btn.dataset.networkKey=cfg.networkKey;note.textContent=net.label}}}
 const COMPETITOR_FAMILY_META={
   'norlys':{label:'Fri data til familien',source:'https://shop.norlys.dk/mobil/abonnementer/',rule:'Op til 5 ekstra brugere med samme Fri Data-hastighed til 129 kr./md. pr. person.'},
   '3':{label:'3Family · Ekstra Bruger',source:'https://www.3.dk/shop/mobilabonnementer/',rule:'Ekstra Bruger koster 125 kr./md. og deler data fra hovedabonnementet.'},
@@ -558,7 +592,7 @@ async function load(){
   init()
 }
 function init(){populateFilters();bind();applyMode();renderYouseeSelectors('basic-100');renderYouseeServiceSelectors();renderYouseeStream();renderNeedSelection();renderCatalog();renderServiceCatalog()}
-function bind(){document.querySelectorAll('#needMobile,#needBroadband,#needTv,#needStreaming').forEach(x=>x.addEventListener('change',()=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';renderNeedSelection()}));$('companySelect').addEventListener('change',e=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';setCompany(+e.target.value)});$('subscriptionCount').addEventListener('change',renderSubscriptionSelectors);$('youseeCount').addEventListener('change',()=>renderYouseeSelectors());$('saveRights')?.addEventListener('change',()=>renderYouseeSelectors());$('competitorInternetPrice')?.addEventListener('input',update);$('competitorBroadbandProductSelect')?.addEventListener('change',()=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';syncFixedInternetPriceField();syncBroadbandProviderButton();update()});$('competitorTvSelect')?.addEventListener('change',update);$('competitorStreamingSelect')?.addEventListener('change',()=>{renderCompetitorStreamingInfo();update()});$('youseeInternetSelect')?.addEventListener('change',()=>{if($('youseeInternetPrice'))$('youseeInternetPrice').value='';syncYouseeInternetTools();update()});$('youseeBroadbandSelect')?.addEventListener('change',()=>{syncYouseeInternetTools();update()});$('youseeInternetPrice')?.addEventListener('input',update);$('youseeStreamCount')?.addEventListener('change',()=>{renderYouseeStreamInfo();update()});$('youseeTvSelect')?.addEventListener('change',e=>{syncPointCalculatorButton();update();if(e.target.value)openPointCalculator()});$('openPointCalculatorBtn')?.addEventListener('click',openPointCalculator);$('closePointCalculatorBtn')?.addEventListener('click',closePointCalculator);$('pointCalculatorModal')?.addEventListener('click',e=>{if(e.target===$('pointCalculatorModal'))closePointCalculator()});window.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('pointCalculatorModal')?.hidden)closePointCalculator()});$('searchInput').addEventListener('input',()=>{renderCatalog();renderServiceCatalog()});document.querySelectorAll('.filters input,.filters select').forEach(x=>x.addEventListener('input',renderCatalog));$('resetBtn').addEventListener('click',()=>{document.querySelectorAll('.filters input').forEach(x=>x.value='');document.querySelectorAll('.filters select').forEach(x=>x.value='');$('searchInput').value='';if($('competitorInternetPrice'))$('competitorInternetPrice').value='';if($('youseeInternetPrice'))$('youseeInternetPrice').value='';syncYouseeInternetTools();update();renderCatalog();renderServiceCatalog()})}
+function bind(){document.querySelectorAll('#needMobile,#needBroadband,#needTv,#needStreaming').forEach(x=>x.addEventListener('change',()=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';renderNeedSelection()}));$('companySelect').addEventListener('change',e=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';setCompany(+e.target.value)});$('subscriptionCount').addEventListener('change',renderSubscriptionSelectors);$('youseeCount').addEventListener('change',()=>renderYouseeSelectors());$('saveRights')?.addEventListener('change',()=>renderYouseeSelectors());$('competitorInternetPrice')?.addEventListener('input',update);$('competitorBroadbandProductSelect')?.addEventListener('change',()=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';syncFixedInternetPriceField();syncBroadbandProviderButton();update()});$('competitorTvSelect')?.addEventListener('change',update);$('competitorStreamingSelect')?.addEventListener('change',()=>{renderCompetitorStreamingInfo();update()});$('youseeInternetSelect')?.addEventListener('change',()=>{if($('youseeInternetPrice'))$('youseeInternetPrice').value='';syncYouseeInternetTools();update()});$('youseeBroadbandSelect')?.addEventListener('change',()=>{syncYouseeInternetTools();update()});$('youseeInternetPrice')?.addEventListener('input',update);$('youseeStreamCount')?.addEventListener('change',()=>{renderYouseeStreamInfo();update()});$('youseeTvSelect')?.addEventListener('change',e=>{syncPointCalculatorButton();update();if(e.target.value)openPointCalculator()});$('competitorCoverageBtn')?.addEventListener('click',()=>{const cfg=coverageConfigForCompany();if(cfg)openCoverageMap(cfg.networkKey,cfg.label)});$('youseeCoverageBtn')?.addEventListener('click',()=>openCoverageMap('tdc','YouSee'));document.querySelectorAll('[data-coverage-network]').forEach(btn=>btn.addEventListener('click',()=>setCoverageNetwork(btn.dataset.coverageNetwork)));$('closeCoverageMapBtn')?.addEventListener('click',closeCoverageMap);$('coverageMapModal')?.addEventListener('click',e=>{if(e.target===$('coverageMapModal'))closeCoverageMap()});$('openPointCalculatorBtn')?.addEventListener('click',openPointCalculator);$('closePointCalculatorBtn')?.addEventListener('click',closePointCalculator);$('pointCalculatorModal')?.addEventListener('click',e=>{if(e.target===$('pointCalculatorModal'))closePointCalculator()});window.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(!$('coverageMapModal')?.hidden)closeCoverageMap();else if(!$('pointCalculatorModal')?.hidden)closePointCalculator()});$('searchInput').addEventListener('input',()=>{renderCatalog();renderServiceCatalog()});document.querySelectorAll('.filters input,.filters select').forEach(x=>x.addEventListener('input',renderCatalog));$('resetBtn').addEventListener('click',()=>{document.querySelectorAll('.filters input').forEach(x=>x.value='');document.querySelectorAll('.filters select').forEach(x=>x.value='');$('searchInput').value='';if($('competitorInternetPrice'))$('competitorInternetPrice').value='';if($('youseeInternetPrice'))$('youseeInternetPrice').value='';syncYouseeInternetTools();update();renderCatalog();renderServiceCatalog()})}
 function broadbandProviderTarget(){const p=providerServices(current?.company),selected=selectedService('competitorBroadbandProductSelect'),products=[...(p.internet||[]),...(p.mobileBroadband||[])],fallback=products.find(s=>s.addressDependent||['fixed','5g-home','4g-home'].includes(s.type))||products[0],service=selected||fallback;if(!service?.sourceUrl)return null;const addressCheck=!!(service.addressDependent||['fixed','5g-home','4g-home'].includes(service.type));return{company:current?.company||'udbyder',service,url:service.sourceUrl,addressCheck}}
 function syncBroadbandProviderButton(){const tools=$('broadbandProviderTools'),link=$('openBroadbandProviderLink'),target=broadbandProviderTarget();if(!tools||!link)return;tools.hidden=!hasNeed('broadband')||!target;if(!target){link.href='#';link.textContent='Åbn bredbånd hos udbyder';return}link.href=target.url;link.textContent=target.addressCheck?`Tjek adresse hos ${target.company}`:`Åbn bredbånd hos ${target.company}`}
 function openPointCalculator(){const modal=$('pointCalculatorModal');if(!modal)return;modal.hidden=false;modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}
