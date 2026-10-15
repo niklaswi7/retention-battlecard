@@ -1,5 +1,5 @@
 {
-  "verifiedAt": "2026-10-14",
+  "verifiedAt": "2026-10-15",
   "note": "Streamingnormalpriser og præcise pakkevarianter. 'Køber selv' er den sammenlignelige direkte månedspris hos streamingtjenesten, når en identisk eller nærmeste sammenlignelig plan findes.",
   "providers": [
     {
@@ -653,5 +653,74 @@
       "detail": "500+ digitale magasiner",
       "sourceUrl": "https://wype.dk/"
     }
+  },
+  "youseeStream": {
+    "id": "yousee-stream",
+    "name": "YouSee Stream",
+    "sourceUrl": "https://yousee.dk/shop/stream",
+    "normalPrice": 180,
+    "campaignPrice": 90,
+    "campaignMonths": 3,
+    "includedServices": 2,
+    "extraServicePrice": 60,
+    "maxServices": 6,
+    "minMobilePrice": 169,
+    "lockDays": 30,
+    "note": "Normalpris bruges i beregningen. Aktuel kampagne: 90 kr./md. i 3 måneder.",
+    "services": [
+      {
+        "name": "Netflix",
+        "variants": [
+          "Basis",
+          "Standard",
+          "Premium"
+        ]
+      },
+      {
+        "name": "TV 2 Play",
+        "variants": [
+          "Favorit",
+          "Favorit med reklamer",
+          "Favorit + Sport",
+          "Favorit + Sport med reklamer"
+        ]
+      },
+      {
+        "name": "Disney+",
+        "variants": [
+          "Standard med reklamer",
+          "Standard",
+          "Premium"
+        ]
+      },
+      {
+        "name": "HBO Max",
+        "variants": [
+          "Basis med reklamer",
+          "Standard",
+          "Premium"
+        ],
+        "note": "Sport kan tilvælges til varianterne."
+      },
+      {
+        "name": "Prime Video",
+        "variants": [
+          "Prime Video"
+        ]
+      },
+      {
+        "name": "Viaplay",
+        "variants": [
+          "Film & Serier med reklamer",
+          "Film & Serier",
+          "Champions League, Film & Serier med reklamer",
+          "Champions League, Film & Serier",
+          "Dansk fodbold, Film & Serier med reklamer",
+          "Dansk fodbold, Film & Serier",
+          "Premium med reklamer",
+          "Premium"
+        ]
+      }
+    ]
   }
 }
