@@ -1270,7 +1270,7 @@ function renderCallResult(rec){
   const needs=callNeeds(),plans=hasNeed('mobile')?selectedYouseePlans():[],services=selectedYouseeServices(),stream=youseeStreamState(),rows=[];
   if(plans.length)rows.push(['Mobil',plans.length>1?`${plans.length} × ${plans[0].name}`:plans[0].name]);
   if(isSaveDepartment())rows.push(['Afdeling','Save']);
-  services.forEach(s=>rows.push([s.type==='tv'?'TV':'Internet',s.name]));
+  services.forEach(s=>rows.push([s.type==='tv'?(needs.includes('tv')?'TV':'YouSee Play'):'Internet',s.name]));
   const opt=rec.streamingOptimization||guidedStreamingOptimization;
   if(opt?.streamPlans?.length)rows.push(['YouSee Stream',opt.streamPlans.map(x=>x.service+' · '+x.tier).join(', ')]);
   if(opt?.playPlans?.length)rows.push(['Streaming i YouSee Play',opt.playPlans.map(x=>x.service+' · '+x.tier+' ('+x.playPoints+' pt.)').join(', ')]);
@@ -1280,7 +1280,7 @@ function renderCallResult(rec){
   if(rec.broadbandNote)notes.push(rec.broadbandNote);
   if(guidedManualYouseePrice!==null&&needs.includes('broadband')){const d=isSaveDepartment()?Math.min(saveDiscountConfig().amount,guidedManualYouseePrice):0;notes.push(d?`YouSee-forbindelse ${fmt(guidedManualYouseePrice)}/md. før Save-rabat · ${fmt(guidedManualYouseePrice-d)}/md. efter rabat. Mobil, TV og streaming er lagt oveni.`:`YouSee-forbindelse ${fmt(guidedManualYouseePrice)}/md. · mobil, TV og streaming er lagt oveni.`)}
   if(isSaveDepartment()&&saveDiscountConfig().amount)notes.push(`Save-rabat: ${saveDiscountConfig().label} −${saveDiscountConfig().amount} kr./md.`);
-  if(needs.includes('streaming')&&!rec.useYouseeStream&&rec.stream.count===1)notes.push('Kunden har 1 streamingtjeneste. YouSee Stream starter ved 2 tjenester, så den beholdes som ekstern streamingudgift.');
+  if(rec.streamingOptimization?.desired?.length===1&&rec.streamingOptimization?.directPlans?.length===1)notes.push('Den valgte streamingtjeneste er billigst at beholde som direkte abonnement.');
   if((rec.retainedDirect||[]).length)notes.push('Fortsat ekstern streaming: '+rec.retainedDirect.map(x=>x.service).join(', ')+'.');
   if(rec.streamingOptimization?.desired?.length)notes.push('Streaming er prisoptimeret mellem direkte køb, YouSee Play og YouSee Stream.');
   if(needs.includes('streaming')&&!needs.includes('mobile'))notes.push('YouSee Stream kræver et kvalificerende YouSee-mobilabonnement og er derfor ikke lagt til automatisk.');
