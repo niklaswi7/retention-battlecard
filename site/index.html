@@ -256,14 +256,16 @@ footer{color:#767676}
 .coverage-modal{position:fixed;inset:0;z-index:1100;display:grid;place-items:center;padding:18px;background:rgba(0,34,25,.58);backdrop-filter:blur(4px)}.coverage-modal[hidden]{display:none!important}.coverage-modal-card{width:min(1240px,96vw);height:min(850px,92vh);display:grid;grid-template-rows:auto auto auto auto 1fr;overflow:hidden;border:1px solid #cfd8cf;border-radius:18px;background:#fff;box-shadow:0 30px 80px rgba(0,34,25,.28)}.coverage-modal-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;border-bottom:1px solid #e4e4e4}.coverage-modal-head h3{margin:0}.coverage-modal-actions{display:flex;align-items:center;gap:10px}.coverage-modal-actions a{color:#0c4d33;font-size:.78rem;font-weight:850}.coverage-map-tabs{display:flex;gap:7px;flex-wrap:wrap;padding:10px 16px 0}.coverage-map-tabs button{padding:7px 11px;border:1px solid #d9d9d9!important;border-radius:999px!important;background:#fff!important;color:#484848!important;font-size:.72rem;font-weight:850;cursor:pointer}.coverage-map-tabs button.active{border-color:#1fab2e!important;background:#ebf9ec!important;color:#0c4d33!important}.coverage-modal-card .point-modal-note{margin:8px 16px;color:#767676}.coverage-speed-calc{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:0 16px 12px;padding:12px 14px;border:1px solid #dce7dc;border-radius:12px;background:#f8fcf8}.coverage-speed-calc label{display:grid;gap:5px;min-width:220px;color:#394139;font-size:.72rem;font-weight:800}.coverage-speed-calc label span{color:#767676;font-size:.65rem;font-weight:650}.coverage-speed-calc input{width:100%;padding:9px 10px;border:1px solid #cfd8cf;border-radius:9px;background:#fff;font:inherit;font-size:.82rem}.coverage-speed-result{display:grid;gap:3px;padding:8px 12px;border-radius:10px;background:#ebf9ec;color:#0c4d33}.coverage-speed-result span{font-size:.65rem;font-weight:750}.coverage-speed-result strong{font-size:1.05rem}.coverage-modal-card iframe{width:100%;height:100%;min-height:0;border:0;background:#f4f4f4}.coverage-link{cursor:pointer}@media(max-width:650px){.coverage-modal{padding:0}.coverage-modal-card{width:100vw;height:100vh;border-radius:0}.coverage-modal-head{align-items:flex-start}.coverage-modal-actions{flex-direction:column;align-items:flex-end}}
 
 .call-assistant{margin:0 0 18px;padding:0;overflow:hidden;border:2px solid #cceccc;background:linear-gradient(135deg,#fff,#f6fcf7)}
-.department-setup{padding:22px 26px;border-bottom:1px solid #e1ebe1;background:#fff}
-.department-setup h2{margin:3px 0 6px;font-size:1.35rem;color:#191919}
-.department-setup p{margin:0 0 15px;color:#767676}
+.department-modal{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:20px;background:rgba(20,20,20,.58);backdrop-filter:blur(5px)}
+.department-modal[hidden]{display:none}
+.department-modal-card{width:min(680px,94vw);padding:24px;border-radius:18px;background:#fff;box-shadow:0 24px 70px rgba(0,0,0,.24)}
+.department-modal-card h2{margin:4px 0 6px;font-size:1.45rem;color:#191919}
+.department-modal-card>p{margin:0 0 17px;color:#767676}
 .department-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:720px}
 .department-option{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1px solid #d9d9d9;border-radius:13px;background:#fafafa;color:#383838;text-align:left;font:inherit;font-weight:850;cursor:pointer}
 .department-option:hover{border-color:#1fab2e;background:#f4fbf4}.department-option strong{display:block}.department-option small{display:block;margin-top:3px;color:#767676;font-weight:650}
 .department-option-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;background:#ebf9ec;font-size:1.1rem}
-.department-status{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:9px}
+.department-status{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 .department-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;background:#ebf9ec;color:#0c4d33;font-size:.72rem;font-weight:850}
 .department-change{border:0;background:transparent;color:#0c4d33;font:inherit;font-size:.7rem;font-weight:850;text-decoration:underline;cursor:pointer}
 .save-discount-box{padding:13px;border:1px solid #efd99d;border-radius:12px;background:#fff9e8}.save-discount-box h4{margin:0 0 6px;color:#6d5100}.save-discount-box p{margin:0 0 10px;color:#806c35;font-size:.72rem}.save-rule-list{display:grid;gap:5px;margin-top:9px}.save-rule-row{display:flex;justify-content:space-between;gap:12px;padding:7px 9px;border-radius:8px;background:#fff;font-size:.7rem}.save-rule-row strong{color:#0c4d33}
@@ -334,19 +336,6 @@ footer{color:#767676}
 <main class="shell">
 
   <section id="callAssistant" class="card call-assistant">
-    <div id="departmentSetup" class="department-setup">
-      <p class="kicker">Før du starter</p>
-      <h2>Hvilken afdeling sidder du i?</h2>
-      <p>Valget gemmes i denne browser på computeren, så du ikke skal vælge det ved hvert kald.</p>
-      <div id="departmentOptions" class="department-options">
-        <button class="department-option" type="button" data-department="save"><span class="department-option-icon">💚</span><span><strong>Save</strong><small>Save-rabatter og Save Fri / Fri</small></span></button>
-        <button class="department-option" type="button" data-department="support"><span class="department-option-icon">🎧</span><span><strong>Kundeservice / Support</strong><small>Almindelige YouSee-priser og løsninger</small></span></button>
-      </div>
-      <div id="departmentStatus" class="department-status" hidden>
-        <span id="departmentBadge" class="department-badge"></span>
-        <button id="changeDepartmentBtn" class="department-change" type="button">Skift afdeling</button>
-      </div>
-    </div>
     <div class="call-assistant-start">
       <div>
         <p class="kicker">Nem tilstand</p>
@@ -354,6 +343,10 @@ footer{color:#767676}
         <p>Svar på få spørgsmål. Battlecarden finder den billigste relevante YouSee-løsning i databasen.</p>
       </div>
       <div class="call-start-actions">
+        <div id="departmentStatus" class="department-status" hidden>
+          <span id="departmentBadge" class="department-badge"></span>
+          <button id="changeDepartmentBtn" class="department-change" type="button">Skift</button>
+        </div>
         <button id="startCallBtn" class="call-primary" type="button">Start kald</button>
         <button id="toggleAdvancedBtn" class="call-secondary" type="button">Vis avanceret</button>
       </div>
@@ -583,6 +576,17 @@ footer{color:#767676}
   </div>
 
 </main>
+<div id="departmentModal" class="department-modal" hidden aria-hidden="true">
+  <div class="department-modal-card" role="dialog" aria-modal="true" aria-labelledby="departmentModalTitle">
+    <p class="kicker">YouSee Battlecards</p>
+    <h2 id="departmentModalTitle">Hvilken afdeling sidder du i?</h2>
+    <p>Vælg én gang. Battlecards gemmer valget lokalt i denne browser på computeren.</p>
+    <div id="departmentOptions" class="department-options">
+      <button class="department-option" type="button" data-department="save"><span class="department-option-icon">💚</span><span><strong>Save</strong><small>Save-rabatter og Save Fri / Fri</small></span></button>
+      <button class="department-option" type="button" data-department="support"><span class="department-option-icon">🎧</span><span><strong>Kundeservice / Support</strong><small>Almindelige YouSee-priser og løsninger</small></span></button>
+    </div>
+  </div>
+</div>
 <div id="coverageMapModal" class="coverage-modal" hidden aria-hidden="true">
   <div class="coverage-modal-card" role="dialog" aria-modal="true" aria-labelledby="coverageMapTitle">
     <div class="coverage-modal-head">
@@ -787,16 +791,11 @@ let callStep=1;
 
 function departmentLabel(v){return v==='save'?'Save':'Kundeservice / Support'}
 function renderDepartmentState(){
-  const setup=$('departmentSetup'),options=$('departmentOptions'),status=$('departmentStatus'),badge=$('departmentBadge'),start=$('startCallBtn');
-  if(!setup)return;
+  const status=$('departmentStatus'),badge=$('departmentBadge'),start=$('startCallBtn');
   const chosen=!!currentDepartment;
-  if(options)options.hidden=chosen;
   if(status)status.hidden=!chosen;
   if(badge)badge.textContent=chosen?'Afdeling: '+departmentLabel(currentDepartment):'';
   if(start)start.disabled=!chosen;
-  setup.querySelector('h2').textContent=chosen?'Afdeling valgt':'Hvilken afdeling sidder du i?';
-  const intro=setup.querySelector(':scope > p:not(.kicker)');
-  if(intro)intro.textContent=chosen?'Valget er gemt lokalt på denne computer.':'Valget gemmes i denne browser på computeren, så du ikke skal vælge det ved hvert kald.';
 }
 function applyDepartmentState(){
   const saveToggle=document.querySelector('.save-toggle');
@@ -812,18 +811,23 @@ function selectDepartment(v){
   if($('callSaveConnection'))$('callSaveConnection').value='none';
   syncSaveConnectionDiscount();
   applyDepartmentState();
+  closeDepartmentPicker();
 }
 function showDepartmentPicker(){
-  currentDepartment='';
-  const options=$('departmentOptions'),status=$('departmentStatus');
-  if(options)options.hidden=false;if(status)status.hidden=true;
-  if($('startCallBtn'))$('startCallBtn').disabled=true;
-  const setup=$('departmentSetup');if(setup){setup.querySelector('h2').textContent='Hvilken afdeling sidder du i?';const p=setup.querySelector(':scope > p:not(.kicker)');if(p)p.textContent='Vælg afdeling. Det nye valg bliver gemt på denne computer.'}
+  const modal=$('departmentModal');
+  if(!modal)return;
+  modal.hidden=false;modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+}
+function closeDepartmentPicker(){
+  const modal=$('departmentModal');
+  if(!modal)return;
+  modal.hidden=true;modal.setAttribute('aria-hidden','true');document.body.style.overflow='';
 }
 function initCallAssistant(){
   currentDepartment=readDepartmentPreference();
   renderDepartmentState();
   applyDepartmentState();
+  if(!currentDepartment)showDepartmentPicker();
   const select=$('callCompanySelect');
   if(select)select.innerHTML=companies.map((c,i)=>`<option value="${i}">${c.name}</option>`).join('');
   syncCallNeedAvailability();
