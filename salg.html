@@ -254,6 +254,53 @@ footer{color:#767676}
 .coverage-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:-2px 0 14px}.coverage-tools[hidden]{display:none!important}.coverage-tools small{color:#767676;font-size:.7rem}.coverage-link{display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
 
 .coverage-modal{position:fixed;inset:0;z-index:1100;display:grid;place-items:center;padding:18px;background:rgba(0,34,25,.58);backdrop-filter:blur(4px)}.coverage-modal[hidden]{display:none!important}.coverage-modal-card{width:min(1240px,96vw);height:min(850px,92vh);display:grid;grid-template-rows:auto auto auto auto 1fr;overflow:hidden;border:1px solid #cfd8cf;border-radius:18px;background:#fff;box-shadow:0 30px 80px rgba(0,34,25,.28)}.coverage-modal-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;border-bottom:1px solid #e4e4e4}.coverage-modal-head h3{margin:0}.coverage-modal-actions{display:flex;align-items:center;gap:10px}.coverage-modal-actions a{color:#0c4d33;font-size:.78rem;font-weight:850}.coverage-map-tabs{display:flex;gap:7px;flex-wrap:wrap;padding:10px 16px 0}.coverage-map-tabs button{padding:7px 11px;border:1px solid #d9d9d9!important;border-radius:999px!important;background:#fff!important;color:#484848!important;font-size:.72rem;font-weight:850;cursor:pointer}.coverage-map-tabs button.active{border-color:#1fab2e!important;background:#ebf9ec!important;color:#0c4d33!important}.coverage-modal-card .point-modal-note{margin:8px 16px;color:#767676}.coverage-speed-calc{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:0 16px 12px;padding:12px 14px;border:1px solid #dce7dc;border-radius:12px;background:#f8fcf8}.coverage-speed-calc label{display:grid;gap:5px;min-width:220px;color:#394139;font-size:.72rem;font-weight:800}.coverage-speed-calc label span{color:#767676;font-size:.65rem;font-weight:650}.coverage-speed-calc input{width:100%;padding:9px 10px;border:1px solid #cfd8cf;border-radius:9px;background:#fff;font:inherit;font-size:.82rem}.coverage-speed-result{display:grid;gap:3px;padding:8px 12px;border-radius:10px;background:#ebf9ec;color:#0c4d33}.coverage-speed-result span{font-size:.65rem;font-weight:750}.coverage-speed-result strong{font-size:1.05rem}.coverage-modal-card iframe{width:100%;height:100%;min-height:0;border:0;background:#f4f4f4}.coverage-link{cursor:pointer}@media(max-width:650px){.coverage-modal{padding:0}.coverage-modal-card{width:100vw;height:100vh;border-radius:0}.coverage-modal-head{align-items:flex-start}.coverage-modal-actions{flex-direction:column;align-items:flex-end}}
+
+.call-assistant{margin:0 0 18px;padding:0;overflow:hidden;border:2px solid #cceccc;background:linear-gradient(135deg,#fff,#f6fcf7)}
+.call-assistant-start{display:flex;justify-content:space-between;align-items:center;gap:22px;padding:24px 26px}
+.call-assistant-start h2{margin:3px 0 5px;font-size:1.55rem;color:#191919}
+.call-assistant-start p{margin:0;color:#767676}
+.call-start-actions{display:flex;gap:9px;flex-wrap:wrap}
+.call-primary,.call-secondary{border:0;border-radius:11px;padding:11px 16px;font:inherit;font-size:.84rem;font-weight:850;cursor:pointer}
+.call-primary{background:#1fab2e;color:#fff;box-shadow:0 7px 16px rgba(31,171,46,.18)}
+.call-secondary{background:#f0f0f0;color:#484848}
+.call-wizard{padding:0 26px 24px;border-top:1px solid #e7eee7}
+.call-progress{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:16px 0}
+.call-progress span{height:6px;border-radius:99px;background:#e4e4e4}
+.call-progress span.active{background:#1fab2e}
+.call-step{padding:8px 0 4px}
+.call-step h3{margin:0 0 5px;font-size:1.15rem}
+.call-step>p{margin:0 0 16px;color:#767676;font-size:.82rem}
+.call-simple-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.call-simple-grid label{margin:0}
+.call-need-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.call-need{margin:0}
+.call-need input{display:none}
+.call-need span{display:flex;align-items:center;justify-content:center;min-height:48px;padding:10px;border:1px solid #d9d9d9;border-radius:11px;background:#fff;color:#484848;font-size:.82rem;font-weight:850;cursor:pointer;text-align:center}
+.call-need input:checked+span{border-color:#1fab2e;background:#ebf9ec;color:#0c4d33}
+.call-need.disabled span{opacity:.42;cursor:not-allowed;background:#f4f4f4}
+.call-current-products{display:grid;gap:12px}
+.call-product-box{padding:13px;border:1px solid #e0e6e0;border-radius:12px;background:#fff}
+.call-product-box h4{margin:0 0 10px;color:#191919;font-size:.88rem}
+.call-product-box label:last-child{margin-bottom:0}
+.call-stream-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.call-stream-option{display:flex;align-items:center;gap:8px;margin:0;padding:8px 10px;border:1px solid #d9d9d9;border-radius:9px;background:#fafafa;font-size:.72rem;font-weight:750;cursor:pointer}
+.call-stream-option input{width:16px;height:16px;margin:0;accent-color:#1fab2e}
+.call-wizard-actions{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+.call-wizard-actions .right{display:flex;gap:8px;margin-left:auto}
+.call-result{padding:17px;border:1px solid #cceccc;border-radius:14px;background:#f8fcf8}
+.call-result-hero{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:13px}
+.call-result-hero h3{margin:0 0 4px;font-size:1.2rem}
+.call-result-price{text-align:right}
+.call-result-price span{display:block;color:#767676;font-size:.7rem}
+.call-result-price strong{display:block;color:#0c4d33;font-size:1.55rem}
+.call-result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.call-result-item{padding:10px 11px;border:1px solid #e0e6e0;border-radius:10px;background:#fff}
+.call-result-item span{display:block;color:#767676;font-size:.68rem;text-transform:uppercase;letter-spacing:.04em}
+.call-result-item strong{display:block;margin-top:3px;color:#383838;font-size:.82rem}
+.call-result-note{margin:11px 0 0;color:#767676;font-size:.74rem}
+.advanced-workspace[hidden]{display:none!important}
+@media(max-width:760px){.call-assistant-start{align-items:flex-start;flex-direction:column}.call-simple-grid,.call-result-grid{grid-template-columns:1fr}.call-need-grid{grid-template-columns:1fr 1fr}.call-stream-options{grid-template-columns:1fr}.call-wizard{padding-left:17px;padding-right:17px}}
+
 </style>
 </head>
 <body data-mode="sales">
@@ -274,9 +321,66 @@ footer{color:#767676}
   </nav>
 </div>
 <main class="shell">
-  <div id="modeNote" class="mode-note"></div>
 
-  
+  <section id="callAssistant" class="card call-assistant">
+    <div class="call-assistant-start">
+      <div>
+        <p class="kicker">Nem tilstand</p>
+        <h2>Start et kald</h2>
+        <p>Svar på få spørgsmål. Battlecarden finder den billigste relevante YouSee-løsning i databasen.</p>
+      </div>
+      <div class="call-start-actions">
+        <button id="startCallBtn" class="call-primary" type="button">Start kald</button>
+        <button id="toggleAdvancedBtn" class="call-secondary" type="button">Vis avanceret</button>
+      </div>
+    </div>
+    <div id="callWizard" class="call-wizard" hidden>
+      <div class="call-progress" aria-hidden="true"><span data-call-progress="1"></span><span data-call-progress="2"></span><span data-call-progress="3"></span><span data-call-progress="4"></span></div>
+
+      <div class="call-step" data-call-step="1">
+        <h3>1. Hvem er kunden hos?</h3>
+        <p>Vælg kundens nuværende selskab.</p>
+        <label>Selskab<select id="callCompanySelect"></select></label>
+      </div>
+
+      <div class="call-step" data-call-step="2" hidden>
+        <h3>2. Hvad har kunden?</h3>
+        <p>Tryk kun på det, kunden faktisk har i dag.</p>
+        <div class="call-need-grid">
+          <label id="callNeedMobileLabel" class="call-need"><input id="callNeedMobile" type="checkbox" checked><span>📱 Mobil</span></label>
+          <label id="callNeedBroadbandLabel" class="call-need"><input id="callNeedBroadband" type="checkbox"><span>🏠 Internet</span></label>
+          <label id="callNeedTvLabel" class="call-need"><input id="callNeedTv" type="checkbox"><span>📺 TV</span></label>
+          <label id="callNeedStreamingLabel" class="call-need"><input id="callNeedStreaming" type="checkbox"><span>▶ Streaming</span></label>
+        </div>
+        <div id="callMobileCountWrap" style="margin-top:14px;max-width:320px">
+          <label>Hvor mange mobiler?<select id="callMobileCount"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></label>
+        </div>
+      </div>
+
+      <div class="call-step" data-call-step="3" hidden>
+        <h3>3. Hvad har kunden helt konkret?</h3>
+        <p>Vælg de produkter, kunden bruger nu. Så matcher vi behovet — ikke bare prisen.</p>
+        <div id="callCurrentProducts" class="call-current-products"></div>
+      </div>
+
+      <div class="call-step" data-call-step="4" hidden>
+        <div id="callResult" class="call-result"></div>
+      </div>
+
+      <div class="call-wizard-actions">
+        <button id="callBackBtn" class="call-secondary" type="button" hidden>Tilbage</button>
+        <div class="right">
+          <button id="callNewBtn" class="call-secondary" type="button" hidden>Nyt kald</button>
+          <button id="callNextBtn" class="call-primary" type="button">Fortsæt</button>
+          <button id="callFindBtn" class="call-primary" type="button" hidden>Find billigste løsning</button>
+          <button id="callUseBtn" class="call-primary" type="button" hidden>Se hele sammenligningen</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="advancedWorkspace" class="advanced-workspace" hidden>
+  <div id="modeNote" class="mode-note"></div>
 
   <section class="toolbar card">
     <label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Søg selskab, abonnement, streaming, netværk…"></label>
@@ -430,6 +534,7 @@ footer{color:#767676}
     <p class="subtitle">Kun produkter fundet på udbydernes officielle sider. Adresseafhængige produkter vises uden beregnet pris.</p>
     <div id="serviceCatalog" class="service-catalog"></div>
   </section>
+  </div>
 
 </main>
 <div id="coverageMapModal" class="coverage-modal" hidden aria-hidden="true">
@@ -604,19 +709,324 @@ async function load(){
   allPlans=companies.flatMap(c=>(c.data?.subscriptions||[]).map(s=>({...s,company:c.data.company||c.name,network:c.data.network,roaming:c.data.roaming})));
   init()
 }
-function init(){populateFilters();bind();applyMode();renderYouseeSelectors('basic-100');renderYouseeServiceSelectors();renderYouseeStream();renderNeedSelection();renderCatalog();renderServiceCatalog()}
-function bind(){document.querySelectorAll('#needMobile,#needBroadband,#needTv,#needStreaming').forEach(x=>x.addEventListener('change',()=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';renderNeedSelection()}));$('companySelect').addEventListener('change',e=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';setCompany(+e.target.value)});$('subscriptionCount').addEventListener('change',renderSubscriptionSelectors);$('youseeCount').addEventListener('change',()=>renderYouseeSelectors());$('saveRights')?.addEventListener('change',()=>renderYouseeSelectors());$('competitorInternetPrice')?.addEventListener('input',update);$('competitorBroadbandProductSelect')?.addEventListener('change',()=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';syncFixedInternetPriceField();syncBroadbandProviderButton();update()});$('competitorTvSelect')?.addEventListener('change',update);$('competitorStreamingSelect')?.addEventListener('change',()=>{renderCompetitorStreamingServiceChoices();renderCompetitorStreamingInfo();update()});$('youseeInternetSelect')?.addEventListener('change',()=>{if($('youseeInternetPrice'))$('youseeInternetPrice').value='';syncYouseeInternetTools();update()});$('youseeBroadbandSelect')?.addEventListener('change',()=>{syncYouseeInternetTools();update()});$('youseeInternetPrice')?.addEventListener('input',update);$('youseeStreamCount')?.addEventListener('change',()=>{renderYouseeStreamInfo();update()});$('youseeTvSelect')?.addEventListener('change',e=>{syncPointCalculatorButton();update();if(e.target.value)openPointCalculator()});$('competitorCoverageBtn')?.addEventListener('click',()=>{const cfg=coverageConfigForCompany();if(cfg)openCoverageMap(cfg.networkKey,cfg.label)});$('youseeCoverageBtn')?.addEventListener('click',()=>openCoverageMap('tdc','YouSee'));document.querySelectorAll('[data-coverage-network]').forEach(btn=>btn.addEventListener('click',()=>setCoverageNetwork(btn.dataset.coverageNetwork)));$('coverageOutdoorSpeed')?.addEventListener('input',updateCoverageIndoorSpeed);$('closeCoverageMapBtn')?.addEventListener('click',closeCoverageMap);$('coverageMapModal')?.addEventListener('click',e=>{if(e.target===$('coverageMapModal'))closeCoverageMap()});$('openPointCalculatorBtn')?.addEventListener('click',openPointCalculator);$('closePointCalculatorBtn')?.addEventListener('click',closePointCalculator);$('pointCalculatorModal')?.addEventListener('click',e=>{if(e.target===$('pointCalculatorModal'))closePointCalculator()});window.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(!$('coverageMapModal')?.hidden)closeCoverageMap();else if(!$('pointCalculatorModal')?.hidden)closePointCalculator()});$('searchInput').addEventListener('input',()=>{renderCatalog();renderServiceCatalog()});document.querySelectorAll('.filters input,.filters select').forEach(x=>x.addEventListener('input',renderCatalog));$('resetBtn').addEventListener('click',()=>{document.querySelectorAll('.filters input').forEach(x=>x.value='');document.querySelectorAll('.filters select').forEach(x=>x.value='');$('searchInput').value='';if($('competitorInternetPrice'))$('competitorInternetPrice').value='';if($('youseeInternetPrice'))$('youseeInternetPrice').value='';syncYouseeInternetTools();update();renderCatalog();renderServiceCatalog()})}
+function init(){populateFilters();bind();applyMode();renderYouseeSelectors('basic-100');renderYouseeServiceSelectors();renderYouseeStream();renderNeedSelection();renderCatalog();renderServiceCatalog();initCallAssistant()}
+function bind(){$('startCallBtn')?.addEventListener('click',startCallAssistant);$('toggleAdvancedBtn')?.addEventListener('click',toggleAdvancedWorkspace);$('callCompanySelect')?.addEventListener('change',syncCallNeedAvailability);document.querySelectorAll('#callNeedMobile,#callNeedBroadband,#callNeedTv,#callNeedStreaming').forEach(x=>x?.addEventListener('change',syncCallNeedControls));$('callBackBtn')?.addEventListener('click',()=>setCallStep(Math.max(1,callStep-1)));$('callNextBtn')?.addEventListener('click',advanceCallAssistant);$('callFindBtn')?.addEventListener('click',finishCallAssistant);$('callNewBtn')?.addEventListener('click',resetCallAssistant);$('callUseBtn')?.addEventListener('click',()=>{setAdvancedWorkspace(true);$('advancedWorkspace')?.scrollIntoView({behavior:'smooth',block:'start'})});document.querySelectorAll('#needMobile,#needBroadband,#needTv,#needStreaming').forEach(x=>x.addEventListener('change',()=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';renderNeedSelection()}));$('companySelect').addEventListener('change',e=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';setCompany(+e.target.value)});$('subscriptionCount').addEventListener('change',renderSubscriptionSelectors);$('youseeCount').addEventListener('change',()=>renderYouseeSelectors());$('saveRights')?.addEventListener('change',()=>renderYouseeSelectors());$('competitorInternetPrice')?.addEventListener('input',update);$('competitorBroadbandProductSelect')?.addEventListener('change',()=>{if($('competitorInternetPrice'))$('competitorInternetPrice').value='';syncFixedInternetPriceField();syncBroadbandProviderButton();update()});$('competitorTvSelect')?.addEventListener('change',update);$('competitorStreamingSelect')?.addEventListener('change',()=>{renderCompetitorStreamingServiceChoices();renderCompetitorStreamingInfo();update()});$('youseeInternetSelect')?.addEventListener('change',()=>{if($('youseeInternetPrice'))$('youseeInternetPrice').value='';syncYouseeInternetTools();update()});$('youseeBroadbandSelect')?.addEventListener('change',()=>{syncYouseeInternetTools();update()});$('youseeInternetPrice')?.addEventListener('input',update);$('youseeStreamCount')?.addEventListener('change',()=>{renderYouseeStreamInfo();update()});$('youseeTvSelect')?.addEventListener('change',e=>{syncPointCalculatorButton();update();if(e.target.value)openPointCalculator()});$('competitorCoverageBtn')?.addEventListener('click',()=>{const cfg=coverageConfigForCompany();if(cfg)openCoverageMap(cfg.networkKey,cfg.label)});$('youseeCoverageBtn')?.addEventListener('click',()=>openCoverageMap('tdc','YouSee'));document.querySelectorAll('[data-coverage-network]').forEach(btn=>btn.addEventListener('click',()=>setCoverageNetwork(btn.dataset.coverageNetwork)));$('coverageOutdoorSpeed')?.addEventListener('input',updateCoverageIndoorSpeed);$('closeCoverageMapBtn')?.addEventListener('click',closeCoverageMap);$('coverageMapModal')?.addEventListener('click',e=>{if(e.target===$('coverageMapModal'))closeCoverageMap()});$('openPointCalculatorBtn')?.addEventListener('click',openPointCalculator);$('closePointCalculatorBtn')?.addEventListener('click',closePointCalculator);$('pointCalculatorModal')?.addEventListener('click',e=>{if(e.target===$('pointCalculatorModal'))closePointCalculator()});window.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(!$('coverageMapModal')?.hidden)closeCoverageMap();else if(!$('pointCalculatorModal')?.hidden)closePointCalculator()});$('searchInput').addEventListener('input',()=>{renderCatalog();renderServiceCatalog()});document.querySelectorAll('.filters input,.filters select').forEach(x=>x.addEventListener('input',renderCatalog));$('resetBtn').addEventListener('click',()=>{document.querySelectorAll('.filters input').forEach(x=>x.value='');document.querySelectorAll('.filters select').forEach(x=>x.value='');$('searchInput').value='';if($('competitorInternetPrice'))$('competitorInternetPrice').value='';if($('youseeInternetPrice'))$('youseeInternetPrice').value='';syncYouseeInternetTools();update();renderCatalog();renderServiceCatalog()})}
+
+let callStep=1;
+
+function initCallAssistant(){
+  const select=$('callCompanySelect');
+  if(select)select.innerHTML=companies.map((c,i)=>`<option value="${i}">${c.name}</option>`).join('');
+  syncCallNeedAvailability();
+  syncCallNeedControls();
+  setCallStep(1);
+}
+
+function startCallAssistant(){
+  const wizard=$('callWizard');
+  if(wizard)wizard.hidden=false;
+  resetCallAssistant(false);
+}
+
+function resetCallAssistant(hide=false){
+  callStep=1;
+  if($('callNeedMobile'))$('callNeedMobile').checked=true;
+  if($('callNeedBroadband'))$('callNeedBroadband').checked=false;
+  if($('callNeedTv'))$('callNeedTv').checked=false;
+  if($('callNeedStreaming'))$('callNeedStreaming').checked=false;
+  if($('callMobileCount'))$('callMobileCount').value='1';
+  if($('callCurrentProducts'))$('callCurrentProducts').innerHTML='';
+  if($('callResult'))$('callResult').innerHTML='';
+  syncCallNeedAvailability();
+  syncCallNeedControls();
+  setCallStep(1);
+  if(hide&&$('callWizard'))$('callWizard').hidden=true;
+}
+
+function setAdvancedWorkspace(show){
+  const box=$('advancedWorkspace'),btn=$('toggleAdvancedBtn');
+  if(!box)return;
+  box.hidden=!show;
+  if(btn)btn.textContent=show?'Skjul avanceret':'Vis avanceret';
+}
+function toggleAdvancedWorkspace(){setAdvancedWorkspace($('advancedWorkspace')?.hidden!==false)}
+
+function selectedCallCompany(){
+  const i=Number($('callCompanySelect')?.value||0);
+  return {index:i,entry:companies[i]||companies[0],name:companies[i]?.data?.company||companies[i]?.name||''};
+}
+
+function callNeeds(){
+  return [
+    $('callNeedMobile')?.checked?'mobile':null,
+    $('callNeedBroadband')?.checked?'broadband':null,
+    $('callNeedTv')?.checked?'tv':null,
+    $('callNeedStreaming')?.checked?'streaming':null
+  ].filter(Boolean);
+}
+
+function syncCallNeedAvailability(){
+  const {name}=selectedCallCompany();
+  const map={mobile:'callNeedMobile',broadband:'callNeedBroadband',tv:'callNeedTv',streaming:'callNeedStreaming'};
+  Object.entries(map).forEach(([need,id])=>{
+    const input=$(id),label=$(id+'Label');
+    if(!input)return;
+    const supported=companySupportsNeed(name,need);
+    input.disabled=!supported;
+    if(!supported)input.checked=false;
+    label?.classList.toggle('disabled',!supported);
+  });
+  if(!$('callNeedMobile')?.checked&&!$('callNeedBroadband')?.checked&&!$('callNeedTv')?.checked&&!$('callNeedStreaming')?.checked){
+    const first=Object.entries(map).find(([need])=>companySupportsNeed(name,need));
+    if(first)$(first[1]).checked=true;
+  }
+  syncCallNeedControls();
+}
+
+function syncCallNeedControls(){
+  const wrap=$('callMobileCountWrap');
+  if(wrap)wrap.hidden=!$('callNeedMobile')?.checked;
+}
+
+function setCallStep(step){
+  callStep=Math.max(1,Math.min(4,step));
+  document.querySelectorAll('[data-call-step]').forEach(x=>x.hidden=Number(x.dataset.callStep)!==callStep);
+  document.querySelectorAll('[data-call-progress]').forEach(x=>x.classList.toggle('active',Number(x.dataset.callProgress)<=callStep));
+  if($('callBackBtn'))$('callBackBtn').hidden=callStep===1||callStep===4;
+  if($('callNextBtn'))$('callNextBtn').hidden=callStep>=3;
+  if($('callFindBtn'))$('callFindBtn').hidden=callStep!==3;
+  if($('callNewBtn'))$('callNewBtn').hidden=callStep!==4;
+  if($('callUseBtn'))$('callUseBtn').hidden=callStep!==4;
+}
+
+function advanceCallAssistant(){
+  if(callStep===1){setCallStep(2);return}
+  if(callStep===2){
+    if(!callNeeds().length){syncCallNeedAvailability();return}
+    renderCallCurrentProducts();
+    setCallStep(3);
+  }
+}
+
+function callServiceById(id){
+  if(!id)return null;
+  for(const p of servicesData.providers||[])for(const key of ['internet','mobileBroadband','tv']){const s=(p[key]||[]).find(x=>x.id===id);if(s)return s}
+  return null;
+}
+
+function renderCallCurrentProducts(){
+  const {entry,name}=selectedCallCompany(),needs=callNeeds(),p=providerServices(name),sp=providerStreaming(name),parts=[];
+  if(needs.includes('mobile')){
+    parts.push(`<div class="call-product-box"><h4>📱 Mobil</h4><label>Hvilket mobilabonnement har kunden?<select id="callMobilePlan">${(entry?.data?.subscriptions||[]).map((s,i)=>`<option value="${i}">${s.name} · ${competitorPlanPrice(s)} kr./md.</option>`).join('')}</select></label></div>`);
+  }
+  if(needs.includes('broadband')){
+    const products=[...(p.internet||[]),...(p.mobileBroadband||[])];
+    parts.push(`<div class="call-product-box"><h4>🏠 Internet</h4><label>Hvilket internet har kunden?<select id="callBroadbandProduct">${products.map(s=>`<option value="${s.id}">${s.name} · ${servicePriceLabel(s)}</option>`).join('')}</select></label><div id="callBroadbandPriceWrap"></div></div>`);
+  }
+  if(needs.includes('tv')){
+    parts.push(`<div class="call-product-box"><h4>📺 TV</h4><label>Hvilken TV-pakke har kunden?<select id="callTvProduct">${(p.tv||[]).map(s=>`<option value="${s.id}">${s.name} · ${servicePriceLabel(s)}</option>`).join('')}</select></label></div>`);
+  }
+  if(needs.includes('streaming')){
+    if(sp.multiSelectAddons){
+      parts.push(`<div class="call-product-box"><h4>▶ Streaming</h4><p class="need-hint">Vælg alle de tjenester kunden betaler for hos ${name}.</p><div class="call-stream-options">${(sp.offers||[]).map(o=>`<label class="call-stream-option"><input class="call-stream-addon" type="checkbox" value="${o.id}"><span>${o.name} · ${fmt(o.price)}/md.</span></label>`).join('')}</div></div>`);
+    }else{
+      parts.push(`<div class="call-product-box"><h4>▶ Streaming</h4><label>Hvilken streamingpakke har kunden?<select id="callStreamingOffer"><option value="">Vælg pakke</option>${(sp.offers||[]).map(o=>`<option value="${o.id}">${o.name} · ${fmt(o.price)}/md.</option>`).join('')}</select></label><div id="callStreamingServices"></div></div>`);
+    }
+  }
+  $('callCurrentProducts').innerHTML=parts.join('');
+  $('callBroadbandProduct')?.addEventListener('change',renderCallBroadbandPrice);
+  $('callStreamingOffer')?.addEventListener('change',renderCallStreamingServices);
+  renderCallBroadbandPrice();
+  renderCallStreamingServices();
+}
+
+function renderCallBroadbandPrice(){
+  const target=$('callBroadbandPriceWrap'),service=callServiceById($('callBroadbandProduct')?.value);
+  if(!target)return;
+  target.innerHTML=service?.addressDependent?`<label>Hvad betaler kunden pr. måned?<div class="money-input"><input id="callBroadbandPrice" type="number" min="0" step="1" inputmode="numeric" placeholder="Fx 299"><span>kr.</span></div></label><small class="need-hint">Vi bruger kundens faktiske pris, fordi adressen bestemmer prisen.</small>`:'';
+}
+
+function renderCallStreamingServices(){
+  const target=$('callStreamingServices');
+  if(!target)return;
+  const sp=providerStreaming(selectedCallCompany().name),offer=(sp.offers||[]).find(o=>o.id===$('callStreamingOffer')?.value);
+  const limit=Math.min(Number(offer?.serviceCount||0),(sp.services||[]).length);
+  if(!offer||!limit){target.innerHTML='';return}
+  target.innerHTML=`<p class="need-hint">Vælg ${limit} tjenester i pakken.</p><div class="call-stream-options">${(sp.services||[]).map(s=>`<label class="call-stream-option"><input class="call-stream-service" type="checkbox" value="${s}"><span>${s}</span></label>`).join('')}</div><small id="callStreamCountNote" class="need-hint">0/${limit} valgt</small>`;
+  target.querySelectorAll('.call-stream-service').forEach(x=>x.addEventListener('change',()=>{
+    let checked=[...target.querySelectorAll('.call-stream-service:checked')];
+    if(checked.length>limit){x.checked=false;checked=[...target.querySelectorAll('.call-stream-service:checked')]}
+    if($('callStreamCountNote'))$('callStreamCountNote').textContent=`${checked.length}/${limit} valgt`;
+  }));
+}
+
+function callStreamingSelection(){
+  const sp=providerStreaming(selectedCallCompany().name);
+  if(!callNeeds().includes('streaming'))return{offers:[],services:[],count:0,valid:true};
+  if(sp.multiSelectAddons){
+    const ids=[...document.querySelectorAll('.call-stream-addon:checked')].map(x=>x.value),offers=ids.map(id=>(sp.offers||[]).find(o=>o.id===id)).filter(Boolean);
+    return{offers,services:[],count:offers.length,valid:offers.length>0}
+  }
+  const offer=(sp.offers||[]).find(o=>o.id===$('callStreamingOffer')?.value)||null,services=[...document.querySelectorAll('.call-stream-service:checked')].map(x=>x.value),limit=Math.min(Number(offer?.serviceCount||0),(sp.services||[]).length),valid=!!offer&&(!limit||services.length===limit);
+  return{offers:offer?[offer]:[],services,count:limit||Number(!!offer),valid}
+}
+
+function applyCallSelectionsToWorkspace(){
+  const {index}=selectedCallCompany(),needs=callNeeds();
+  const needMap={mobile:'needMobile',broadband:'needBroadband',tv:'needTv',streaming:'needStreaming'};
+  Object.entries(needMap).forEach(([need,id])=>{if($(id))$(id).checked=needs.includes(need)});
+  renderNeedSelection();
+  if($('companySelect'))$('companySelect').value=String(index);
+  setCompany(index);
+
+  if(needs.includes('mobile')){
+    if($('subscriptionCount'))$('subscriptionCount').value=$('callMobileCount')?.value||'1';
+    renderSubscriptionSelectors();
+    const first=document.querySelector('.sub-select');
+    if(first&&$('callMobilePlan')){first.value=$('callMobilePlan').value;first.dispatchEvent(new Event('change'))}
+  }
+  if(needs.includes('broadband')&&$('callBroadbandProduct')){
+    $('competitorBroadbandProductSelect').value=$('callBroadbandProduct').value;
+    syncFixedInternetPriceField();
+    const raw=$('callBroadbandPrice')?.value?.trim();
+    if(raw!==undefined&&$('competitorInternetPrice'))$('competitorInternetPrice').value=raw||'';
+  }
+  if(needs.includes('tv')&&$('callTvProduct'))$('competitorTvSelect').value=$('callTvProduct').value;
+
+  const stream=callStreamingSelection(),sp=providerStreaming(selectedCallCompany().name);
+  if(needs.includes('streaming')){
+    if(sp.multiSelectAddons){
+      document.querySelectorAll('.competitor-stream-offer-choice').forEach(x=>x.checked=stream.offers.some(o=>o.id===x.value));
+    }else if(stream.offers[0]){
+      $('competitorStreamingSelect').value=stream.offers[0].id;
+      renderCompetitorStreamingServiceChoices();
+      document.querySelectorAll('.competitor-stream-service-choice').forEach(x=>x.checked=stream.services.includes(x.value));
+    }
+  }
+  renderCompetitorStreamingInfo();
+  syncBroadbandProviderButton();
+  update();
+}
+
+function planCoversCallData(plan,required){
+  if(required===-1)return plan.data===-1;
+  return plan.data===-1||Number(plan.data||0)>=Number(required||0);
+}
+
+function callYouseePlanTotal(plan,count){
+  const price=youseePlanPrice(plan);
+  return count>1&&isYouseeFamilyPlan(plan)?price+YOUSEE_FAMILY_EXTRA_PRICE*(count-1):price*count;
+}
+
+function chooseCheapestYouseePlan(requiredData,count,minPrice=0){
+  const candidates=YOUSEE_PLANS.filter(p=>!p.saveOnly&&youseePlanPrice(p)>=minPrice&&planCoversCallData(p,requiredData));
+  return candidates.sort((a,b)=>callYouseePlanTotal(a,count)-callYouseePlanTotal(b,count)||youseePlanPrice(a)-youseePlanPrice(b))[0]||null;
+}
+
+function chooseCheapestYouseeMobileBroadband(requiredData){
+  const p=providerServices('YouSee'),items=p.mobileBroadband||[];
+  return items.filter(s=>s.normalPrice!=null&&(s.data===-1||requiredData!==-1&&Number(s.data||0)>=Number(requiredData||0))).sort((a,b)=>Number(a.normalPrice)-Number(b.normalPrice))[0]||items.filter(s=>s.data===-1)[0]||null;
+}
+
+function recommendCheapestYousee(){
+  const needs=callNeeds(),count=needs.includes('mobile')?Number($('callMobileCount')?.value||1):0,{entry}=selectedCallCompany(),currentPlan=needs.includes('mobile')?(entry?.data?.subscriptions||[])[Number($('callMobilePlan')?.value||0)]:null,stream=callStreamingSelection(),streamProduct=youseeStreamProduct(),useYouseeStream=needs.includes('streaming')&&stream.count>=Number(streamProduct.includedServices||2)&&needs.includes('mobile'),streamCount=useYouseeStream?Math.min(Number(streamProduct.maxServices||6),Math.max(Number(streamProduct.includedServices||2),stream.count)):0,minMobilePrice=useYouseeStream?Number(streamProduct.minMobilePrice||0):0,bestPlan=needs.includes('mobile')?chooseCheapestYouseePlan(currentPlan?.data??0,count,minMobilePrice):null;
+
+  if(needs.includes('mobile')&&bestPlan){
+    $('youseeCount').value=String(count);
+    renderYouseeSelectors(bestPlan.id);
+  }
+
+  $('youseeInternetSelect').value='';
+  $('youseeBroadbandSelect').value='';
+  $('youseeTvSelect').value='';
+
+  let broadbandNote='';
+  if(needs.includes('broadband')){
+    const currentBroadband=callServiceById($('callBroadbandProduct')?.value);
+    if(currentBroadband?.type==='fixed'){
+      const fixed=(providerServices('YouSee').internet||[]).find(s=>s.type==='fixed');
+      if(fixed)$('youseeInternetSelect').value=fixed.id;
+      broadbandNote='Fast internet har adressepris og skal slås op, før den endelige besparelse kan beregnes.';
+    }else if(currentBroadband){
+      const mbb=chooseCheapestYouseeMobileBroadband(currentBroadband.data??0);
+      if(mbb)$('youseeBroadbandSelect').value=mbb.id;
+    }
+  }
+
+  if(needs.includes('tv')){
+    const tv=[...(providerServices('YouSee').tv||[])].filter(s=>s.normalPrice!=null).sort((a,b)=>Number(a.normalPrice)-Number(b.normalPrice))[0];
+    if(tv)$('youseeTvSelect').value=tv.id;
+  }
+
+  renderYouseeServiceSelectors();
+  // restore recommendations after selector refresh
+  if(needs.includes('broadband')){
+    const currentBroadband=callServiceById($('callBroadbandProduct')?.value);
+    if(currentBroadband?.type==='fixed'){
+      const fixed=(providerServices('YouSee').internet||[]).find(s=>s.type==='fixed');if(fixed)$('youseeInternetSelect').value=fixed.id;
+    }else if(currentBroadband){
+      const mbb=chooseCheapestYouseeMobileBroadband(currentBroadband.data??0);if(mbb)$('youseeBroadbandSelect').value=mbb.id;
+    }
+  }
+  if(needs.includes('tv')){
+    const tv=[...(providerServices('YouSee').tv||[])].filter(s=>s.normalPrice!=null).sort((a,b)=>Number(a.normalPrice)-Number(b.normalPrice))[0];if(tv)$('youseeTvSelect').value=tv.id;
+  }
+  syncYouseeInternetTools();
+
+  if($('youseeStreamCount')){
+    const option=[...$('youseeStreamCount').options].find(o=>Number(o.value)===streamCount);
+    $('youseeStreamCount').value=option?String(streamCount):'0';
+  }
+  renderYouseeStreamInfo();
+  update();
+
+  return{bestPlan,broadbandNote,stream,useYouseeStream,streamCount,currentPlan,count};
+}
+
+function renderCallResult(rec){
+  const needs=callNeeds(),plans=hasNeed('mobile')?selectedYouseePlans():[],services=selectedYouseeServices(),stream=youseeStreamState(),rows=[];
+  if(plans.length)rows.push(['Mobil',plans.length>1?`${plans.length} × ${plans[0].name}`:plans[0].name]);
+  services.forEach(s=>rows.push([s.type==='tv'?'TV':'Internet',s.name]));
+  if(stream.selected)rows.push(['Streaming',`YouSee Stream · ${stream.count} tjenester`]);
+  const competitor=$('kpiCompetitor')?.textContent||'—',yousee=$('kpiYousee')?.textContent||'—',difference=$('kpiDifference')?.textContent||'—',winner=$('kpiWinner')?.textContent||'—',notes=[];
+  if(rec.broadbandNote)notes.push(rec.broadbandNote);
+  if(needs.includes('streaming')&&!rec.useYouseeStream&&rec.stream.count===1)notes.push('Kunden har 1 streamingtjeneste. YouSee Stream starter ved 2 tjenester, så den er ikke lagt til automatisk.');
+  if(needs.includes('streaming')&&!needs.includes('mobile'))notes.push('YouSee Stream kræver et kvalificerende YouSee-mobilabonnement og er derfor ikke lagt til automatisk.');
+  if(needs.includes('mobile')&&!rec.bestPlan)notes.push('Der blev ikke fundet et almindeligt YouSee-mobilabonnement, der matcher kundens nuværende databehov.');
+
+  $('callResult').innerHTML=`
+    <div class="call-result-hero">
+      <div><p class="kicker">Forslag</p><h3>Billigste relevante YouSee-løsning</h3><p class="subtitle">Matcher de behov, du lige har indtastet.</p></div>
+      <div class="call-result-price"><span>YouSee pr. måned</span><strong>${yousee}</strong></div>
+    </div>
+    <div class="call-result-grid">
+      <div class="call-result-item"><span>Kunden betaler nu</span><strong>${competitor}</strong></div>
+      <div class="call-result-item"><span>Forskel</span><strong>${difference==='—'?'Kan ikke beregnes endnu':difference+' / md.'}</strong></div>
+      ${rows.map(([a,b])=>`<div class="call-result-item"><span>${a}</span><strong>${b}</strong></div>`).join('')}
+    </div>
+    <p class="call-result-note">${winner!=='—'&&difference!=='—'?`Prisvinder: <strong>${winner}</strong>. `:''}Forslaget bruger normalpriser og de produkter, der ligger i Battlecard-databasen.${notes.length?' '+notes.join(' '):''}</p>`;
+}
+
+function finishCallAssistant(){
+  const stream=callStreamingSelection();
+  if(callNeeds().includes('streaming')&&!stream.valid)return;
+  applyCallSelectionsToWorkspace();
+  const rec=recommendCheapestYousee();
+  renderCallResult(rec);
+  setCallStep(4);
+}
+
 function broadbandProviderTarget(){const p=providerServices(current?.company),selected=selectedService('competitorBroadbandProductSelect'),products=[...(p.internet||[]),...(p.mobileBroadband||[])],fallback=products.find(s=>s.addressDependent||['fixed','5g-home','4g-home'].includes(s.type))||products[0],service=selected||fallback;if(!service?.sourceUrl)return null;const addressCheck=!!(service.addressDependent||['fixed','5g-home','4g-home'].includes(service.type));return{company:current?.company||'udbyder',service,url:service.sourceUrl,addressCheck}}
 function syncBroadbandProviderButton(){const tools=$('broadbandProviderTools'),link=$('openBroadbandProviderLink'),target=broadbandProviderTarget();if(!tools||!link)return;tools.hidden=!hasNeed('broadband')||!target;if(!target){link.href='#';link.textContent='Åbn bredbånd hos udbyder';return}link.href=target.url;link.textContent=target.addressCheck?`Tjek adresse hos ${target.company}`:`Åbn bredbånd hos ${target.company}`}
 function openPointCalculator(){const modal=$('pointCalculatorModal');if(!modal)return;modal.hidden=false;modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}
 function closePointCalculator(){const modal=$('pointCalculatorModal');if(!modal)return;modal.hidden=true;modal.setAttribute('aria-hidden','true');document.body.style.overflow=''}
 function syncPointCalculatorButton(){const tools=$('pointCalculatorTools');if(tools)tools.hidden=!$('youseeTvSelect')?.value}
-function applyMode(){document.querySelectorAll('[data-mode-link]').forEach(a=>a.classList.toggle('active',a.dataset.modeLink===APP_MODE));if(isSales()){document.title='YouSee Battlecards';$('pageEyebrow').textContent='YouSee · Salg Workspace';$('pageTitle').textContent='YouSee Battlecards';$('pageSubtitle').textContent='Sammensæt flere YouSee-mobiler og sammenlign på normalpriser.';$('modeNote').innerHTML='<b>Salg:</b> Alle sammenligninger beregnes på normalpris.';$('tipsHeading').textContent='Salgspunkter';if($('saveRights'))$('saveRights').checked=false}else{document.title='YouSee Battlecards';$('pageEyebrow').textContent='YouSee · Retention Workspace';$('pageTitle').textContent='YouSee Battlecards';$('pageSubtitle').textContent='Sammenlign normalpriser og sammensæt et fastholdelsestilbud med mobil, bredbånd og TV.';$('modeNote').innerHTML='<b>Retention:</b> Sammenligningen beregnes på normalpriser. Save-tilbud kan åbnes med Save-rettigheder.';$('tipsHeading').textContent='Retention tips'}}
+function applyMode(){document.querySelectorAll('[data-mode-link]').forEach(a=>a.classList.toggle('active',a.dataset.modeLink===APP_MODE));if(isSales()){document.title='YouSee Battlecards';$('pageEyebrow').textContent='YouSee · Salg Workspace';$('pageTitle').textContent='YouSee Battlecards';$('pageSubtitle').textContent='Start et kald, svar på få spørgsmål, og få den billigste relevante løsning.';$('modeNote').innerHTML='<b>Salg:</b> Alle sammenligninger beregnes på normalpris.';$('tipsHeading').textContent='Salgspunkter';if($('saveRights'))$('saveRights').checked=false}else{document.title='YouSee Battlecards';$('pageEyebrow').textContent='YouSee · Retention Workspace';$('pageTitle').textContent='YouSee Battlecards';$('pageSubtitle').textContent='Start et kald, svar på få spørgsmål, og få den billigste relevante løsning.';$('modeNote').innerHTML='<b>Retention:</b> Sammenligningen beregnes på normalpriser. Save-tilbud kan åbnes med Save-rettigheder.';$('tipsHeading').textContent='Retention tips'}}
 function visibleYouseePlans(){const save=!isSales()&&$('saveRights')?.checked;return YOUSEE_PLANS.filter(p=>!p.saveOnly||save)}
 function renderYouseeSelectors(preferred){const count=+$('youseeCount').value||1,old=[...document.querySelectorAll('.yousee-plan-select')].map(x=>x.value),plans=visibleYouseePlans();let mainId=preferred||old[0]||'basic-100';if(!plans.some(p=>p.id===mainId))mainId=plans[0]?.id||'';const main=plans.find(p=>p.id===mainId),family=count>1&&isYouseeFamilyPlan(main);let html=`<div class="offer-line"><span class="line-no">Mobil 1</span><select class="yousee-plan-select" data-line="0">${plans.map(p=>`<option value="${p.id}" ${p.id===mainId?'selected':''}>${p.saveOnly?'SAVE · ':''}${p.name} · ${youseePlanPrice(p)} kr./md.</option>`).join('')}</select></div>`;for(let i=1;i<count;i++){if(family){html+=`<div class="offer-line"><span class="line-no">Mobil ${i+1}</span><div><select class="yousee-plan-select family-clone-select" data-line="${i}" disabled><option value="${main.id}" selected>${main.name} · ${YOUSEE_FAMILY_EXTRA_PRICE} kr./md.</option></select><small class="family-note">Familieabonnement · identisk med hovedabonnement · dobbelt data</small></div></div>`}else{let chosen=old[i]||mainId;if(!plans.some(p=>p.id===chosen))chosen=plans[0]?.id||'';html+=`<div class="offer-line"><span class="line-no">Mobil ${i+1}</span><select class="yousee-plan-select" data-line="${i}">${plans.map(p=>`<option value="${p.id}" ${p.id===chosen?'selected':''}>${p.saveOnly?'SAVE · ':''}${p.name} · ${youseePlanPrice(p)} kr./md.</option>`).join('')}</select></div>`}}$('youseeSelectors').innerHTML=html;document.querySelectorAll('.yousee-plan-select').forEach((x,i)=>{if(x.disabled)return;x.addEventListener('change',()=>{if(i===0)renderYouseeSelectors(x.value);else update();renderYouseeStreamInfo()})});update()}
 function selectedYouseePlans(){return [...document.querySelectorAll('.yousee-plan-select')].map(x=>YOUSEE_PLANS.find(p=>p.id===x.value)).filter(Boolean)}
 function youseeStreamProduct(){return streamingData.youseeStream||{name:'YouSee Stream',normalPrice:180,campaignPrice:90,campaignMonths:3,includedServices:2,extraServicePrice:60,maxServices:6,minMobilePrice:169,lockDays:30,sourceUrl:'https://yousee.dk/shop/stream',services:[]}}
-function youseeStreamState(){const product=youseeStreamProduct(),count=Number($('youseeStreamCount')?.value||0),plans=selectedYouseePlans(),selected=count>=product.includedServices,price=selected?Number(product.normalPrice)+Math.max(0,count-Number(product.includedServices))*Number(product.extraServicePrice):0,eligible=!selected||plans.some(p=>youseePlanPrice(p)>=Number(product.minMobilePrice));return{product,count,plans,selected,price,eligible}}
+function youseeStreamState(){const product=youseeStreamProduct(),count=Number($('youseeStreamCount')?.value||0),plans=hasNeed('mobile')?selectedYouseePlans():[],selected=count>=product.includedServices,price=selected?Number(product.normalPrice)+Math.max(0,count-Number(product.includedServices))*Number(product.extraServicePrice):0,eligible=!selected||plans.some(p=>youseePlanPrice(p)>=Number(product.minMobilePrice));return{product,count,plans,selected,price,eligible}}
 function renderYouseeStream(){const select=$('youseeStreamCount'),product=youseeStreamProduct();if(!select)return;const old=Number(select.value||0);select.innerHTML='<option value="0">Intet YouSee Stream</option>'+Array.from({length:product.maxServices-product.includedServices+1},(_,i)=>product.includedServices+i).map(n=>{const price=Number(product.normalPrice)+(n-product.includedServices)*Number(product.extraServicePrice);return `<option value="${n}">${n} tjenester · ${fmt(price)}/md. normalpris</option>`}).join('');if([...select.options].some(o=>Number(o.value)===old))select.value=String(old);renderYouseeStreamInfo()}
 function renderYouseeStreamInfo(){const target=$('youseeStreamInfo');if(!target)return;const s=youseeStreamState(),p=s.product,services=(p.services||[]).map(x=>`<div class="yousee-stream-service"><strong>${x.name}</strong><small>${(x.variants||[]).join(' · ')}${x.note?' · '+x.note:''}</small></div>`).join(''),elig=s.selected?(s.eligible?`<div class="stream-eligibility ok">✓ Mobilkravet er opfyldt</div>`:`<div class="stream-eligibility bad">Kræver mindst ét YouSee-mobilabonnement på ${fmt(p.minMobilePrice)}/md. eller mere.</div>`):'';target.innerHTML=`<strong>${p.normalPrice} kr./md. · 2 tjenester inkluderet</strong><small>Ekstra tjenester: ${p.extraServicePrice} kr./md. pr. stk. · op til ${p.maxServices} tjenester · valg låses i ${p.lockDays} dage.</small><small>Aktuel kampagne: ${p.campaignPrice} kr./md. i ${p.campaignMonths} måneder. Normalpris bruges i beregningen.</small>${elig}<div class="yousee-stream-services">${services}</div>`}
 
@@ -644,7 +1054,7 @@ function renderSubscriptionSelectors(){if(!hasNeed('mobile')||!current){$('subsc
 function selectedSubs(){if(!hasNeed('mobile')||!current)return[];const nodes=[...document.querySelectorAll('.sub-select')],mainNode=nodes[0],main=current.subscriptions[Number(mainNode?.value)]||current.subscriptions[0];return nodes.map((x,i)=>{const v=String(x.value||'');if(v==='family:3')return {...main,name:'Ekstra Bruger',price:125,campaignPrice:null,data:0,euData:0,streaming:[],music:[],notes:['3Family · deler data fra hovedabonnementet'],familySynthetic:true};if(v==='family:norlys')return {...main,name:`Ekstra bruger · ${main.name}`,price:129,campaignPrice:null,notes:['Norlys familie · samme hastighed'],familySynthetic:true};if(v==='family:callme')return {...main,name:'Dig&Mig · Fri Data',price:129,campaignPrice:null,notes:['Dig&Mig Deal'],familySynthetic:true};if(v.startsWith('family:telmore:')){const p=TELMORE_FAMILY_PLANS[Number(v.split(':').pop())]||TELMORE_FAMILY_PLANS[0];return {...p,company:'Telmore',network:current.network,roaming:current.roaming,familySynthetic:true}}return current.subscriptions[Number(v)]}).filter(Boolean)}
 function competitorFamilyPricing(subs){const key=companyKey(),raw=subs.reduce((n,p)=>n+competitorPlanPrice(p),0),n=subs.length,meta=familyMeta();let total=raw,discount=0,active=false,detail='';if(key==='norlys'&&n>1&&subs[0]?.data===-1&&subs.slice(1).every(p=>p.familySynthetic)){total=competitorPlanPrice(subs[0])+129*(n-1);discount=Math.max(0,competitorPlanPrice(subs[0])*n-total);active=true;detail=`${n-1} ekstra bruger${n-1===1?'':'e'} á 129 kr./md.`}else if(key==='3'&&n>1){total=competitorPlanPrice(subs[0])+125*(n-1);active=true;detail=`${n-1} Ekstra Bruger á 125 kr./md.`}else if(key==='telenor'&&n>1){discount=50*(n-1);total=Math.max(0,raw-discount);active=true;detail=`${fmt(discount)} samlerabat · 50 kr. pr. ekstra abonnement`}else if(key==='telmore'&&n>1&&subs.slice(1).every(p=>p.familySynthetic)){total=raw;active=true;detail=`${n-1} familieabonnement${n-1===2?'':'er'} med Telmores familiepriser`}else if(key==='call me'&&n>1&&/fri data/i.test(subs[0]?.name||'')&&subs.slice(1).every(p=>p.familySynthetic)){total=129*n;discount=Math.max(0,raw-total);active=true;detail=`Dig&Mig · ${n} × 129 kr./md.`}else if(key==='oister'&&n>=3){discount=10*(n-2);total=Math.max(0,raw-discount);active=true;detail=`${fmt(discount)} samlet mængderabat`}return{raw,total,discount,active,detail,meta}}
 function renderCompetitorFamilySummary(info){const el=$('competitorFamilySummary');if(!el)return;if(!hasNeed('mobile')||!info?.meta){el.innerHTML='';return}const status=info.active?`<strong>${info.meta.label} aktiv</strong> · ${info.detail}`:`<strong>${info.meta.label}</strong> · ${info.meta.rule}`;el.innerHTML=`${status}<small>Verificeret 14.10.2026 · <a href="${info.meta.source}" target="_blank" rel="noopener">officiel udbyderside</a></small>`}
-function update(){if(!current)return;const needs=customerNeeds(),subs=selectedSubs(),tot=Calculator.totals(subs),familyPricing=competitorFamilyPricing(subs),agg=subs.length?ComparisonEngine.aggregate(current,subs):{network:current.network||'—',roaming:current.roaming||'—',euData:0,streaming:[],music:[],has5g:false,hasEsim:false},broadband=hasNeed('broadband')?selectedService('competitorBroadbandProductSelect'):null,tv=hasNeed('tv')?selectedService('competitorTvSelect'):null,streamings=selectedCompetitorStreamingOffers(),streaming=streamings[0]||null,streamingPricing=competitorStreamingPricingForOffers(streamings,subs,familyPricing),streamChoice=competitorStreamingServiceChoiceState(),compServices=[broadband,tv].filter(Boolean),ysServices=selectedYouseeServices(),ysServicePricing=youseeServicePricing(ysServices),ysStream=youseeStreamState(),fixedInternet=isFixedInternet(broadband),rawInternet=$('competitorInternetPrice')?.value?.trim()??'',manualInternet=rawInternet===''?null:Number(rawInternet),hasManualFixedPrice=fixedInternet&&manualInternet!==null&&Number.isFinite(manualInternet)&&manualInternet>=0,compMobile=hasNeed('mobile')?familyPricing.total:0,broadbandAmount=broadband?(fixedInternet?(hasManualFixedPrice?manualInternet:0):(servicePrice(broadband)==null?0:Number(servicePrice(broadband)))):0,tvAmount=tv&&servicePrice(tv)!=null?Number(servicePrice(tv)):0,streamingAmount=streamings.length?streamingPricing.amount:0,comp=compMobile+broadbandAmount+tvAmount+streamingAmount,ysPlans=selectedYouseePlans(),yMobile=ysPlans.reduce((n,p,i)=>n+youseeLinePrice(p,i,ysPlans),0),y=yMobile+ysServicePricing.total+ysStream.price,missingFixedPrice=fixedInternet&&!hasManualFixedPrice,missingProduct=(hasNeed('broadband')&&!broadband)||(hasNeed('tv')&&!tv)||(hasNeed('streaming')&&!streamings.length),streamChoiceInvalid=streamings.length>0&&streamChoice.required&&!streamChoice.valid,compUnknown=missingFixedPrice||(!!broadband&&!fixedInternet&&servicePrice(broadband)==null)||(!!tv&&servicePrice(tv)==null),yUnknown=ysServicePricing.unknown,streamInvalid=ysStream.selected&&!ysStream.eligible,incomplete=missingProduct||streamChoiceInvalid||compUnknown||yUnknown||streamInvalid,res=incomplete?null:Calculator.compare(comp,y),needLabel=n=>n==='mobile'?'Mobil':n==='broadband'?'Bredbånd':n==='tv'?'TV':'Streaming';$('competitorPriceLabel').textContent=needs.length>1?'Samlet pris hos konkurrent':hasNeed('mobile')?'Mobilpris':hasNeed('broadband')?'Bredbåndspris':hasNeed('tv')?'TV-pris':'Streamingpris';$('competitorPrice').textContent=totalLabel(comp,compUnknown);$('priceContext').textContent=missingProduct?'Vælg alle aktive produkter':missingFixedPrice?'Indtast kundens pris på fast internet':needs.length>1?needs.map(needLabel).join(' + '):hasNeed('mobile')?(streaming?'Normalpris + '+streamingPricing.detail:'Normalpris'):streaming?streamingPricing.detail:(broadband||tv)?.name||'Vælg produkt';$('networkBadge').textContent=hasNeed('mobile')?agg.network:(broadband?.technology||tv?.technology||(streaming?'Streaming':'—'));const facts=[];if(hasNeed('mobile'))facts.push(['Mobilpris',fmt(familyPricing.total)],...(familyPricing.active?[['Familie / samlerabat',familyPricing.detail]]:[]),['Netværk',agg.network],['EU-data',`${agg.euData} GB`]);if(hasNeed('broadband'))facts.push(['Bredbånd',broadband?.name||'Ikke valgt'],['Internetpris',broadband?(hasManualFixedPrice?fmt(manualInternet):servicePriceLabel(broadband)):'—']);if(hasNeed('tv'))facts.push(['TV',tv?.name||'Ikke valgt'],['TV-pris',tv?servicePriceLabel(tv):'—']);if(hasNeed('streaming')||streamings.length)facts.push(['Streaming',streamings.length?streamings.map(x=>x.name).join(' + '):'Ikke valgt'],['Streamingpris',streamings.length?streamingPricing.label:'—'],...(streamings.some(x=>x.pricingMode==='bundle')&&hasNeed('mobile')?[['Beregning','Pakkeprisen erstatter første mobilpris']]:[]),...(streamChoice.required?[['Valgte tjenester',streamChoice.selected.length?streamChoice.selected.join(', '):'Ikke valgt']]:[]));$('competitorFacts').innerHTML=facts.map(([a,b])=>`<div class="fact"><span>${a}</span><strong>${b}</strong></div>`).join('');$('kpiCompetitor').textContent=totalLabel(comp,compUnknown);$('kpiYousee').textContent=totalLabel(y,yUnknown);if(incomplete){$('kpiDifference').textContent='—';$('kpiAnnual').textContent='—';$('kpiWinner').textContent=streamInvalid?'Mobilkrav':streamChoiceInvalid?'Vælg streaming':missingProduct?'Vælg produkt':missingFixedPrice?'Indtast pris':'Pris mangler';$('kpiWinner').className='';$('winnerDetail').textContent=streamInvalid?`YouSee Stream kræver et mobilabonnement på mindst ${fmt(ysStream.product.minMobilePrice)}/md.`:streamChoiceInvalid?`Vælg ${streamChoice.limit} streamingtjenester til den valgte pakke`:missingProduct?'Vælg produkt for alle aktive kategorier':missingFixedPrice?'Indtast kundens faktiske pris på fast internet':'En valgt service mangler pris'}else{$('kpiDifference').textContent=fmt(res.difference);$('kpiAnnual').textContent=fmt(res.annual);$('kpiWinner').textContent=res.winner;$('kpiWinner').className=res.winner==='YouSee'?'positive':res.winner==='Konkurrent'?'negative':'';$('winnerDetail').textContent=res.winner==='YouSee'?`YouSee er ${fmt(res.difference)} billigere pr. md.`:res.winner==='Konkurrent'?`Konkurrenten er ${fmt(res.difference)} billigere pr. md.`:'Samme månedspris'}renderCompetitorFamilySummary(familyPricing);renderCompetitorStreamingInfo();renderServiceSummary('competitorServiceSummary',compServices);if(hasManualFixedPrice&&$('competitorServiceSummary'))$('competitorServiceSummary').insertAdjacentHTML('beforeend',`<div class="service-summary-row"><span>Fast internetpris brugt</span><strong>${fmt(manualInternet)}/md.</strong></div>`);renderYouseeOfferSummary();renderYouseeStreamInfo();renderBattle(subs,compServices,streamings)}
+function update(){if(!current)return;const needs=customerNeeds(),subs=selectedSubs(),tot=Calculator.totals(subs),familyPricing=competitorFamilyPricing(subs),agg=subs.length?ComparisonEngine.aggregate(current,subs):{network:current.network||'—',roaming:current.roaming||'—',euData:0,streaming:[],music:[],has5g:false,hasEsim:false},broadband=hasNeed('broadband')?selectedService('competitorBroadbandProductSelect'):null,tv=hasNeed('tv')?selectedService('competitorTvSelect'):null,streamings=selectedCompetitorStreamingOffers(),streaming=streamings[0]||null,streamingPricing=competitorStreamingPricingForOffers(streamings,subs,familyPricing),streamChoice=competitorStreamingServiceChoiceState(),compServices=[broadband,tv].filter(Boolean),ysServices=selectedYouseeServices(),ysServicePricing=youseeServicePricing(ysServices),ysStream=youseeStreamState(),fixedInternet=isFixedInternet(broadband),rawInternet=$('competitorInternetPrice')?.value?.trim()??'',manualInternet=rawInternet===''?null:Number(rawInternet),hasManualFixedPrice=fixedInternet&&manualInternet!==null&&Number.isFinite(manualInternet)&&manualInternet>=0,compMobile=hasNeed('mobile')?familyPricing.total:0,broadbandAmount=broadband?(fixedInternet?(hasManualFixedPrice?manualInternet:0):(servicePrice(broadband)==null?0:Number(servicePrice(broadband)))):0,tvAmount=tv&&servicePrice(tv)!=null?Number(servicePrice(tv)):0,streamingAmount=streamings.length?streamingPricing.amount:0,comp=compMobile+broadbandAmount+tvAmount+streamingAmount,ysPlans=selectedYouseePlans(),yMobile=hasNeed('mobile')?ysPlans.reduce((n,p,i)=>n+youseeLinePrice(p,i,ysPlans),0):0,y=yMobile+ysServicePricing.total+ysStream.price,missingFixedPrice=fixedInternet&&!hasManualFixedPrice,missingProduct=(hasNeed('broadband')&&!broadband)||(hasNeed('tv')&&!tv)||(hasNeed('streaming')&&!streamings.length),streamChoiceInvalid=streamings.length>0&&streamChoice.required&&!streamChoice.valid,compUnknown=missingFixedPrice||(!!broadband&&!fixedInternet&&servicePrice(broadband)==null)||(!!tv&&servicePrice(tv)==null),yUnknown=ysServicePricing.unknown,streamInvalid=ysStream.selected&&!ysStream.eligible,incomplete=missingProduct||streamChoiceInvalid||compUnknown||yUnknown||streamInvalid,res=incomplete?null:Calculator.compare(comp,y),needLabel=n=>n==='mobile'?'Mobil':n==='broadband'?'Bredbånd':n==='tv'?'TV':'Streaming';$('competitorPriceLabel').textContent=needs.length>1?'Samlet pris hos konkurrent':hasNeed('mobile')?'Mobilpris':hasNeed('broadband')?'Bredbåndspris':hasNeed('tv')?'TV-pris':'Streamingpris';$('competitorPrice').textContent=totalLabel(comp,compUnknown);$('priceContext').textContent=missingProduct?'Vælg alle aktive produkter':missingFixedPrice?'Indtast kundens pris på fast internet':needs.length>1?needs.map(needLabel).join(' + '):hasNeed('mobile')?(streaming?'Normalpris + '+streamingPricing.detail:'Normalpris'):streaming?streamingPricing.detail:(broadband||tv)?.name||'Vælg produkt';$('networkBadge').textContent=hasNeed('mobile')?agg.network:(broadband?.technology||tv?.technology||(streaming?'Streaming':'—'));const facts=[];if(hasNeed('mobile'))facts.push(['Mobilpris',fmt(familyPricing.total)],...(familyPricing.active?[['Familie / samlerabat',familyPricing.detail]]:[]),['Netværk',agg.network],['EU-data',`${agg.euData} GB`]);if(hasNeed('broadband'))facts.push(['Bredbånd',broadband?.name||'Ikke valgt'],['Internetpris',broadband?(hasManualFixedPrice?fmt(manualInternet):servicePriceLabel(broadband)):'—']);if(hasNeed('tv'))facts.push(['TV',tv?.name||'Ikke valgt'],['TV-pris',tv?servicePriceLabel(tv):'—']);if(hasNeed('streaming')||streamings.length)facts.push(['Streaming',streamings.length?streamings.map(x=>x.name).join(' + '):'Ikke valgt'],['Streamingpris',streamings.length?streamingPricing.label:'—'],...(streamings.some(x=>x.pricingMode==='bundle')&&hasNeed('mobile')?[['Beregning','Pakkeprisen erstatter første mobilpris']]:[]),...(streamChoice.required?[['Valgte tjenester',streamChoice.selected.length?streamChoice.selected.join(', '):'Ikke valgt']]:[]));$('competitorFacts').innerHTML=facts.map(([a,b])=>`<div class="fact"><span>${a}</span><strong>${b}</strong></div>`).join('');$('kpiCompetitor').textContent=totalLabel(comp,compUnknown);$('kpiYousee').textContent=totalLabel(y,yUnknown);if(incomplete){$('kpiDifference').textContent='—';$('kpiAnnual').textContent='—';$('kpiWinner').textContent=streamInvalid?'Mobilkrav':streamChoiceInvalid?'Vælg streaming':missingProduct?'Vælg produkt':missingFixedPrice?'Indtast pris':'Pris mangler';$('kpiWinner').className='';$('winnerDetail').textContent=streamInvalid?`YouSee Stream kræver et mobilabonnement på mindst ${fmt(ysStream.product.minMobilePrice)}/md.`:streamChoiceInvalid?`Vælg ${streamChoice.limit} streamingtjenester til den valgte pakke`:missingProduct?'Vælg produkt for alle aktive kategorier':missingFixedPrice?'Indtast kundens faktiske pris på fast internet':'En valgt service mangler pris'}else{$('kpiDifference').textContent=fmt(res.difference);$('kpiAnnual').textContent=fmt(res.annual);$('kpiWinner').textContent=res.winner;$('kpiWinner').className=res.winner==='YouSee'?'positive':res.winner==='Konkurrent'?'negative':'';$('winnerDetail').textContent=res.winner==='YouSee'?`YouSee er ${fmt(res.difference)} billigere pr. md.`:res.winner==='Konkurrent'?`Konkurrenten er ${fmt(res.difference)} billigere pr. md.`:'Samme månedspris'}renderCompetitorFamilySummary(familyPricing);renderCompetitorStreamingInfo();renderServiceSummary('competitorServiceSummary',compServices);if(hasManualFixedPrice&&$('competitorServiceSummary'))$('competitorServiceSummary').insertAdjacentHTML('beforeend',`<div class="service-summary-row"><span>Fast internetpris brugt</span><strong>${fmt(manualInternet)}/md.</strong></div>`);renderYouseeOfferSummary();renderYouseeStreamInfo();renderBattle(subs,compServices,streamings)}
 function renderBattle(subs,services=[],streamings=[]){const needs=customerNeeds(),needLabel=n=>n==='mobile'?'Mobil':n==='broadband'?'Bredbånd':n==='tv'?'TV':'Streaming';if(!needs.length){$('battlecard').innerHTML='<p>Vælg mindst ét produkt.</p>';return}const parts=[];if(hasNeed('mobile')&&subs.length){const b=generateBattlecard(current,subs);if(b)parts.push(`<div class="battle-list"><b>Mobil</b><ul><li>✅ ${b.title}</li><li>Pris: ${b.normal}</li></ul></div>`)}for(const s of services){const price=isFixedInternet(s)?($('competitorInternetPrice')?.value?fmt(Number($('competitorInternetPrice').value)):'Adressepris'):servicePriceLabel(s);parts.push(`<div class="battle-list"><b>${s.type==='tv'?'TV':'Bredbånd'}</b><ul><li>✅ ${s.name}</li><li>${s.technology||''}</li><li>Pris: ${price}</li></ul></div>`)}if(streamings.length){const p=competitorStreamingPricingForOffers(streamings,subs,competitorFamilyPricing(subs)),choice=competitorStreamingServiceChoiceState();parts.push(`<div class="battle-list"><b>Streaming</b><ul>${streamings.map(s=>`<li>✅ ${s.name}</li>`).join('')}<li>Pris: ${p.label}/md.</li>${choice.required&&choice.selected.length?`<li>Valgt: ${choice.selected.join(', ')}</li>`:''}</ul></div>`)}$('battlecard').innerHTML=parts.length?`<div class="battlecard-box"><div class="battle-title"><h3>${current.company}</h3><span>${needs.map(needLabel).join(' + ')}</span></div><div class="battle-columns">${parts.join('')}</div></div>`:'<p>Vælg produkter.</p>'}
 function populateFilters(){const vals=k=>[...new Set(allPlans.flatMap(p=>Array.isArray(p[k])?p[k]:[p[k]]).filter(Boolean))].sort();[['filterStreaming','streaming'],['filterMusic','music'],['filterRoaming','roaming'],['filterNetwork','network']].forEach(([id,k])=>$(id).insertAdjacentHTML('beforeend',vals(k).map(x=>`<option>${x}</option>`).join('')))}
 function renderCatalog(){const q=$('searchInput').value.toLowerCase(),max=+$('filterPrice').value||Infinity,minData=+$('filterData').value||0,minEu=+$('filterEuData').value||0,st=$('filterStreaming').value,mu=$('filterMusic').value,ro=$('filterRoaming').value,ne=$('filterNetwork').value,g=$('filter5g').value,es=$('filterEsim').value;const plans=allPlans.filter(p=>{const hay=[p.company,p.name,p.network,p.roaming,...p.streaming,...p.music,...p.notes].join(' ').toLowerCase();return(!q||hay.includes(q))&&competitorPlanPrice(p)<=max&&(p.data===-1||p.data>=minData)&&p.euData>=minEu&&(!st||p.streaming.includes(st))&&(!mu||p.music.includes(mu))&&(!ro||p.roaming===ro)&&(!ne||p.network===ne)&&(!g||(p['5g']?'yes':'no')===g)&&(!es||(p.esim?'yes':'no')===es)});$('catalogCount').textContent=`${plans.length} abonnementer`;$('catalog').innerHTML=plans.length?plans.map(p=>{const price=competitorPlanPrice(p),note=[...p.streaming,...p.music].join(' · ')||'Normalpris anvendes i sammenligningen';return `<article class="plan-card"><div class="plan-top"><div><p class="kicker">${p.company}</p><h3>${p.name}</h3></div><div class="plan-price">${fmt(price)}<small>normalpris</small></div></div><div class="plan-meta"><span class="tag">${p.data===-1?'Fri data':p.data+' GB'}</span><span class="tag">EU ${p.euData} GB</span><span class="tag">${p['5g']?'5G':'4G'}</span><span class="tag">${p.esim?'eSIM':'Ingen eSIM'}</span><span class="tag">${p.network}</span></div><p>${note}</p></article>`}).join(''):'<div class="empty">Ingen abonnementer matcher filtrene.</div>'}
