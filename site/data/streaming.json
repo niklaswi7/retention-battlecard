@@ -340,35 +340,40 @@
           "name": "Telmore Play · 100 GB + 2 tjenester",
           "price": 299,
           "pricingMode": "bundle",
-          "note": "Samlet pakkepris inkl. mobil"
+          "note": "Samlet pakkepris inkl. mobil",
+          "serviceCount": 2
         },
         {
           "id": "telmore-play-3",
           "name": "Telmore Play · Fri Data + 3 tjenester",
           "price": 399,
           "pricingMode": "bundle",
-          "note": "Samlet pakkepris inkl. mobil"
+          "note": "Samlet pakkepris inkl. mobil",
+          "serviceCount": 3
         },
         {
           "id": "telmore-play-4",
           "name": "Telmore Play · Fri Data + 4 tjenester",
           "price": 449,
           "pricingMode": "bundle",
-          "note": "Samlet pakkepris inkl. mobil"
+          "note": "Samlet pakkepris inkl. mobil",
+          "serviceCount": 4
         },
         {
           "id": "telmore-play-5",
           "name": "Telmore Play · Fri Data + 5 tjenester",
           "price": 499,
           "pricingMode": "bundle",
-          "note": "Samlet pakkepris inkl. mobil"
+          "note": "Samlet pakkepris inkl. mobil",
+          "serviceCount": 5
         },
         {
           "id": "telmore-play-all",
           "name": "Telmore Play · Fri Data + alle tjenester",
           "price": 599,
           "pricingMode": "bundle",
-          "note": "Samlet pakkepris inkl. mobil"
+          "note": "Samlet pakkepris inkl. mobil",
+          "serviceCount": 9
         }
       ],
       "services": [
