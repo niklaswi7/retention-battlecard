@@ -795,6 +795,8 @@ function renderDepartmentState(){
   if(intro)intro.textContent=chosen?'Valget er gemt lokalt på denne computer.':'Valget gemmes i denne browser på computeren, så du ikke skal vælge det ved hvert kald.';
 }
 function applyDepartmentState(){
+  const saveToggle=document.querySelector('.save-toggle');
+  if(saveToggle)saveToggle.hidden=!isSaveDepartment();
   if($('saveRights'))$('saveRights').checked=isSaveDepartment();
   if($('callSaveDiscountBox'))$('callSaveDiscountBox').hidden=!isSaveDepartment()||!callNeeds().includes('broadband');
   if(companies.length)renderYouseeSelectors();
