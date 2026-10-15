@@ -807,11 +807,18 @@ function applyDepartmentState(){
 }
 function selectDepartment(v){
   if(v!=='save'&&v!=='support')return;
-  currentDepartment=v;writeDepartmentPreference(v);guidedSaveDiscountKey='none';
-  if($('callSaveConnection'))$('callSaveConnection').value='none';
-  syncSaveConnectionDiscount();
-  applyDepartmentState();
+  currentDepartment=v;
+  writeDepartmentPreference(v);
   closeDepartmentPicker();
+  renderDepartmentState();
+  guidedSaveDiscountKey='none';
+  if($('callSaveConnection'))$('callSaveConnection').value='none';
+  try{
+    syncSaveConnectionDiscount();
+    applyDepartmentState();
+  }catch(err){
+    console.error('Kunne ikke opdatere afdelingsvisning',err);
+  }
 }
 function showDepartmentPicker(){
   const modal=$('departmentModal');
@@ -824,6 +831,7 @@ function closeDepartmentPicker(){
   modal.hidden=true;modal.setAttribute('aria-hidden','true');document.body.style.overflow='';
 }
 function initCallAssistant(){
+  $('departmentModal')?.addEventListener('click',e=>{const btn=e.target.closest?.('[data-department]');if(btn)selectDepartment(btn.dataset.department)});
   currentDepartment=readDepartmentPreference();
   renderDepartmentState();
   applyDepartmentState();
