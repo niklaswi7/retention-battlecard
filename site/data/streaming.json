@@ -509,6 +509,14 @@
     }
   ],
   "retailCatalog": {
+    "netflix-basic": {
+      "service": "Netflix",
+      "tier": "Basis",
+      "price": 109,
+      "ads": "Nej",
+      "detail": "720p",
+      "sourceUrl": "https://www.netflix.com/dk/"
+    },
     "netflix-standard": {
       "service": "Netflix",
       "tier": "Standard",
@@ -517,45 +525,13 @@
       "detail": "1080p · 2 samtidige streams",
       "sourceUrl": "https://www.netflix.com/dk/"
     },
-    "max-standard": {
-      "service": "HBO Max",
-      "tier": "Standard",
-      "price": 129,
+    "netflix-premium": {
+      "service": "Netflix",
+      "tier": "Premium",
+      "price": 189,
       "ads": "Nej",
-      "detail": "Full HD · 2 samtidige streams",
-      "sourceUrl": "https://www.hbomax.com/dk/da"
-    },
-    "max-basic-ads": {
-      "service": "HBO Max",
-      "tier": "Basis med reklamer",
-      "price": 79,
-      "ads": "Ja",
-      "detail": "Full HD · 2 samtidige streams",
-      "sourceUrl": "https://www.hbomax.com/dk/da"
-    },
-    "viaplay-film": {
-      "service": "Viaplay",
-      "tier": "Film & Serier",
-      "price": 159,
-      "ads": "Nej",
-      "detail": "Film, serier og børneindhold · ingen sport",
-      "sourceUrl": "https://viaplay.dk/dk-da/"
-    },
-    "viaplay-film-ads": {
-      "service": "Viaplay",
-      "tier": "Film & Serier med reklamer",
-      "price": 99,
-      "ads": "Ja",
-      "detail": "Film, serier og børneindhold · ingen sport · ingen offline",
-      "sourceUrl": "https://viaplay.dk/dk-da/"
-    },
-    "disney-standard": {
-      "service": "Disney+",
-      "tier": "Standard",
-      "price": 99,
-      "ads": "Nej",
-      "detail": "Full HD · 2 samtidige streams",
-      "sourceUrl": "https://www.disneyplus.com/da-dk"
+      "detail": "4K + HDR",
+      "sourceUrl": "https://www.netflix.com/dk/"
     },
     "disney-standard-ads": {
       "service": "Disney+",
@@ -565,53 +541,245 @@
       "detail": "Full HD · 2 samtidige streams",
       "sourceUrl": "https://www.disneyplus.com/da-dk"
     },
+    "disney-standard": {
+      "service": "Disney+",
+      "tier": "Standard",
+      "price": 99,
+      "ads": "Nej",
+      "detail": "Full HD · 2 samtidige streams",
+      "sourceUrl": "https://www.disneyplus.com/da-dk"
+    },
+    "disney-premium": {
+      "service": "Disney+",
+      "tier": "Premium",
+      "price": 149,
+      "ads": "Nej",
+      "detail": "4K UHD · 4 samtidige streams",
+      "sourceUrl": "https://www.disneyplus.com/da-dk"
+    },
+    "max-basic-ads": {
+      "service": "HBO Max",
+      "tier": "Basis med reklamer",
+      "price": 79,
+      "ads": "Ja",
+      "detail": "Full HD · 2 streams",
+      "sourceUrl": "https://www.hbomax.com/dk/da"
+    },
+    "max-standard": {
+      "service": "HBO Max",
+      "tier": "Standard",
+      "price": 129,
+      "ads": "Nej",
+      "detail": "Full HD · 2 streams",
+      "sourceUrl": "https://www.hbomax.com/dk/da"
+    },
+    "max-premium": {
+      "service": "HBO Max",
+      "tier": "Premium",
+      "price": 169,
+      "ads": "Nej",
+      "detail": "4K UHD · 4 streams",
+      "sourceUrl": "https://www.hbomax.com/dk/da"
+    },
+    "max-basic-ads-sport": {
+      "service": "HBO Max",
+      "tier": "Basis med reklamer + Sport",
+      "price": 119,
+      "ads": "Ja*",
+      "detail": "Basis + sportstillæg",
+      "sourceUrl": "https://www.hbomax.com/dk/da"
+    },
+    "max-standard-sport": {
+      "service": "HBO Max",
+      "tier": "Standard + Sport",
+      "price": 169,
+      "ads": "Nej*",
+      "detail": "Standard + sportstillæg",
+      "sourceUrl": "https://www.hbomax.com/dk/da"
+    },
+    "max-premium-sport": {
+      "service": "HBO Max",
+      "tier": "Premium + Sport",
+      "price": 209,
+      "ads": "Nej*",
+      "detail": "Premium + sportstillæg",
+      "sourceUrl": "https://www.hbomax.com/dk/da"
+    },
+    "tv2-basis-ads": {
+      "service": "TV 2 Play",
+      "tier": "Basis med reklamer",
+      "price": 69,
+      "ads": "Ja",
+      "detail": "On demand · ingen livekanaler/sport",
+      "sourceUrl": "https://play.tv2.dk/"
+    },
     "tv2-basis-noads": {
       "service": "TV 2 Play",
-      "tier": "Basis uden reklamer",
+      "tier": "Basis",
       "price": 99,
       "ads": "Nej",
       "detail": "On demand · ingen livekanaler/sport",
       "sourceUrl": "https://play.tv2.dk/"
     },
+    "tv2-favorit-ads": {
+      "service": "TV 2 Play",
+      "tier": "Favorit med reklamer",
+      "price": 149,
+      "ads": "Ja*",
+      "detail": "On demand + 5 livekanaler",
+      "sourceUrl": "https://play.tv2.dk/"
+    },
     "tv2-favorit-noads": {
       "service": "TV 2 Play",
-      "tier": "Favorit uden reklamer",
+      "tier": "Favorit",
       "price": 179,
       "ads": "Nej*",
-      "detail": "On demand + 5 livekanaler · *live-tv har normale reklameblokke",
+      "detail": "On demand + 5 livekanaler",
+      "sourceUrl": "https://play.tv2.dk/"
+    },
+    "tv2-sport-ads": {
+      "service": "TV 2 Play",
+      "tier": "Favorit + Sport med reklamer",
+      "price": 219,
+      "ads": "Ja*",
+      "detail": "Livekanaler + sport",
       "sourceUrl": "https://play.tv2.dk/"
     },
     "tv2-sport-noads": {
       "service": "TV 2 Play",
-      "tier": "Favorit + Sport uden reklamer",
+      "tier": "Favorit + Sport",
       "price": 249,
       "ads": "Nej*",
-      "detail": "On demand + livekanaler + sport · *live-tv har normale reklameblokke",
+      "detail": "Livekanaler + sport",
       "sourceUrl": "https://play.tv2.dk/"
     },
-    "prime-video": {
-      "service": "Prime Video",
-      "tier": "Standard",
-      "price": 69,
+    "viaplay-film-ads": {
+      "service": "Viaplay",
+      "tier": "Film & Serier med reklamer",
+      "price": 99,
       "ads": "Ja",
-      "detail": "Film, serier og Amazon Originals",
-      "sourceUrl": "https://www.primevideo.com/"
+      "detail": "Film, serier og børneindhold",
+      "sourceUrl": "https://viaplay.dk/dk-da/"
+    },
+    "viaplay-film": {
+      "service": "Viaplay",
+      "tier": "Film & Serier",
+      "price": 159,
+      "ads": "Nej",
+      "detail": "Film, serier og børneindhold",
+      "sourceUrl": "https://viaplay.dk/dk-da/"
+    },
+    "viaplay-cl-ads": {
+      "service": "Viaplay",
+      "tier": "Champions League, Film & Serier med reklamer",
+      "price": 269,
+      "ads": "Ja",
+      "detail": "Champions League + film & serier",
+      "sourceUrl": "https://viaplay.dk/dk-da/"
+    },
+    "viaplay-cl": {
+      "service": "Viaplay",
+      "tier": "Champions League, Film & Serier",
+      "price": 325,
+      "ads": "Nej",
+      "detail": "Champions League + film & serier",
+      "sourceUrl": "https://viaplay.dk/dk-da/"
+    },
+    "viaplay-dk-football-ads": {
+      "service": "Viaplay",
+      "tier": "Dansk fodbold, Film & Serier med reklamer",
+      "price": 269,
+      "ads": "Ja",
+      "detail": "Dansk fodbold + film & serier",
+      "sourceUrl": "https://viaplay.dk/dk-da/"
+    },
+    "viaplay-dk-football": {
+      "service": "Viaplay",
+      "tier": "Dansk fodbold, Film & Serier",
+      "price": 325,
+      "ads": "Nej",
+      "detail": "Dansk fodbold + film & serier",
+      "sourceUrl": "https://viaplay.dk/dk-da/"
+    },
+    "viaplay-premium-ads": {
+      "service": "Viaplay",
+      "tier": "Premium med reklamer",
+      "price": 429,
+      "ads": "Ja",
+      "detail": "Alt sport + film & serier",
+      "sourceUrl": "https://viaplay.dk/dk-da/"
+    },
+    "viaplay-premium": {
+      "service": "Viaplay",
+      "tier": "Premium",
+      "price": 549,
+      "ads": "Nej",
+      "detail": "Alt sport + film & serier",
+      "sourceUrl": "https://viaplay.dk/dk-da/"
+    },
+    "skyshowtime-ads": {
+      "service": "SkyShowtime",
+      "tier": "Standard med reklamer",
+      "price": 59,
+      "ads": "Ja",
+      "detail": "Månedligt abonnement",
+      "sourceUrl": "https://www.skyshowtime.com/dk/plans"
     },
     "skyshowtime-standard": {
       "service": "SkyShowtime",
       "tier": "Standard",
       "price": 109,
       "ads": "Nej*",
-      "detail": "Full HD · 2 streams · *kan have kampagnetrailere",
+      "detail": "Full HD · 2 streams",
       "sourceUrl": "https://www.skyshowtime.com/dk/plans"
+    },
+    "skyshowtime-premium": {
+      "service": "SkyShowtime",
+      "tier": "Premium",
+      "price": 149,
+      "ads": "Nej*",
+      "detail": "4K UHD · 5 streams",
+      "sourceUrl": "https://www.skyshowtime.com/dk/plans"
+    },
+    "prime-video": {
+      "service": "Prime Video",
+      "tier": "Standard med reklamer",
+      "price": 69,
+      "ads": "Ja",
+      "detail": "Film, serier, Amazon Originals og udvalgt live sport",
+      "sourceUrl": "https://www.primevideo.com/"
+    },
+    "prime-video-adfree": {
+      "service": "Prime Video",
+      "tier": "Ad Free",
+      "price": 98,
+      "ads": "Nej*",
+      "detail": "69 kr. + 29 kr. reklamefrit tillæg; liveindhold kan stadig have reklamer",
+      "sourceUrl": "https://www.primevideo.com/"
     },
     "podimo-premium": {
       "service": "Podimo",
       "tier": "Premium",
       "price": 99,
       "ads": "Nej",
-      "detail": "Alle Podimo-podcasts + 20 timers lydbøger",
+      "detail": "20 timers lydbøger + podcasts",
       "sourceUrl": "https://podimo.com/dk"
+    },
+    "podimo-premium-plus": {
+      "service": "Podimo",
+      "tier": "Premium Plus",
+      "price": 129,
+      "ads": "Nej",
+      "detail": "100 timers lydbøger + podcasts",
+      "sourceUrl": "https://podimo.com/dk"
+    },
+    "deezer-flex": {
+      "service": "Deezer",
+      "tier": "Flex",
+      "price": 89,
+      "ads": "Nej",
+      "detail": "Individuel musikplan",
+      "sourceUrl": "https://www.deezer.com/dk/offers"
     },
     "deezer-premium": {
       "service": "Deezer",
@@ -619,6 +787,14 @@
       "price": 119,
       "ads": "Nej",
       "detail": "1 konto · musik og podcasts",
+      "sourceUrl": "https://www.deezer.com/dk/offers"
+    },
+    "deezer-duo": {
+      "service": "Deezer",
+      "tier": "Duo",
+      "price": 159,
+      "ads": "Nej",
+      "detail": "2 konti",
       "sourceUrl": "https://www.deezer.com/dk/offers"
     },
     "deezer-family": {
@@ -645,13 +821,38 @@
       "detail": "100 timer pr. måned",
       "sourceUrl": "https://mofibo.com/dk/subscriptions"
     },
+    "mofibo-unlimited": {
+      "service": "Mofibo",
+      "tier": "Unlimited",
+      "price": 159,
+      "ads": "Nej",
+      "detail": "Ubegrænset lytning",
+      "sourceUrl": "https://mofibo.com/dk/subscriptions"
+    },
+    "mofibo-family": {
+      "service": "Mofibo",
+      "tier": "Family · 2 konti",
+      "price": 179,
+      "ads": "Nej",
+      "detail": "100 timer pr. konto · +39 kr. pr. ekstra konto",
+      "sourceUrl": "https://mofibo.com/dk/subscriptions"
+    },
     "nordisk-film-plus": {
       "service": "Nordisk Film+",
-      "tier": "Standard",
+      "tier": "Månedlig",
       "price": 69,
       "ads": "Nej",
-      "detail": "Danske, nordiske og udvalgte internationale film",
-      "sourceUrl": "https://nordiskfilmplus.com/"
+      "detail": "Månedsabonnement",
+      "sourceUrl": "https://nordiskfilmplus.com/dk/da"
+    },
+    "nordisk-film-plus-year": {
+      "service": "Nordisk Film+",
+      "tier": "Årlig",
+      "price": 49.17,
+      "ads": "Nej",
+      "detail": "590 kr./år · ca. 49,17 kr./md.",
+      "billingLabel": "590 kr./år",
+      "sourceUrl": "https://nordiskfilmplus.com/dk/da"
     },
     "wype": {
       "service": "Wype",
@@ -660,6 +861,22 @@
       "ads": "Ikke relevant",
       "detail": "500+ digitale magasiner",
       "sourceUrl": "https://wype.dk/"
+    },
+    "wype-mag-subscriber": {
+      "service": "Wype",
+      "tier": "Alle magasiner · eksisterende magasinabonnent",
+      "price": 59,
+      "ads": "Ikke relevant",
+      "detail": "Tillæg for eksisterende print-/digitalabonnent",
+      "sourceUrl": "https://wype.dk/spoergsmaal-svar/"
+    },
+    "apple-tv": {
+      "service": "Apple TV",
+      "tier": "Standard",
+      "price": 79,
+      "ads": "Nej",
+      "detail": "Apple Originals",
+      "sourceUrl": "https://tv.apple.com/dk"
     }
   },
   "youseeStream": {
@@ -728,6 +945,197 @@
           "Premium med reklamer",
           "Premium"
         ]
+      }
+    ]
+  },
+  "youseePlayStreaming": {
+    "sourceUrl": "https://yousee.dk/shop/yousee-play/kanaloverblik",
+    "basePoints": 10,
+    "basePrice": 329,
+    "pointPrice": 10,
+    "packages": [
+      10,
+      20,
+      30,
+      40
+    ],
+    "note": "TV-kanaler og streamingtjenester deler samme pointpulje. 10/20/30/40 vælges som hovedpakke; ekstra point kan tilkøbes enkeltvis.",
+    "options": [
+      {
+        "service": "Netflix",
+        "tier": "Basis",
+        "points": 10,
+        "retailPlanId": "netflix-basic"
+      },
+      {
+        "service": "Netflix",
+        "tier": "Standard",
+        "points": 14,
+        "retailPlanId": "netflix-standard"
+      },
+      {
+        "service": "Netflix",
+        "tier": "Premium",
+        "points": 18,
+        "retailPlanId": "netflix-premium"
+      },
+      {
+        "service": "TV 2 Play",
+        "tier": "Favorit med reklamer",
+        "points": 13,
+        "retailPlanId": "tv2-favorit-ads"
+      },
+      {
+        "service": "TV 2 Play",
+        "tier": "Favorit",
+        "points": 15,
+        "retailPlanId": "tv2-favorit-noads"
+      },
+      {
+        "service": "TV 2 Play",
+        "tier": "Favorit + Sport med reklamer",
+        "points": 20,
+        "retailPlanId": "tv2-sport-ads"
+      },
+      {
+        "service": "TV 2 Play",
+        "tier": "Favorit + Sport",
+        "points": 22,
+        "retailPlanId": "tv2-sport-noads"
+      },
+      {
+        "service": "Viaplay",
+        "tier": "Film & Serier med reklamer",
+        "points": 8,
+        "retailPlanId": "viaplay-film-ads"
+      },
+      {
+        "service": "Viaplay",
+        "tier": "Film & Serier",
+        "points": 12,
+        "retailPlanId": "viaplay-film"
+      },
+      {
+        "service": "Viaplay",
+        "tier": "Champions League, Film & Serier med reklamer",
+        "points": 21,
+        "retailPlanId": "viaplay-cl-ads"
+      },
+      {
+        "service": "Viaplay",
+        "tier": "Champions League, Film & Serier",
+        "points": 24,
+        "retailPlanId": "viaplay-cl"
+      },
+      {
+        "service": "Viaplay",
+        "tier": "Dansk fodbold, Film & Serier med reklamer",
+        "points": 21,
+        "retailPlanId": "viaplay-dk-football-ads"
+      },
+      {
+        "service": "Viaplay",
+        "tier": "Dansk fodbold, Film & Serier",
+        "points": 24,
+        "retailPlanId": "viaplay-dk-football"
+      },
+      {
+        "service": "Viaplay",
+        "tier": "Premium med reklamer",
+        "points": 37,
+        "retailPlanId": "viaplay-premium-ads"
+      },
+      {
+        "service": "Viaplay",
+        "tier": "Premium",
+        "points": 40,
+        "retailPlanId": "viaplay-premium"
+      },
+      {
+        "service": "Disney+",
+        "tier": "Standard med reklamer",
+        "points": 4,
+        "retailPlanId": "disney-standard-ads"
+      },
+      {
+        "service": "Disney+",
+        "tier": "Standard",
+        "points": 7,
+        "retailPlanId": "disney-standard"
+      },
+      {
+        "service": "Disney+",
+        "tier": "Premium",
+        "points": 11,
+        "retailPlanId": "disney-premium"
+      },
+      {
+        "service": "HBO Max",
+        "tier": "Basis med reklamer",
+        "points": 7,
+        "retailPlanId": "max-basic-ads"
+      },
+      {
+        "service": "HBO Max",
+        "tier": "Standard",
+        "points": 10,
+        "retailPlanId": "max-standard"
+      },
+      {
+        "service": "HBO Max",
+        "tier": "Premium",
+        "points": 18,
+        "retailPlanId": "max-premium"
+      },
+      {
+        "service": "HBO Max",
+        "tier": "Basis med reklamer + Sport",
+        "points": 11,
+        "retailPlanId": "max-basic-ads-sport"
+      },
+      {
+        "service": "HBO Max",
+        "tier": "Standard + Sport",
+        "points": 14,
+        "retailPlanId": "max-standard-sport"
+      },
+      {
+        "service": "HBO Max",
+        "tier": "Premium + Sport",
+        "points": 22,
+        "retailPlanId": "max-premium-sport"
+      },
+      {
+        "service": "Prime Video",
+        "tier": "Standard med reklamer",
+        "points": 5,
+        "retailPlanId": "prime-video"
+      },
+      {
+        "service": "SkyShowtime",
+        "tier": "YouSee Play",
+        "points": 6
+      },
+      {
+        "service": "Nordisk Film+",
+        "tier": "YouSee Play",
+        "points": 4,
+        "retailPlanId": "nordisk-film-plus"
+      },
+      {
+        "service": "Nick+",
+        "tier": "YouSee Play",
+        "points": 3
+      },
+      {
+        "service": "BBC Nordic+",
+        "tier": "YouSee Play",
+        "points": 2
+      },
+      {
+        "service": "National Geographic Now",
+        "tier": "YouSee Play",
+        "points": 2
       }
     ]
   }
