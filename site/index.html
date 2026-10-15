@@ -375,7 +375,6 @@ footer{color:#767676}
           <label id="callMobileProviderRow">📱 Mobil hos<select id="callMobileCompanySelect"></select></label>
           <label id="callBroadbandProviderRow" hidden>🏠 Internet hos<select id="callBroadbandCompanySelect"></select></label>
           <label id="callTvProviderRow" hidden>📺 TV hos<select id="callTvCompanySelect"></select></label>
-          <label id="callStreamingProviderRow" hidden>▶ Streaming via teleselskab<select id="callStreamingCompanySelect"></select></label>
         </div>
       </div>
 
@@ -842,7 +841,6 @@ function callProviderNames(need){
   if(need==='mobile')return companies.map(c=>c.data?.company||c.name).filter(Boolean);
   if(need==='broadband')return (servicesData.providers||[]).filter(p=>[...(p.internet||[]),...(p.mobileBroadband||[])].length).map(p=>p.company);
   if(need==='tv')return (servicesData.providers||[]).filter(p=>(p.tv||[]).length).map(p=>p.company);
-  if(need==='streaming')return (streamingData.providers||[]).filter(p=>(p.offers||[]).length).map(p=>p.company);
   return[];
 }
 function fillCallProviderSelect(id,names,{allowEmpty=false,emptyLabel='Ingen / kun direkte'}={}){
@@ -856,16 +854,15 @@ function populateCallCompanySelect(){
   fillCallProviderSelect('callMobileCompanySelect',callProviderNames('mobile'));
   fillCallProviderSelect('callBroadbandCompanySelect',callProviderNames('broadband'));
   fillCallProviderSelect('callTvCompanySelect',callProviderNames('tv'));
-  fillCallProviderSelect('callStreamingCompanySelect',callProviderNames('streaming'),{allowEmpty:true,emptyLabel:'Ingen · kun direkte streaming'});
   syncCallProviderRows();
 }
 function selectedCallProvider(need){
-  const ids={mobile:'callMobileCompanySelect',broadband:'callBroadbandCompanySelect',tv:'callTvCompanySelect',streaming:'callStreamingCompanySelect'};
+  const ids={mobile:'callMobileCompanySelect',broadband:'callBroadbandCompanySelect',tv:'callTvCompanySelect'};
   return $(ids[need])?.value||'';
 }
 function callCompanyEntryByName(name){return companies.find(c=>String(c.data?.company||c.name).toLowerCase()===String(name||'').toLowerCase())||null}
 function selectedCallCompany(){
-  const needs=callNeeds(),name=(needs.includes('mobile')&&selectedCallProvider('mobile'))||(needs.includes('broadband')&&selectedCallProvider('broadband'))||(needs.includes('tv')&&selectedCallProvider('tv'))||selectedCallProvider('streaming')||'';
+  const needs=callNeeds(),name=(needs.includes('mobile')&&selectedCallProvider('mobile'))||(needs.includes('broadband')&&selectedCallProvider('broadband'))||(needs.includes('tv')&&selectedCallProvider('tv'))||'';
   const entry=callCompanyEntryByName(name)||companies[0]||null,index=entry?companies.indexOf(entry):0;
   return{index,entry,name};
 }
@@ -946,7 +943,7 @@ function syncCallNeedAvailability(){
   syncCallProviderRows();
 }
 function syncCallProviderRows(){
-  const rows={mobile:'callMobileProviderRow',broadband:'callBroadbandProviderRow',tv:'callTvProviderRow',streaming:'callStreamingProviderRow'};
+  const rows={mobile:'callMobileProviderRow',broadband:'callBroadbandProviderRow',tv:'callTvProviderRow'};
   Object.entries(rows).forEach(([need,id])=>{const row=$(id);if(row)row.hidden=!callNeeds().includes(need)});
 }
 function syncCallNeedControls(){
@@ -993,33 +990,36 @@ function renderCallCurrentProducts(){
     mobileProvider=selectedCallProvider('mobile'),
     broadbandProvider=selectedCallProvider('broadband'),
     tvProvider=selectedCallProvider('tv'),
-    streamingProvider=selectedCallProvider('streaming'),
     mobileEntry=callCompanyEntryByName(mobileProvider),
     broadbandData=providerServices(broadbandProvider),
     tvData=providerServices(tvProvider),
-    sp=providerStreaming(streamingProvider),
+    mobileStreaming=providerStreaming(mobileProvider),
     parts=[];
 
   if(needs.includes('mobile')){
     const plans=mobileEntry?.data?.subscriptions||[];
-    parts.push(`<div class="call-product-box"><h4>📱 Mobil · ${providerDisplayName(mobileProvider)}</h4><label>Hvilket mobilabonnement har kunden?<select id="callMobilePlan">${plans.map((s,i)=>`<option value="${i}">${s.name} · ${competitorPlanPrice(s)} kr./md.</option>`).join('')}</select></label></div>`);
+    const providerStreamingPart=(mobileStreaming.offers||[]).length
+      ?(mobileStreaming.multiSelectAddons
+        ?`<div class="divider"></div><h4>▶ Streaming betalt hos ${providerDisplayName(mobileProvider)}</h4><p class="need-hint">Vælg kun de streamingtilvalg kunden betaler gennem mobiludbyderen.</p><div class="call-stream-options">${(mobileStreaming.offers||[]).map(o=>`<label class="call-stream-option"><input class="call-stream-addon" type="checkbox" value="${o.id}"><span>${o.name} · ${fmt(o.price)}/md.</span></label>`).join('')}</div>`
+        :`<div class="divider"></div><h4>▶ Streaming betalt hos ${providerDisplayName(mobileProvider)}</h4><label>Streamingpakke hos mobiludbyderen<select id="callStreamingOffer"><option value="">Ingen streaming hos udbyderen</option>${(mobileStreaming.offers||[]).map(o=>`<option value="${o.id}">${o.name} · ${fmt(o.price)}/md.</option>`).join('')}</select></label><div id="callStreamingServices"></div>`)
+      :'';
+    parts.push(`<div class="call-product-box"><h4>📱 Mobil · ${providerDisplayName(mobileProvider)}</h4><label>Hvilket mobilabonnement har kunden?<select id="callMobilePlan">${plans.map((s,i)=>`<option value="${i}">${s.name} · ${competitorPlanPrice(s)} kr./md.</option>`).join('')}</select></label>${providerStreamingPart}</div>`);
   }
+
   if(needs.includes('broadband')){
     const products=[...(broadbandData.internet||[]),...(broadbandData.mobileBroadband||[])];
     parts.push(`<div class="call-product-box"><h4>🏠 Internet · ${providerDisplayName(broadbandProvider)}</h4><label>Hvilket internet har kunden?<select id="callBroadbandProduct">${products.map(s=>`<option value="${s.id}">${s.name} · ${servicePriceLabel(s)}</option>`).join('')}</select></label><div id="callBroadbandPriceWrap"></div></div>`);
   }
+
   if(needs.includes('tv')){
     parts.push(`<div class="call-product-box"><h4>📺 TV · ${providerDisplayName(tvProvider)}</h4><label>Hvilken TV-pakke har kunden?<select id="callTvProduct">${(tvData.tv||[]).map(s=>`<option value="${s.id}">${s.name} · ${servicePriceLabel(s)}</option>`).join('')}</select></label><div class="divider"></div><h4>Hvilke kanaler vil kunden beholde?</h4><p class="need-hint">Vælg de kanaler kunden faktisk ser. Vi bruger YouSee Play-point til at finde den billigste løsning.</p><div class="call-channel-grid">${YOUSEE_CHANNELS.map(ch=>`<label class="call-channel"><input class="call-tv-channel" type="checkbox" value="${ch.name}" data-points="${ch.points}"><span>${ch.name}<small>${ch.points===0?'Medfølger':ch.points+' pt.'}</small></span></label>`).join('')}</div><div id="callChannelSummary" class="call-channel-summary">0 point valgt · YouSee Play 10 er nok</div></div>`);
   }
+
   if(needs.includes('streaming')){
-    const providerPart=streamingProvider&&((sp.offers||[]).length)
-      ?(sp.multiSelectAddons
-        ?`<h4>Hos ${providerDisplayName(streamingProvider)}</h4><p class="need-hint">Vælg alle de tjenester kunden betaler for gennem teleselskabet.</p><div class="call-stream-options">${(sp.offers||[]).map(o=>`<label class="call-stream-option"><input class="call-stream-addon" type="checkbox" value="${o.id}"><span>${o.name} · ${fmt(o.price)}/md.</span></label>`).join('')}</div>`
-        :`<h4>Hos ${providerDisplayName(streamingProvider)}</h4><label>Streamingpakke hos teleselskabet<select id="callStreamingOffer"><option value="">Ingen / vælg pakke</option>${(sp.offers||[]).map(o=>`<option value="${o.id}">${o.name} · ${fmt(o.price)}/md.</option>`).join('')}</select></label><div id="callStreamingServices"></div>`)
-      :'<p class="need-hint">Ingen streamingpakke valgt hos teleselskab.</p>';
-    const groups={};Object.entries(streamingData.retailCatalog||{}).forEach(([id,x])=>{(groups[x.service]??=[]).push({id,...x})});
-    const direct=`<div class="divider"></div><h4>Købt direkte hos streamingtjenesten</h4><p class="need-hint">Vælg kun de tjenester kunden betaler for separat.</p><div class="call-direct-stream-grid">${Object.entries(groups).map(([service,plans])=>`<div class="call-direct-stream"><label>${service}<select class="call-direct-stream-select" data-service="${service}"><option value="">Har ikke</option>${plans.map(x=>`<option value="${x.id}">${x.tier} · ${x.billingLabel||fmt(x.price)+'/md.'}</option>`).join('')}</select></label></div>`).join('')}</div>`;
-    parts.push(`<div class="call-product-box"><h4>▶ Streaming</h4>${providerPart}${direct}</div>`);
+    const groups={};
+    Object.entries(streamingData.retailCatalog||{}).forEach(([id,x])=>{(groups[x.service]??=[]).push({id,...x})});
+    const direct=`<h4>▶ Streaming · selskaber</h4><p class="need-hint">Vælg de streamingabonnementer kunden køber direkte hos streaming-selskaberne.</p><div class="call-direct-stream-grid">${Object.entries(groups).map(([service,plans])=>`<div class="call-direct-stream"><label>${service}<select class="call-direct-stream-select" data-service="${service}"><option value="">Har ikke</option>${plans.map(x=>`<option value="${x.id}">${x.tier} · ${x.billingLabel||fmt(x.price)+'/md.'}</option>`).join('')}</select></label></div>`).join('')}</div>`;
+    parts.push(`<div class="call-product-box">${direct}</div>`);
   }
 
   $('callCurrentProducts').innerHTML=parts.join('');
@@ -1056,7 +1056,7 @@ function selectedDirectStreaming(){return [...document.querySelectorAll('.call-d
 function renderCallStreamingServices(){
   const target=$('callStreamingServices');
   if(!target)return;
-  const sp=providerStreaming(selectedCallProvider('streaming')),offer=(sp.offers||[]).find(o=>o.id===$('callStreamingOffer')?.value);
+  const sp=providerStreaming(selectedCallProvider('mobile')),offer=(sp.offers||[]).find(o=>o.id===$('callStreamingOffer')?.value);
   const limit=Math.min(Number(offer?.serviceCount||0),(sp.services||[]).length);
   if(!offer||!limit){target.innerHTML='';return}
   target.innerHTML=`<p class="need-hint">Vælg ${limit} tjenester i pakken.</p><div class="call-stream-options">${(sp.services||[]).map(s=>`<label class="call-stream-option"><input class="call-stream-service" type="checkbox" value="${s}"><span>${s}</span></label>`).join('')}</div><small id="callStreamCountNote" class="need-hint">0/${limit} valgt</small>`;
@@ -1068,14 +1068,20 @@ function renderCallStreamingServices(){
 }
 
 function callStreamingSelection(){
-  const providerName=selectedCallProvider('streaming'),sp=providerStreaming(providerName),direct=selectedDirectStreaming();
-  if(!callNeeds().includes('streaming'))return{providerName:'',offers:[],services:[],direct:[],count:0,valid:true};
+  const providerName=callNeeds().includes('mobile')?selectedCallProvider('mobile'):'',sp=providerStreaming(providerName),direct=callNeeds().includes('streaming')?selectedDirectStreaming():[];
+  let offers=[],services=[];
   if(sp.multiSelectAddons){
-    const ids=[...document.querySelectorAll('.call-stream-addon:checked')].map(x=>x.value),offers=ids.map(id=>(sp.offers||[]).find(o=>o.id===id)).filter(Boolean);
-    return{providerName,offers,services:[],direct,count:offers.length+direct.length,valid:offers.length>0||direct.length>0}
+    const ids=[...document.querySelectorAll('.call-stream-addon:checked')].map(x=>x.value);
+    offers=ids.map(id=>(sp.offers||[]).find(o=>o.id===id)).filter(Boolean);
+  }else{
+    const offer=(sp.offers||[]).find(o=>o.id===$('callStreamingOffer')?.value)||null;
+    offers=offer?[offer]:[];
+    services=[...document.querySelectorAll('.call-stream-service:checked')].map(x=>x.value);
   }
-  const offer=(sp.offers||[]).find(o=>o.id===$('callStreamingOffer')?.value)||null,services=[...document.querySelectorAll('.call-stream-service:checked')].map(x=>x.value),limit=Math.min(Number(offer?.serviceCount||0),(sp.services||[]).length),valid=!!offer&&(!limit||services.length===limit);
-  return{providerName,offers:offer?[offer]:[],services,direct,count:(limit||Number(!!offer))+direct.length,valid:(valid||!offer)&&((offer||direct.length>0)?true:false)}
+  const offer=offers[0]||null,limit=Math.min(Number(offer?.serviceCount||0),(sp.services||[]).length),
+    providerValid=!offer||!limit||services.length===limit,
+    directValid=!callNeeds().includes('streaming')||direct.length>0;
+  return{providerName,offers,services,direct,count:offers.length+direct.length,valid:providerValid&&directValid,directValid,providerValid}
 }
 
 function applyCallSelectionsToWorkspace(){
@@ -1118,7 +1124,7 @@ function chooseCheapestYouseeMobileBroadband(requiredData){
 
 
 function desiredStreamingPlans(stream=callStreamingSelection()){
-  const provider=providerStreaming(stream.providerName||selectedCallProvider('streaming')),out=[],seen=new Set();
+  const provider=providerStreaming(stream.providerName),out=[],seen=new Set();
   const add=(plan,source='direct')=>{
     if(!plan?.service||seen.has(plan.service))return;
     seen.add(plan.service);
@@ -1328,7 +1334,7 @@ function guidedCurrentCustomerState(){
   }
 
   let providerStreaming=0;
-  const streamingProvider=stream.providerName||selectedCallProvider('streaming'),sameMobile=!!streamingProvider&&streamingProvider===mobile.provider;
+  const streamingProvider=stream.providerName||mobile.provider,sameMobile=!!streamingProvider&&streamingProvider===mobile.provider;
   for(const offer of stream.offers||[]){
     if(offer.pricingMode==='bundle'&&sameMobile&&mobile.plan)providerStreaming+=Math.max(0,Number(offer.price||0)-mobile.firstPrice);
     else providerStreaming+=Number(offer.price||0);
@@ -1397,8 +1403,12 @@ function finishCallAssistant(){
       if(validation){validation.hidden=false;validation.textContent='Vælg mindst én TV-kanal, kunden gerne vil beholde.'}
       return;
     }
-    if(callNeeds().includes('streaming')&&!stream.valid){
-      if(validation){validation.hidden=false;validation.textContent=stream.offers.length?'Vælg det rigtige antal streamingtjenester i pakken.':'Vælg mindst én streamingtjeneste — hos teleselskabet eller direkte.'}
+    if(!stream.providerValid){
+      if(validation){validation.hidden=false;validation.textContent='Vælg det rigtige antal streamingtjenester i mobiludbyderens pakke.'}
+      return;
+    }
+    if(callNeeds().includes('streaming')&&!stream.directValid){
+      if(validation){validation.hidden=false;validation.textContent='Vælg mindst ét direkte streamingabonnement under Streaming · selskaber.'}
       return;
     }
     applyCallSelectionsToWorkspace();
