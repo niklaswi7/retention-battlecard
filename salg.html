@@ -1122,7 +1122,8 @@ function youseePlayOptionForPlan(plan){
   const opts=streamingData.youseePlayStreaming?.options||[];
   const exact=opts.find(x=>x.retailPlanId&&x.retailPlanId===plan.id);
   if(exact)return exact;
-  if(['SkyShowtime','Nordisk Film+'].includes(plan.service))return opts.find(x=>x.service===plan.service)||null;
+  if(plan.id==='skyshowtime-standard')return opts.find(x=>x.service==='SkyShowtime')||null;
+  if(plan.service==='Nordisk Film+')return opts.find(x=>x.service==='Nordisk Film+')||null;
   return null;
 }
 function youseeStreamSupportsPlan(plan){
