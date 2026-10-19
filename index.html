@@ -1173,7 +1173,7 @@ function desiredStreamingPlans(stream=callStreamingSelection()){
   });
   const pack=isSaveDepartment()&&$('callHasYouseeTv')?.checked?$('callYouseeTvPackage')?.value:'';
   const hasTv2Sport=pack==='fp'&&new Date()>=new Date('2027-01-01T00:00:00');
-  return out.filter(p=>!(pack&&p.service==='Viaplay')&&!(hasTv2Sport&&p.service==='TV 2 Play'));
+  return out.filter(p=>{const tier=String(p.tier||'').toLowerCase();const freeViaplay=p.service==='Viaplay'&&(pack==='fp'||(pack==='mp'&&!/premium|sport|total/.test(tier))||(pack==='gp'&&/free|gratis/.test(tier)));return !freeViaplay&&!(hasTv2Sport&&p.service==='TV 2 Play')});
 }
 function youseePlayOptionForPlan(plan){
   const opts=streamingData.youseePlayStreaming?.options||[];
