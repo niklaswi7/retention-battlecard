@@ -1030,7 +1030,7 @@ function renderCallCurrentProducts(){
     parts.push(`<div class="call-product-box"><h4>📱 Mobil · ${providerDisplayName(mobileProvider)}</h4><label>Hvilket mobilabonnement har kunden?<select id="callMobilePlan">${plans.map((s,i)=>`<option value="${i}">${s.name} · ${competitorPlanPrice(s)} kr./md.</option>`).join('')}</select></label>${providerStreamingPart}</div>`);
   }
 
-  if(needs.includes('mobile')||needs.includes('streaming')){
+  if(needs.includes('mobile')||needs.includes('streaming')||needs.includes('tv')||needs.includes('broadband')){
     const groups={};
     Object.entries(streamingData.retailCatalog||{}).forEach(([id,x])=>{(groups[x.service]??=[]).push({id,...x})});
     const direct=`<h4>▶ Kundens streaming (også direkte hos Netflix, Viaplay, HBO m.fl.)</h4><p class="need-hint">Vælg abonnementer kunden bruger. Vi undersøger automatisk, om de allerede følger med YouSee TV, kan samles i YouSee Stream eller er billigst direkte.</p><div class="call-direct-stream-grid">${Object.entries(groups).map(([service,plans])=>`<div class="call-direct-stream"><label class="call-stream-option"><input class="call-direct-stream-check" type="checkbox" data-service="${service}"><span>${service}</span></label><div class="call-direct-stream-package" hidden><label>Hvilken pakke har kunden?<select class="call-direct-stream-select" data-service="${service}"><option value="">Vælg pakke</option>${plans.map(x=>`<option value="${x.id}">${x.tier} · ${x.billingLabel||fmt(x.price)+'/md.'}</option>`).join('')}</select></label></div></div>`).join('')}</div>`;
@@ -1210,11 +1210,13 @@ function effectiveYouseePlayPoints(plan,option){
   return Math.max(0,points-overlap);
 }
 function optimizeYouseeStreaming(stream,currentPlan,count,needs){
-  const desired=desiredStreamingPlans(stream),streamProduct=youseeStreamProduct(),channelPoints=needs.includes('tv')?callChannelPoints():0;
+  const desired=desiredStreamingPlans(stream),streamProduct=youseeStreamProduct(),channelPoints=needs.includes('tv')?callChannelPoints():0,existingYouseeTv=!!$('callHasYouseeTv')?.checked&&!!$('callYouseeTvPackage')?.value;
   let best=null;
   const evaluate=assignments=>{
     const streamAssignments=assignments.filter(x=>x.method==='stream');
     if(streamAssignments.length===1||streamAssignments.length>Number(streamProduct.maxServices||6))return;
+    if(existingYouseeTv&&streamAssignments.length)return;
+    if(!needs.includes('tv')&&streamAssignments.length&&assignments.some(x=>x.method==='play'))return;
     if(streamAssignments.length&&!needs.includes('mobile'))return;
     const playAssignments=assignments.filter(x=>x.method==='play');
     const directAssignments=assignments.filter(x=>x.method==='direct');
@@ -1242,7 +1244,7 @@ function optimizeYouseeStreaming(stream,currentPlan,count,needs){
     if(i>=desired.length){evaluate(assignments);return}
     const plan=desired[i],options=[{method:'direct',plan}],playOption=youseePlayOptionForPlan(plan);
     if(playOption)options.push({method:'play',plan,playOption});
-    if(youseeStreamSupportsPlan(plan))options.push({method:'stream',plan});
+    if(!existingYouseeTv&&youseeStreamSupportsPlan(plan))options.push({method:'stream',plan});
     options.forEach(x=>walk(i+1,[...assignments,x]));
   };
   walk(0,[]);
@@ -1436,8 +1438,8 @@ function renderCallResult(rec){
   if(guidedManualYouseePrice!==null&&needs.includes('broadband')){const d=isSaveDepartment()?Math.min(saveDiscountConfig().amount,guidedManualYouseePrice):0;notes.push(d?`YouSee-forbindelse ${fmt(guidedManualYouseePrice)}/md. før Save-rabat · ${fmt(guidedManualYouseePrice-d)}/md. efter rabat.`:`YouSee-forbindelse ${fmt(guidedManualYouseePrice)}/md.`)}
   if(isSaveDepartment()&&$('callHasYouseeInternet')?.checked&&saveDiscountConfig().amount)notes.push(`Mulig Save-rabat: ${saveDiscountConfig().label} −${saveDiscountConfig().amount} kr./md.`);
   if(rec.streamingOptimization?.desired?.length===1&&rec.streamingOptimization?.directPlans?.length===1)notes.push('Den valgte streamingtjeneste er billigst at beholde som direkte abonnement.');
-  if(rec.streamingOptimization?.desired?.length)notes.push('Streaming er prisoptimeret mellem direkte køb, YouSee Play og YouSee Stream.');
-  if(needs.includes('streaming')&&!needs.includes('mobile'))notes.push('YouSee Stream kræver et kvalificerende YouSee-mobilabonnement og er derfor ikke med som mulighed.');
+  if(rec.streamingOptimization?.desired?.length)notes.push($('callHasYouseeTv')?.checked?'Kunden har YouSee TV: YouSee Stream er udelukket; de valgte streamingpakker sammenlignes med YouSee Play og direkte køb.':'Streaming er prisoptimeret mellem direkte køb, YouSee Play og YouSee Stream.');
+  if(!needs.includes('mobile')&&rec.stream?.direct?.length)notes.push('YouSee Stream kræver et kvalificerende YouSee-mobilabonnement og kan derfor først vælges, når mobil også indgår i sammenligningen.');
   if(needs.includes('tv')&&rec.tv)notes.push(`TV-forslaget er beregnet ud fra ${rec.tv.points} samlede YouSee Play-point.`);
   if(needs.includes('mobile')&&!rec.bestPlan)notes.push('Der blev ikke fundet et YouSee-mobilabonnement, der matcher kundens nuværende databehov.');
   if(currentState.unknown)notes.push('En pris i kundens nuværende løsning mangler, så prisforskellen kan ikke beregnes endnu.');
