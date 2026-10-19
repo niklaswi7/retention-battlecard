@@ -1171,7 +1171,9 @@ function desiredStreamingPlans(stream=callStreamingSelection()){
     const plan=offer.retailPlanId?retailPlan(offer.retailPlanId):null;
     if(plan)add({id:offer.retailPlanId,...plan},'provider');
   });
-  return out;
+  const pack=isSaveDepartment()&&$('callHasYouseeTv')?.checked?$('callYouseeTvPackage')?.value:'';
+  const hasTv2Sport=pack==='fp'&&new Date()>=new Date('2027-01-01T00:00:00');
+  return out.filter(p=>!(pack&&p.service==='Viaplay')&&!(hasTv2Sport&&p.service==='TV 2 Play'));
 }
 function youseePlayOptionForPlan(plan){
   const opts=streamingData.youseePlayStreaming?.options||[];
