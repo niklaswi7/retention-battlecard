@@ -1033,7 +1033,7 @@ function renderCallCurrentProducts(){
   if(needs.includes('mobile')||needs.includes('streaming')){
     const groups={};
     Object.entries(streamingData.retailCatalog||{}).forEach(([id,x])=>{(groups[x.service]??=[]).push({id,...x})});
-    const direct=`<h4>▶ Kundens streaming (også direkte hos Netflix, Viaplay, HBO m.fl.)</h4><p class="need-hint">Vælg abonnementer kunden bruger. Vi undersøger automatisk, om de allerede følger med YouSee TV, kan samles i YouSee Stream eller er billigst direkte.</p><div class="call-direct-stream-grid">${Object.entries(groups).map(([service,plans])=>`<div class="call-direct-stream"><label>${service}<select class="call-direct-stream-select" data-service="${service}"><option value="">Har ikke</option>${plans.map(x=>`<option value="${x.id}">${x.tier} · ${x.billingLabel||fmt(x.price)+'/md.'}</option>`).join('')}</select></label></div>`).join('')}</div>`;
+    const direct=`<h4>▶ Kundens streaming (også direkte hos Netflix, Viaplay, HBO m.fl.)</h4><p class="need-hint">Vælg abonnementer kunden bruger. Vi undersøger automatisk, om de allerede følger med YouSee TV, kan samles i YouSee Stream eller er billigst direkte.</p><div class="call-direct-stream-grid">${Object.entries(groups).map(([service,plans])=>`<div class="call-direct-stream"><label class="call-stream-option"><input class="call-direct-stream-check" type="checkbox" data-service="${service}"><span>${service}</span></label><div class="call-direct-stream-package" hidden><label>Hvilken pakke har kunden?<select class="call-direct-stream-select" data-service="${service}"><option value="">Vælg pakke</option>${plans.map(x=>`<option value="${x.id}">${x.tier} · ${x.billingLabel||fmt(x.price)+'/md.'}</option>`).join('')}</select></label></div></div>`).join('')}</div>`;
     parts.push(`<div class="call-product-box">${direct}</div>`);
   }
 
@@ -1047,6 +1047,7 @@ function renderCallCurrentProducts(){
   }
 
   $('callCurrentProducts').innerHTML=parts.join('');
+  syncDirectStreamingCheckboxes();
   $('callBroadbandProduct')?.addEventListener('change',renderCallBroadbandPrice);
   $('callStreamingOffer')?.addEventListener('change',renderCallStreamingServices);
   document.querySelectorAll('.call-tv-channel').forEach(x=>x.addEventListener('change',renderCallChannelSummary));
@@ -1084,7 +1085,15 @@ function youseePlayRecommendation(points){const needed=Math.max(0,Number(points)
 function callTvRecommendation(extraPoints=0){return youseePlayRecommendation(callChannelPoints()+Number(extraPoints||0))}
 function renderCallChannelSummary(){const el=$('callChannelSummary');if(!el)return;const r=callTvRecommendation(),count=selectedCallChannels().length;el.textContent=`${count} kanal${count===1?'':'er'} valgt · ${r.points} point · ${r.name} · ${fmt(r.price)}/md.`}
 
-function selectedDirectStreaming(){return [...document.querySelectorAll('.call-direct-stream-select')].map(x=>x.value?{id:x.value,...(streamingData.retailCatalog?.[x.value]||{})}:null).filter(Boolean)}
+function selectedDirectStreaming(){return [...document.querySelectorAll('.call-direct-stream-check:checked')].map(x=>{const select=x.closest('.call-direct-stream')?.querySelector('.call-direct-stream-select');return select?.value?{id:select.value,...(streamingData.retailCatalog?.[select.value]||{})}:null}).filter(Boolean)}
+function syncDirectStreamingCheckboxes(){
+  document.querySelectorAll('.call-direct-stream-check').forEach(check=>{
+    const container=check.closest('.call-direct-stream'),packageBox=container?.querySelector('.call-direct-stream-package'),select=container?.querySelector('.call-direct-stream-select');
+    const update=()=>{if(packageBox)packageBox.hidden=!check.checked;if(select){select.disabled=!check.checked;if(!check.checked)select.value=''}};
+    check.addEventListener('change',update);
+    update();
+  });
+}
 
 function renderCallStreamingServices(){
   const target=$('callStreamingServices');
@@ -1462,6 +1471,10 @@ function finishCallAssistant(){
     }
     if(!stream.providerValid){
       if(validation){validation.hidden=false;validation.textContent='Vælg det rigtige antal streamingtjenester i mobiludbyderens pakke.'}
+      return;
+    }
+    if([...document.querySelectorAll('.call-direct-stream-check:checked')].some(x=>!x.closest('.call-direct-stream')?.querySelector('.call-direct-stream-select')?.value)){
+      if(validation){validation.hidden=false;validation.textContent='Vælg en pakke for hver markeret streamingtjeneste.'}
       return;
     }
     if(callNeeds().includes('streaming')&&!stream.directValid){
