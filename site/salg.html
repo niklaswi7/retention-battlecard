@@ -1030,6 +1030,13 @@ function renderCallCurrentProducts(){
     parts.push(`<div class="call-product-box"><h4>📱 Mobil · ${providerDisplayName(mobileProvider)}</h4><label>Hvilket mobilabonnement har kunden?<select id="callMobilePlan">${plans.map((s,i)=>`<option value="${i}">${s.name} · ${competitorPlanPrice(s)} kr./md.</option>`).join('')}</select></label>${providerStreamingPart}</div>`);
   }
 
+  if(needs.includes('mobile')||needs.includes('streaming')){
+    const groups={};
+    Object.entries(streamingData.retailCatalog||{}).forEach(([id,x])=>{(groups[x.service]??=[]).push({id,...x})});
+    const direct=`<h4>▶ Kundens streaming (også direkte hos Netflix, Viaplay, HBO m.fl.)</h4><p class="need-hint">Vælg abonnementer kunden bruger. Vi undersøger automatisk, om de allerede følger med YouSee TV, kan samles i YouSee Stream eller er billigst direkte.</p><div class="call-direct-stream-grid">${Object.entries(groups).map(([service,plans])=>`<div class="call-direct-stream"><label>${service}<select class="call-direct-stream-select" data-service="${service}"><option value="">Har ikke</option>${plans.map(x=>`<option value="${x.id}">${x.tier} · ${x.billingLabel||fmt(x.price)+'/md.'}</option>`).join('')}</select></label></div>`).join('')}</div>`;
+    parts.push(`<div class="call-product-box">${direct}</div>`);
+  }
+
   if(needs.includes('broadband')){
     const products=[...(broadbandData.internet||[]),...(broadbandData.mobileBroadband||[])];
     parts.push(`<div class="call-product-box"><h4>🏠 Internet · ${providerDisplayName(broadbandProvider)}</h4><label>Hvilket internet har kunden?<select id="callBroadbandProduct">${products.map(s=>`<option value="${s.id}">${s.name} · ${servicePriceLabel(s)}</option>`).join('')}</select></label><div id="callBroadbandPriceWrap"></div></div>`);
@@ -1037,13 +1044,6 @@ function renderCallCurrentProducts(){
 
   if(needs.includes('tv')){
     parts.push(`<div class="call-product-box"><h4>📺 TV · ${providerDisplayName(tvProvider)}</h4><label>Hvilken TV-pakke har kunden?<select id="callTvProduct">${(tvData.tv||[]).map(s=>`<option value="${s.id}">${s.name} · ${servicePriceLabel(s)}</option>`).join('')}</select></label><div class="divider"></div><h4>Hvilke kanaler vil kunden beholde?</h4><p class="need-hint">Vælg de kanaler kunden faktisk ser. Vi bruger YouSee Play-point til at finde den billigste løsning.</p><div class="call-channel-grid">${YOUSEE_CHANNELS.map(ch=>`<label class="call-channel"><input class="call-tv-channel" type="checkbox" value="${ch.name}" data-points="${ch.points}"><span>${ch.name}<small>${ch.points===0?'Medfølger':ch.points+' pt.'}</small></span></label>`).join('')}</div><div id="callChannelSummary" class="call-channel-summary">0 point valgt · YouSee Play 10 er nok</div></div>`);
-  }
-
-  if(needs.includes('streaming')){
-    const groups={};
-    Object.entries(streamingData.retailCatalog||{}).forEach(([id,x])=>{(groups[x.service]??=[]).push({id,...x})});
-    const direct=`<h4>▶ Streaming · selskaber</h4><p class="need-hint">Vælg de streamingabonnementer kunden køber direkte hos streaming-selskaberne.</p><div class="call-direct-stream-grid">${Object.entries(groups).map(([service,plans])=>`<div class="call-direct-stream"><label>${service}<select class="call-direct-stream-select" data-service="${service}"><option value="">Har ikke</option>${plans.map(x=>`<option value="${x.id}">${x.tier} · ${x.billingLabel||fmt(x.price)+'/md.'}</option>`).join('')}</select></label></div>`).join('')}</div>`;
-    parts.push(`<div class="call-product-box">${direct}</div>`);
   }
 
   $('callCurrentProducts').innerHTML=parts.join('');
@@ -1101,7 +1101,7 @@ function renderCallStreamingServices(){
 }
 
 function callStreamingSelection(){
-  const providerName=callNeeds().includes('mobile')?selectedCallProvider('mobile'):'',sp=providerStreaming(providerName),direct=callNeeds().includes('streaming')?selectedDirectStreaming():[];
+  const providerName=callNeeds().includes('mobile')?selectedCallProvider('mobile'):'',sp=providerStreaming(providerName),direct=selectedDirectStreaming();
   let offers=[],services=[];
   if(sp.multiSelectAddons){
     const ids=[...document.querySelectorAll('.call-stream-addon:checked')].map(x=>x.value);
@@ -1113,7 +1113,7 @@ function callStreamingSelection(){
   }
   const offer=offers[0]||null,limit=Math.min(Number(offer?.serviceCount||0),(sp.services||[]).length),
     providerValid=!offer||!limit||services.length===limit,
-    directValid=!callNeeds().includes('streaming')||direct.length>0;
+    directValid=!callNeeds().includes('streaming')||direct.length>0||offers.length>0;
   return{providerName,offers,services,direct,count:offers.length+direct.length,valid:providerValid&&directValid,directValid,providerValid}
 }
 
@@ -1399,6 +1399,11 @@ function renderCallResult(rec){
   if(isSaveDepartment())rows.push(['Afdeling','Save']);
   services.forEach(s=>rows.push([s.type==='tv'?(needs.includes('tv')?'TV':'YouSee Play'):'Internet',s.name]));
   const opt=rec.streamingOptimization||guidedStreamingOptimization;
+  const selectedStreams=rec.stream?.direct||[];
+  if(isSaveDepartment()&&$('callHasYouseeTv')?.checked&&$('callYouseeTvPackage')?.value){
+    const pack=$('callYouseeTvPackage').value,viaplay=selectedStreams.find(x=>x.service==='Viaplay');
+    if(viaplay)rows.push(['Viaplay gennem YouSee TV',pack==='gp'?'Grundpakke: inkluderet Viaplay-version':pack==='mp'?'Mellempakke: Film & Serier inkluderet':'Fuldpakke: Premium inkluderet']);
+  }
   if(opt?.streamPlans?.length)rows.push(['YouSee Stream',opt.streamPlans.map(x=>x.service+' · '+x.tier).join(', ')]);
   if(opt?.playPlans?.length)rows.push(['Streaming i YouSee Play',opt.playPlans.map(x=>x.service+' · '+x.tier+' ('+x.playPoints+' pt.)').join(', ')]);
   if(needs.includes('tv')&&selectedCallChannels().length)rows.push(['TV-kanaler',selectedCallChannels().map(x=>x.name).join(', ')]);
