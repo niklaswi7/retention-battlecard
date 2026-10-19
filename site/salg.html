@@ -769,8 +769,8 @@ function syncFixedInternetPriceField(){
 }
 function youseeInternetState(){const internet=selectedService('youseeInternetSelect'),mobileBroadband=selectedService('youseeBroadbandSelect'),raw=$('youseeInternetPrice')?.value?.trim()??'',manual=raw===''?null:Number(raw),valid=isFixedInternet(internet)&&manual!==null&&Number.isFinite(manual)&&manual>=0;return{internet,mobileBroadband,raw,manual,valid}}
 function syncYouseeInternetTools(){const active=hasNeed('broadband'),state=youseeInternetState(),box=$('youseeFixedPriceBox'),input=$('youseeInternetPrice'),tools=$('youseeBroadbandTools'),link=$('openYouseeBroadbandLink'),selected=active?(state.internet||state.mobileBroadband):null;if(box&&input){const show=active&&isFixedInternet(state.internet);box.hidden=!show;input.required=show;if(!show)input.value=''}if(tools&&link){tools.hidden=!selected;if(selected?.sourceUrl)link.href=selected.sourceUrl;link.textContent=isFixedInternet(state.internet)?'Tjek adresse hos YouSee':'Åbn bredbånd hos YouSee'}}
-function youseeFixedTvInternetDiscount(s){return !!s&&hasNeed('broadband')&&!!$('callHasYouseeTv')?.checked&&['gp','mp','fp'].includes($('callYouseeTvPackage')?.value)&&(['fixed','mobile-broadband','5g-home','4g-home'].includes(s.type))?50:0}
-function youseeServicePricing(services){const state=youseeInternetState();let total=0,unknown=false,discount=0;for(const s of services){const d=saveDiscountForService(s)+youseeFixedTvInternetDiscount(s),isConnection=isFixedInternet(s)||['mobile-broadband','5g-home','4g-home'].includes(s?.type),guidedPrice=isConnection&&hasNeed('broadband')&&guidedManualYouseePrice!==null?guidedManualYouseePrice:null;if(isFixedInternet(s)){const price=guidedPrice!==null?guidedPrice:(state.valid?state.manual:null);if(price!==null&&Number.isFinite(price)){total+=Math.max(0,price-d);discount+=Math.min(d,price)}else unknown=true}else{const p=guidedPrice!==null?guidedPrice:servicePrice(s);if(p==null)unknown=true;else{total+=Math.max(0,Number(p)-d);discount+=Math.min(d,Number(p))}}}return{total,unknown,state,discount}}
+function youseeFixedTvPackageDiscount(){return !!$('callHasYouseeTv')?.checked&&['gp','mp','fp'].includes($('callYouseeTvPackage')?.value)?50:0}
+function youseeServicePricing(services){const state=youseeInternetState();let total=0,unknown=false,discount=0;for(const s of services){const d=saveDiscountForService(s),isConnection=isFixedInternet(s)||['mobile-broadband','5g-home','4g-home'].includes(s?.type),guidedPrice=isConnection&&hasNeed('broadband')&&guidedManualYouseePrice!==null?guidedManualYouseePrice:null;if(isFixedInternet(s)){const price=guidedPrice!==null?guidedPrice:(state.valid?state.manual:null);if(price!==null&&Number.isFinite(price)){total+=Math.max(0,price-d);discount+=Math.min(d,price)}else unknown=true}else{const p=guidedPrice!==null?guidedPrice:servicePrice(s);if(p==null)unknown=true;else{total+=Math.max(0,Number(p)-d);discount+=Math.min(d,Number(p))}}}return{total,unknown,state,discount}}
 
 const totalLabel=(n,unknown)=>fmt(n)+(unknown?' + adressepris':'');
 
@@ -1401,20 +1401,23 @@ function guidedYouseeState(){
     pricing=youseeServicePricing(services),
     stream=youseeStreamState(),
     mobileTotal=plans.reduce((n,p,i)=>n+youseeLinePrice(p,i,plans),0),
-    total=mobileTotal+pricing.total+stream.price+guidedRetainedStreamingAmount;
-  return{total,unknown:pricing.unknown,plans,services,pricing,stream,mobileTotal};
+    subtotal=mobileTotal+pricing.total+stream.price+guidedRetainedStreamingAmount,
+    tvPackageDiscount=Math.min(subtotal,youseeFixedTvPackageDiscount()),
+    total=Math.max(0,subtotal-tvPackageDiscount);
+  return{total,unknown:pricing.unknown,plans,services,pricing,stream,mobileTotal,tvPackageDiscount};
 }
 
 function renderCallResult(rec){
   const needs=callNeeds(),currentState=guidedCurrentCustomerState(),youseeState=guidedYouseeState(),plans=youseeState.plans,services=youseeState.services,rows=[],notes=[];
   if(plans.length)rows.push(['Mobil',plans.length>1?`${plans.length} × ${plans[0].name}`:plans[0].name]);
+  if(youseeState.tvPackageDiscount)rows.push(['TV-kunderabat',`−${fmt(youseeState.tvPackageDiscount)}/md.`]);
   if(isSaveDepartment())rows.push(['Afdeling','Save']);
   services.forEach(s=>rows.push([s.type==='tv'?(needs.includes('tv')?'TV':'YouSee Play'):'Internet',s.name]));
   const opt=rec.streamingOptimization||guidedStreamingOptimization;
   const selectedStreams=rec.stream?.direct||[];
   if(isSaveDepartment()&&$('callHasYouseeTv')?.checked&&$('callYouseeTvPackage')?.value){
     const pack=$('callYouseeTvPackage').value,viaplay=selectedStreams.find(x=>x.service==='Viaplay');
-    if(viaplay)rows.push(['Viaplay gennem YouSee TV',pack==='gp'?'Grundpakke: inkluderet Viaplay-version':pack==='mp'?'Mellempakke: Film & Serier inkluderet':'Fuldpakke: Premium inkluderet']);
+    rows.push(['Streaming inkluderet i YouSee TV',pack==='gp'?'Grundpakke: Viaplay inkluderet':pack==='mp'?'Mellempakke: Viaplay Film & Serier inkluderet':'Fuldpakke: Viaplay Premium inkluderet'+(new Date()>=new Date('2027-01-01T00:00:00')?' + TV 2 Play + Sport':' (TV 2 Play + Sport fra 1/1 2027)')]);
   }
   if(opt?.streamPlans?.length)rows.push(['YouSee Stream',opt.streamPlans.map(x=>x.service+' · '+x.tier).join(', ')]);
   if(opt?.playPlans?.length)rows.push(['Streaming i YouSee Play',opt.playPlans.map(x=>x.service+' · '+x.tier+' ('+x.playPoints+' pt.)').join(', ')]);
@@ -1434,7 +1437,7 @@ function renderCallResult(rec){
     recommendationText=!comparable?'Indtast de manglende priser for at finde den billigste løsning.':rawDifference>0?`Kunden sparer ${fmt(savingMonth)} om måneden og ${fmt(savingYear)} om året ved at vælge YouSee.`:rawDifference<0?`Kundens nuværende løsning er ${fmt(Math.abs(rawDifference))} billigere om måneden (${fmt(Math.abs(rawDifference)*12)} om året).`:'Der er ingen prisforskel mellem løsningerne.';
 
   if(rec.broadbandNote)notes.push(rec.broadbandNote);
-  if(youseeState.services.some(s=>youseeFixedTvInternetDiscount(s)))notes.push('Fast YouSee TV-pakke (Grundpakke, Mellempakke eller Fuldpakke): 50 kr./md. i ekstra rabat på internet er medregnet i YouSee-prisen.');
+  if(youseeState.tvPackageDiscount)notes.push(`Fast YouSee TV-pakke: ${fmt(youseeState.tvPackageDiscount)} rabat pr. måned er trukket fra det samlede YouSee-tilbud – også når der kun vælges mobil, TV eller internet.`);
   if(isSaveDepartment()&&$('callHasYouseeTv')?.checked){const pack=$('callYouseeTvPackage')?.value;const text=pack==='gp'?'Grundpakke: Viaplay inkluderet':pack==='mp'?'Mellempakke: Viaplay Film & Serier inkluderet':pack==='fp'?'Fuldpakke: Viaplay Premium inkluderet'+(new Date()>=new Date('2027-01-01T00:00:00')?' og TV 2 Play + Sport inkluderet':' (TV 2 Play + Sport fra 1. januar 2027)'):'';if(text)notes.push(text+'.')}
   if(isSaveDepartment()&&$('callHasYouseeInternet')?.checked&&!needs.includes('broadband')&&guidedSaveDiscountKey!=='none'){const price=Number($('callSaveCurrentPrice')?.value),cfg=saveDiscountConfig();if($('callSaveCurrentPrice')?.value!=='')notes.push(`Eksisterende YouSee-internet: ${fmt(price)} → ${fmt(Math.max(0,price-cfg.amount))}/md. (Save-rabat ${fmt(Math.min(price,cfg.amount))}). Ikke medregnet i mobiltilbuddet.`)} 
   if(guidedManualYouseePrice!==null&&needs.includes('broadband')){const d=isSaveDepartment()?Math.min(saveDiscountConfig().amount,guidedManualYouseePrice):0;notes.push(d?`YouSee-forbindelse ${fmt(guidedManualYouseePrice)}/md. før Save-rabat · ${fmt(guidedManualYouseePrice-d)}/md. efter rabat.`:`YouSee-forbindelse ${fmt(guidedManualYouseePrice)}/md.`)}
