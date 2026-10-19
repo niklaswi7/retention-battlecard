@@ -1409,7 +1409,12 @@ function renderCallResult(rec){
     comparable=!currentState.unknown&&!youseeState.unknown,
     rawDifference=comparable?currentState.total-youseeState.total:null,
     difference=comparable?fmt(Math.abs(rawDifference)):null,
-    winner=!comparable?'':rawDifference>0?'YouSee':rawDifference<0?'Nuværende løsning':'Samme pris';
+    winner=!comparable?'':rawDifference>0?'YouSee':rawDifference<0?'Nuværende løsning':'Samme pris',
+    savingMonth=comparable?Math.max(0,rawDifference):null,
+    savingYear=comparable?savingMonth*12:null,
+    resultHeadline=!comparable?'Pris kan endnu ikke sammenlignes':rawDifference>0?'YouSee er billigst':rawDifference<0?'Kundens nuværende løsning er billigst':'Begge løsninger koster det samme',
+    savingText=!comparable?'Mangler en pris':rawDifference>0?`${fmt(savingMonth)} / md. · ${fmt(savingYear)} / år`:rawDifference<0?'0 kr. ved skift til YouSee':'0 kr. – samme pris',
+    recommendationText=!comparable?'Indtast de manglende priser for at finde den billigste løsning.':rawDifference>0?`Kunden sparer ${fmt(savingMonth)} om måneden og ${fmt(savingYear)} om året ved at vælge YouSee.`:rawDifference<0?`Kundens nuværende løsning er ${fmt(Math.abs(rawDifference))} billigere om måneden (${fmt(Math.abs(rawDifference)*12)} om året).`:'Der er ingen prisforskel mellem løsningerne.';
 
   if(rec.broadbandNote)notes.push(rec.broadbandNote);
   if(isSaveDepartment()&&$('callHasYouseeTv')?.checked){const pack=$('callYouseeTvPackage')?.value;const text=pack==='gp'?'Grundpakke: Viaplay inkluderet':pack==='mp'?'Mellempakke: Viaplay Film & Serier inkluderet':pack==='fp'?'Fuldpakke: Viaplay Premium inkluderet'+(new Date()>=new Date('2027-01-01T00:00:00')?' og TV 2 Play + Sport inkluderet':' (TV 2 Play + Sport fra 1. januar 2027)'):'';if(text)notes.push(text+'.')}
@@ -1426,12 +1431,15 @@ function renderCallResult(rec){
   const currentRows=currentState.parts.map(x=>`<div class="call-result-item"><span>${x.label}</span><strong>${x.value}<small style="display:block;color:#767676">${x.unknown?'Pris mangler':fmt(x.price)+'/md.'}</small></strong></div>`).join('');
   $('callResult').innerHTML=`
     <div class="call-result-hero">
-      <div><p class="kicker">Forslag</p><h3>Billigste relevante YouSee-løsning</h3><p class="subtitle">Sammenlignet på tværs af kundens nuværende selskaber.</p></div>
+      <div><p class="kicker">4 · Resultat</p><h3>${resultHeadline}</h3><p class="subtitle">${recommendationText}</p></div>
       <div class="call-result-price"><span>YouSee pr. måned</span><strong>${yousee}</strong></div>
     </div>
     <div class="call-result-grid">
-      <div class="call-result-item"><span>Kunden betaler nu</span><strong>${competitor}</strong></div>
-      <div class="call-result-item"><span>Forskel</span><strong>${difference?difference+' / md.':'Kan ikke beregnes endnu'}</strong></div>
+      <div class="call-result-item"><span>Kunden betaler nu</span><strong>${competitor} / md.</strong></div>
+      <div class="call-result-item"><span>YouSee koster</span><strong>${yousee} / md.</strong></div>
+      <div class="call-result-item"><span>Billigste løsning</span><strong>${comparable?winner:'Afventer priser'}</strong></div>
+      <div class="call-result-item"><span>Kundens besparelse ved YouSee</span><strong>${savingText}</strong></div>
+      <div class="call-result-item"><span>Prisforskel</span><strong>${difference?difference+' / md.':'Kan ikke beregnes endnu'}</strong></div>
       ${currentRows}
       ${rows.map(([a,b])=>`<div class="call-result-item"><span>${a}</span><strong>${b}</strong></div>`).join('')}
     </div>
