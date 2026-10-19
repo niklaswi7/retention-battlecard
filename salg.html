@@ -813,7 +813,8 @@ function applyDepartmentState(){
   const saveToggle=document.querySelector('.save-toggle');
   if(saveToggle)saveToggle.hidden=!isSaveDepartment();
   if($('saveRights'))$('saveRights').checked=isSaveDepartment();
-  if($('callSaveConnectionWrap'))$('callSaveConnectionWrap').hidden=!isSaveDepartment()||!callNeeds().includes('broadband');
+  if($('callSaveConnectionWrap'))$('callSaveConnectionWrap').hidden=true;
+  if($('callSaveBenefits'))$('callSaveBenefits').hidden=false;
   if(companies.length)renderYouseeSelectors();
   renderDepartmentState();
 }
@@ -968,7 +969,7 @@ function syncCallNeedControls(){
   if(wrap)wrap.hidden=!mobile;
   if(connectionBox)connectionBox.hidden=!broadband;
   if(saveConnection)saveConnection.hidden=!isSaveDepartment()||!broadband;
-  if($('callSaveBenefits'))$('callSaveBenefits').hidden=!isSaveDepartment();
+  if($('callSaveBenefits'))$('callSaveBenefits').hidden=false;
   if(!broadband){
     if($('callManualYouseePrice'))$('callManualYouseePrice').value='';
     guidedManualYouseePrice=null;
@@ -984,6 +985,7 @@ function setCallStep(step){
   if($('callFindBtn'))$('callFindBtn').hidden=callStep!==3;
   if($('callNewBtn'))$('callNewBtn').hidden=callStep!==4;
   if($('callUseBtn'))$('callUseBtn').hidden=callStep!==4;
+  if(callStep===3){syncCallNeedControls();syncSaveBenefitVisibility()}
 }
 
 function advanceCallAssistant(){
