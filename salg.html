@@ -1403,15 +1403,20 @@ function guidedYouseeState(){
     mobileTotal=plans.reduce((n,p,i)=>n+youseeLinePrice(p,i,plans),0),
     subtotal=mobileTotal+pricing.total+stream.price+guidedRetainedStreamingAmount,
     tvPackageDiscount=Math.min(subtotal,youseeFixedTvPackageDiscount()),
-    total=Math.max(0,subtotal-tvPackageDiscount);
-  return{total,unknown:pricing.unknown,plans,services,pricing,stream,mobileTotal,tvPackageDiscount};
+    existingConnectionPrice=Number($('callSaveCurrentPrice')?.value),
+    hasExistingConnection=isSaveDepartment()&&!!$('callHasYouseeInternet')?.checked&&$('callSaveCurrentPrice')?.value!==''&&Number.isFinite(existingConnectionPrice)&&existingConnectionPrice>=0,
+    extraConnectionDiscount=hasExistingConnection&&!services.some(s=>isFixedInternet(s)||['mobile-broadband','5g-home','4g-home'].includes(s.type))?Math.min(saveDiscountConfig().amount,existingConnectionPrice,Math.max(0,subtotal-tvPackageDiscount)):0,
+    saveDiscountTotal=pricing.discount+extraConnectionDiscount,
+    total=Math.max(0,subtotal-tvPackageDiscount-extraConnectionDiscount);
+  return{total,unknown:pricing.unknown,plans,services,pricing,stream,mobileTotal,tvPackageDiscount,saveDiscountTotal,extraConnectionDiscount};
 }
 
 function renderCallResult(rec){
   const needs=callNeeds(),currentState=guidedCurrentCustomerState(),youseeState=guidedYouseeState(),plans=youseeState.plans,services=youseeState.services,rows=[],notes=[];
   if(plans.length)rows.push(['Mobil',plans.length>1?`${plans.length} × ${plans[0].name}`:plans[0].name]);
   if(youseeState.tvPackageDiscount)rows.push(['TV-kunderabat',`−${fmt(youseeState.tvPackageDiscount)}/md.`]);
-  if(youseeState.pricing.discount)rows.push(['Save-rabat på forbindelse',`−${fmt(youseeState.pricing.discount)}/md.`]);
+  if(youseeState.saveDiscountTotal)rows.push(['Save-rabat på forbindelse',`−${fmt(youseeState.saveDiscountTotal)}/md.`]);
+  if(youseeState.tvPackageDiscount||youseeState.saveDiscountTotal)rows.push(['Samlet rabat',`−${fmt(youseeState.tvPackageDiscount+youseeState.saveDiscountTotal)}/md.`]);
   if(isSaveDepartment())rows.push(['Afdeling','Save']);
   services.forEach(s=>rows.push([s.type==='tv'?(needs.includes('tv')?'TV':'YouSee Play'):'Internet',s.name]));
   const opt=rec.streamingOptimization||guidedStreamingOptimization;
@@ -1442,7 +1447,7 @@ function renderCallResult(rec){
   if(isSaveDepartment()&&$('callHasYouseeTv')?.checked){const pack=$('callYouseeTvPackage')?.value;const text=pack==='gp'?'Grundpakke: Viaplay inkluderet':pack==='mp'?'Mellempakke: Viaplay Film & Serier inkluderet':pack==='fp'?'Fuldpakke: Viaplay Premium inkluderet'+(new Date()>=new Date('2027-01-01T00:00:00')?' og TV 2 Play + Sport inkluderet':' (TV 2 Play + Sport fra 1. januar 2027)'):'';if(text)notes.push(text+'.')}
   if(isSaveDepartment()&&$('callHasYouseeInternet')?.checked&&!needs.includes('broadband')&&guidedSaveDiscountKey!=='none'){const price=Number($('callSaveCurrentPrice')?.value),cfg=saveDiscountConfig();if($('callSaveCurrentPrice')?.value!=='')notes.push(`Eksisterende YouSee-internet: ${fmt(price)} → ${fmt(Math.max(0,price-cfg.amount))}/md. (Save-rabat ${fmt(Math.min(price,cfg.amount))}). Ikke medregnet i mobiltilbuddet.`)} 
   if(guidedManualYouseePrice!==null&&needs.includes('broadband')){const d=isSaveDepartment()?Math.min(saveDiscountConfig().amount,guidedManualYouseePrice):0;notes.push(d?`YouSee-forbindelse ${fmt(guidedManualYouseePrice)}/md. før Save-rabat · ${fmt(guidedManualYouseePrice-d)}/md. efter rabat.`:`YouSee-forbindelse ${fmt(guidedManualYouseePrice)}/md.`)}
-  if(isSaveDepartment()&&$('callHasYouseeInternet')?.checked&&saveDiscountConfig().amount&&!youseeState.pricing.discount)notes.push(`Mulig Save-rabat på ${saveDiscountConfig().label}: ${fmt(saveDiscountConfig().amount)}/md. (kun når den relevante forbindelse er med i beregningen).`);
+  if(isSaveDepartment()&&$('callHasYouseeInternet')?.checked&&saveDiscountConfig().amount&&!youseeState.saveDiscountTotal)notes.push('Indtast kundens internetpris for at få Save-rabatten med i totalen.');
   if(rec.streamingOptimization?.desired?.length===1&&rec.streamingOptimization?.directPlans?.length===1)notes.push('Den valgte streamingtjeneste er billigst at beholde som direkte abonnement.');
   if(rec.streamingOptimization?.desired?.length)notes.push($('callHasYouseeTv')?.checked?'Kunden har YouSee TV: YouSee Stream er udelukket; de valgte streamingpakker sammenlignes med YouSee Play og direkte køb.':'Streaming er prisoptimeret mellem direkte køb, YouSee Play og YouSee Stream.');
   if(!needs.includes('mobile')&&rec.stream?.direct?.length)notes.push('YouSee Stream kræver et kvalificerende YouSee-mobilabonnement og kan derfor først vælges, når mobil også indgår i sammenligningen.');
