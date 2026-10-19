@@ -283,7 +283,7 @@ footer{color:#767676}
 .call-step{padding:8px 0 4px}
 .call-step h3{margin:0 0 5px;font-size:1.15rem}
 .call-step>p{margin:0 0 16px;color:#767676;font-size:.82rem}
-.call-simple-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.call-provider-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.call-provider-grid label{margin:0;padding:12px;border:1px solid #e0e6e0;border-radius:11px;background:#fff;font-weight:800}.call-provider-grid select{margin-top:6px}
+.call-simple-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.call-provider-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.call-provider-grid label{margin:0;padding:12px;border:1px solid #e0e6e0;border-radius:11px;background:#fff;font-weight:800}.call-provider-grid select{margin-top:6px}.call-provider-grid [hidden],#callYouseeConnectionBox[hidden]{display:none!important}
 .call-simple-grid label{margin:0}
 .call-need-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
 .call-need{margin:0}
@@ -361,7 +361,7 @@ footer{color:#767676}
           <label id="callNeedMobileLabel" class="call-need"><input id="callNeedMobile" type="checkbox" checked><span>📱 Mobil</span></label>
           <label id="callNeedBroadbandLabel" class="call-need"><input id="callNeedBroadband" type="checkbox"><span>🏠 Internet</span></label>
           <label id="callNeedTvLabel" class="call-need"><input id="callNeedTv" type="checkbox"><span>📺 TV</span></label>
-          <label id="callNeedStreamingLabel" class="call-need"><input id="callNeedStreaming" type="checkbox"><span>▶ Streaming</span></label>
+          <label id="callNeedStreamingLabel" class="call-need"><input id="callNeedStreaming" type="checkbox"><span>▶ Streaming-selskaber</span></label>
         </div>
         <div id="callMobileCountWrap" style="margin-top:14px;max-width:320px">
           <label>Hvor mange mobiler?<select id="callMobileCount"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></label>
@@ -382,8 +382,8 @@ footer{color:#767676}
         <h3>3. Hvad har kunden helt konkret?</h3>
         <p>Vælg de produkter, kunden bruger nu. Så matcher vi behovet — ikke bare prisen.</p>
         <div id="callCurrentProducts" class="call-current-products"></div>
-        <div class="call-product-box">
-          <h4>💚 YouSee-pris</h4>
+        <div id="callYouseeConnectionBox" class="call-product-box" hidden>
+          <h4>💚 YouSee-forbindelse</h4>
           <p class="need-hint">Har du internet/bredbånd med i tilbuddet, så skriv YouSee-prisen på selve forbindelsen her. Mobil, TV og streaming lægges automatisk oveni.</p>
           <label><span id="callManualYouseePriceLabel">Faktisk YouSee-pris pr. måned</span>
             <div class="money-input"><input id="callManualYouseePrice" type="number" min="0" step="1" inputmode="numeric" placeholder="Fx 399"><span>kr.</span></div>
@@ -947,10 +947,18 @@ function syncCallProviderRows(){
   Object.entries(rows).forEach(([need,id])=>{const row=$(id);if(row)row.hidden=!callNeeds().includes(need)});
 }
 function syncCallNeedControls(){
-  const wrap=$('callMobileCountWrap');
-  if(wrap)wrap.hidden=!$('callNeedMobile')?.checked;
-  const saveConnection=$('callSaveConnectionWrap');
-  if(saveConnection)saveConnection.hidden=!isSaveDepartment()||!$('callNeedBroadband')?.checked;
+  const mobile=$('callNeedMobile')?.checked,
+    broadband=$('callNeedBroadband')?.checked,
+    wrap=$('callMobileCountWrap'),
+    connectionBox=$('callYouseeConnectionBox'),
+    saveConnection=$('callSaveConnectionWrap');
+  if(wrap)wrap.hidden=!mobile;
+  if(connectionBox)connectionBox.hidden=!broadband;
+  if(saveConnection)saveConnection.hidden=!isSaveDepartment()||!broadband;
+  if(!broadband){
+    if($('callManualYouseePrice'))$('callManualYouseePrice').value='';
+    guidedManualYouseePrice=null;
+  }
 }
 
 function setCallStep(step){
@@ -1086,7 +1094,7 @@ function callStreamingSelection(){
 
 function applyCallSelectionsToWorkspace(){
   syncSaveConnectionDiscount();
-  const manualRaw=$('callManualYouseePrice')?.value?.trim()??'';
+  const manualRaw=callNeeds().includes('broadband')?($('callManualYouseePrice')?.value?.trim()??''):'';
   guidedManualYouseePrice=manualRaw===''?null:Number(manualRaw);
   if(guidedManualYouseePrice!==null&&(!Number.isFinite(guidedManualYouseePrice)||guidedManualYouseePrice<0))guidedManualYouseePrice=null;
   const needs=callNeeds(),stream=callStreamingSelection(),needMap={mobile:'needMobile',broadband:'needBroadband',tv:'needTv',streaming:'needStreaming'};
@@ -1347,7 +1355,14 @@ function guidedCurrentCustomerState(){
   return{total,unknown,mobile,broadband,broadbandPrice,tv,tvPrice,stream,streamingTotal,parts};
 }
 function guidedYouseeState(){
-  const plans=callNeeds().includes('mobile')?selectedYouseePlans():[],services=selectedYouseeServices(),pricing=youseeServicePricing(services),stream=youseeStreamState(),mobileTotal=plans.reduce((n,p,i)=>n+youseeLinePrice(p,i,plans),0),total=mobileTotal+pricing.total+stream.price+guidedRetainedStreamingAmount;
+  const needs=callNeeds(),
+    plans=needs.includes('mobile')?selectedYouseePlans():[],
+    keepPlay=!!guidedStreamingOptimization?.playRec,
+    services=selectedYouseeServices().filter(s=>s.type==='tv'?(needs.includes('tv')||keepPlay):needs.includes('broadband')),
+    pricing=youseeServicePricing(services),
+    stream=youseeStreamState(),
+    mobileTotal=plans.reduce((n,p,i)=>n+youseeLinePrice(p,i,plans),0),
+    total=mobileTotal+pricing.total+stream.price+guidedRetainedStreamingAmount;
   return{total,unknown:pricing.unknown,plans,services,pricing,stream,mobileTotal};
 }
 
