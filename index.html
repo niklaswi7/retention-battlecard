@@ -311,6 +311,7 @@ footer{color:#767676}
 .call-result-item span{display:block;color:#767676;font-size:.68rem;text-transform:uppercase;letter-spacing:.04em}
 .call-result-item strong{display:block;margin-top:3px;color:#383838;font-size:.82rem}
 .call-result-note{margin:11px 0 0;color:#767676;font-size:.74rem}
+.call-sales-tips{margin-top:16px;padding:16px;background:#fff;border:1px solid #bfe6c4;border-radius:12px}.call-sales-tips h3{font-size:1rem;margin:0 0 10px;color:#0c4d33}.call-sales-tips h4{margin:12px 0 6px;font-size:.86rem}.call-sales-tips ul{padding-left:19px;margin:0;display:grid;gap:8px}.call-sales-tips li,.call-sales-tips p{font-size:.82rem;line-height:1.5}.call-sales-tips small{color:#767676}
 .advanced-workspace[hidden]{display:none!important}
 @media(max-width:760px){.department-options{grid-template-columns:1fr}.call-assistant-start{align-items:flex-start;flex-direction:column}.call-simple-grid,.call-provider-grid,.call-result-grid{grid-template-columns:1fr}.call-need-grid{grid-template-columns:1fr 1fr}.call-stream-options,.call-channel-grid,.call-direct-stream-grid{grid-template-columns:1fr}.call-wizard{padding-left:17px;padding-right:17px}}
 
@@ -1455,6 +1456,19 @@ function renderCallResult(rec){
   if(needs.includes('mobile')&&!rec.bestPlan)notes.push('Der blev ikke fundet et YouSee-mobilabonnement, der matcher kundens nuværende databehov.');
   if(currentState.unknown)notes.push('En pris i kundens nuværende løsning mangler, så prisforskellen kan ikke beregnes endnu.');
 
+  const tips=[];
+  if(!comparable)tips.push('Afklar først de manglende priser, før du lover en besparelse.');
+  else if(rawDifference>0)tips.push(`Start med den konkrete besparelse: ${fmt(savingMonth)} om måneden og ${fmt(savingYear)} om året.`);
+  else if(rawDifference<0)tips.push('YouSee er ikke billigst i kroner. Spørg, om kunden prioriterer samlet overblik, indhold og enkel betaling højere end pris.');
+  else tips.push('Prisen er den samme. Fokusér på hvilken løsning der giver kunden mest relevant indhold og den nemmeste hverdag.');
+  if(needs.includes('mobile'))tips.push('Mobil: spørg, hvor meget data kunden faktisk bruger, og fremhæv kun de fordele, det anbefalede abonnement har.');
+  if(needs.includes('broadband'))tips.push('Internet: spørg til antal brugere, hjemmearbejde og streaming. Kontroller adresse, hastighed og forbindelsestype før et konkret løfte.');
+  if(needs.includes('tv')||$('callHasYouseeTv')?.checked)tips.push('TV: fremhæv de kanaler og den Viaplay-version, der faktisk indgår i kundens pakke, frem for at sælge flere point end nødvendigt.');
+  if(opt?.streamPlans?.length)tips.push(`YouSee Stream: forklar at ${opt.streamPlans.map(x=>x.service).join(' og ')} kan samles via Stream, og gennemgå den samlede pris med kunden.`);
+  if(opt?.playPlans?.length)tips.push(`YouSee Play: vis kunden hvordan ${opt.playPlans.map(x=>x.service).join(' og ')} passer med de valgte Play-point.`);
+  if(opt?.directPlans?.length)tips.push('Vær åben om, hvilke streamingtjenester der fortsat er billigst at købe direkte.');
+  if(youseeState.tvPackageDiscount||youseeState.saveDiscountTotal)tips.push(`Rabatter: gennemgå TV-rabat og Save-rabat hver for sig, og vis den samlede månedlige effekt på ${fmt(youseeState.tvPackageDiscount+youseeState.saveDiscountTotal)}.`);
+  const pitch=!comparable?'“Vi skal lige have de sidste priser på plads, så du får en retvisende sammenligning.”':rawDifference>0?`“Ud fra det, du bruger i dag, kan vi sammensætte en YouSee-løsning til ${fmt(youseeState.total)} om måneden. Det er ${fmt(savingMonth)} mindre om måneden. Skal vi gennemgå, om indholdet passer til dine behov?”`:rawDifference<0?'“Din nuværende løsning er billigere. Må jeg vise dig, hvad du eventuelt får med hos YouSee, så du kan vurdere, om forskellen er relevant?”':'“Vi lander på samme månedspris. Skal vi sammenligne indholdet og se, hvilken løsning du vil få mest glæde af?”';
   const currentRows=currentState.parts.map(x=>`<div class="call-result-item"><span>${x.label}</span><strong>${x.value}<small style="display:block;color:#767676">${x.unknown?'Pris mangler':fmt(x.price)+'/md.'}</small></strong></div>`).join('');
   $('callResult').innerHTML=`
     <div class="call-result-hero">
@@ -1470,7 +1484,8 @@ function renderCallResult(rec){
       ${currentRows}
       ${rows.map(([a,b])=>`<div class="call-result-item"><span>${a}</span><strong>${b}</strong></div>`).join('')}
     </div>
-    <p class="call-result-note">${winner?`Prisvinder: <strong>${winner}</strong>. `:''}Forslaget bruger normalpriser og de valgte produkter fra Battlecard-databasen.${notes.length?' '+notes.join(' '):''}</p>`;
+    <p class="call-result-note">${winner?`Prisvinder: <strong>${winner}</strong>. `:''}Forslaget bruger normalpriser og de valgte produkter fra Battlecard-databasen.${notes.length?' '+notes.join(' '):''}</p>
+    <section class="call-sales-tips"><h3>💡 Sådan kan du sælge løsningen</h3><ul>${tips.map(t=>`<li>${t}</li>`).join('')}</ul><h4>Forslag til, hvad du kan sige</h4><p>${pitch}</p><small>Brug kun fordele og rabatter, som er bekræftet i beregningen og gælder for kunden.</small></section>`;
 }
 
 function finishCallAssistant(){
