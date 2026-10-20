@@ -1032,7 +1032,7 @@ function renderCallCurrentProducts(){
     parts.push(`<div class="call-product-box"><h4>📱 Mobil · ${providerDisplayName(mobileProvider)}</h4><label>Hvilket mobilabonnement har kunden?<select id="callMobilePlan">${plans.map((s,i)=>`<option value="${i}">${s.name} · ${competitorPlanPrice(s)} kr./md.</option>`).join('')}</select></label>${providerStreamingPart}</div>`);
   }
 
-  if(needs.includes('mobile')||needs.includes('streaming')||needs.includes('tv')||needs.includes('broadband')){
+  if(needs.includes('mobile')||needs.includes('tv')){
     const groups={};
     Object.entries(streamingData.retailCatalog||{}).forEach(([id,x])=>{(groups[x.service]??=[]).push({id,...x})});
     const direct=`<h4>▶ Kundens streaming (også direkte hos Netflix, Viaplay, HBO m.fl.)</h4><p class="need-hint">Vælg abonnementer kunden bruger. Vi undersøger automatisk, om de allerede følger med YouSee TV, kan samles i YouSee Stream eller er billigst direkte.</p><div class="call-direct-stream-grid">${Object.entries(groups).map(([service,plans])=>`<div class="call-direct-stream"><label class="call-stream-option"><input class="call-direct-stream-check" type="checkbox" data-service="${service}"><span>${service}</span></label><div class="call-direct-stream-package" hidden><label>Hvilken pakke har kunden?<select class="call-direct-stream-select" data-service="${service}"><option value="">Vælg pakke</option>${plans.map(x=>`<option value="${x.id}">${x.tier} · ${x.billingLabel||fmt(x.price)+'/md.'}</option>`).join('')}</select></label></div></div>`).join('')}</div>`;
@@ -1468,8 +1468,17 @@ function renderCallResult(rec){
   if(opt?.playPlans?.length)tips.push(`YouSee Play: vis kunden hvordan ${opt.playPlans.map(x=>x.service).join(' og ')} passer med de valgte Play-point.`);
   if(opt?.directPlans?.length)tips.push('Vær åben om, hvilke streamingtjenester der fortsat er billigst at købe direkte.');
   if(youseeState.tvPackageDiscount||youseeState.saveDiscountTotal)tips.push(`Rabatter: gennemgå TV-rabat og Save-rabat hver for sig, og vis den samlede månedlige effekt på ${fmt(youseeState.tvPackageDiscount+youseeState.saveDiscountTotal)}.`);
+  const internetOnly=needs.includes('broadband')&&!needs.includes('mobile')&&!needs.includes('tv');
+  if(internetOnly){
+    tips.push('Internet: sammenlign pris efter kampagne, hastighed (download/upload), router, oprettelse, binding og teknologien på kundens adresse.');
+    tips.push('Undgå at love bedre stabilitet eller Wi-Fi uden at kende kundens adresse og udstyr.');
+    const provider=providerDisplayName(selectedCallProvider('broadband'));
+    tips.push(`Spørg: “Hvad fungerer bedst ved dit internet hos ${provider}, og er der noget, du gerne ville have var bedre?”`);
+  }
   const focus=opt?.streamPlans?.length?'Og så kan vi faktisk samle dine streamingtjenester ét sted i YouSee Stream.':opt?.playPlans?.length?'Og så får vi dine streamingvalg med i YouSee Play, så det hele passer til det, du gerne vil se.':$('callHasYouseeTv')?.checked?'Og vi tager selvfølgelig højde for det TV og den streaming, du allerede har med hos YouSee.':needs.includes('broadband')?'Vi kigger også på din internetforbindelse, så det passer til hverdagen derhjemme.':needs.includes('mobile')?'Og vi sørger for, at du stadig har den data, du faktisk har brug for.':'Så kan vi sammen kigge på, hvad der giver bedst mening for dig.';
   const pitch=!comparable?'“Hey, jeg vil faktisk gerne regne det helt ordentligt igennem for dig. Vi mangler lige en enkelt pris eller to — skal vi finde dem sammen, så jeg kan vise dig det rigtige billede?”':rawDifference>0?`“Hey, prøv lige at høre her! Den løsning, jeg har fundet frem til dig, betyder faktisk, at du kan spare ${fmt(savingMonth)} om måneden. Det er hele ${fmt(savingYear)} om året, du kan beholde i lommen! ${focus} Skal vi ikke lige kigge på den sammen? Så viser jeg dig, hvordan vi får det hele til at spille.”`:rawDifference<0?'“Hey, ved du hvad? Jeg har lige regnet på det, og din nuværende løsning er faktisk billigere. Så jeg vil ikke bare sige, du skal skifte. Men prøv lige at se, hvad du får med her — måske er der noget, der giver mere mening for dig. Skal vi kigge på det sammen?”':'“Hey, prøv lige at se! Vi lander faktisk på samme pris, men der kan være forskel på, hvad du får med. Skal vi ikke lige kigge på indholdet sammen og se, hvad der passer bedst til dig?”';
+  const internetPitch=!comparable?'“Hey, lad os lige få den præcise internetpris på plads, så jeg kan vise dig en fair sammenligning. Hvilken hastighed og router har du i dag?”':rawDifference>0?`“Hey, jeg har faktisk fundet en internetløsning, hvor du kan spare ${fmt(savingMonth)} hver måned — altså ${fmt(savingYear)} om året! Skal vi lige tjekke hastigheden, routeren og adressen sammen, så vi er sikre på, at det hele passer?”`:rawDifference<0?'“Hey, dit nuværende internet er faktisk billigere, og det skal du selvfølgelig vide. Men skal vi lige se på hastighed, router, vilkår og mulighederne på din adresse, før vi beslutter, hvad der giver bedst mening?”':'“Hey, prisen er faktisk den samme. Skal vi lige kigge på hastighed, router og vilkår, så vi kan se, hvor du får mest ud af pengene?”';
+  const finalPitch=internetOnly?internetPitch:pitch;
   const currentRows=currentState.parts.map(x=>`<div class="call-result-item"><span>${x.label}</span><strong>${x.value}<small style="display:block;color:#767676">${x.unknown?'Pris mangler':fmt(x.price)+'/md.'}</small></strong></div>`).join('');
   $('callResult').innerHTML=`
     <div class="call-result-hero">
@@ -1486,7 +1495,7 @@ function renderCallResult(rec){
       ${rows.map(([a,b])=>`<div class="call-result-item"><span>${a}</span><strong>${b}</strong></div>`).join('')}
     </div>
     <p class="call-result-note">${winner?`Prisvinder: <strong>${winner}</strong>. `:''}Forslaget bruger normalpriser og de valgte produkter fra Battlecard-databasen.${notes.length?' '+notes.join(' '):''}</p>
-    <section class="call-sales-tips"><h3>💡 Sådan kan du sælge løsningen</h3><ul>${tips.map(t=>`<li>${t}</li>`).join('')}</ul><h4>Forslag til, hvad du kan sige</h4><p>${pitch}</p><small>Brug kun fordele og rabatter, som er bekræftet i beregningen og gælder for kunden.</small></section>`;
+    <section class="call-sales-tips"><h3>💡 Sådan kan du sælge løsningen</h3><ul>${tips.map(t=>`<li>${t}</li>`).join('')}</ul><h4>Forslag til, hvad du kan sige</h4><p>${finalPitch}</p><small>Brug kun fordele og rabatter, som er bekræftet i beregningen og gælder for kunden.</small></section>`;
 }
 
 function finishCallAssistant(){
